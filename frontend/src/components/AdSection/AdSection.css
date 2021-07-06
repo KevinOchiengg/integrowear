@@ -1,0 +1,13 @@
+.ad-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 60px auto;
+}
+
+@media screen and (max-width: 800px) {
+  .ad-section img {
+    padding: 0 30px;
+    width: 360px;
+  }
+}

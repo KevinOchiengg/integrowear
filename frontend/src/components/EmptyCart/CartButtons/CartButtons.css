@@ -1,0 +1,72 @@
+.cart-btn-wrapper,
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 5rem;
+}
+
+.cart-btn {
+  color: var(--clr-light-yellow);
+  font-size: 1.5rem;
+  letter-spacing: var(--spacing);
+  display: flex;
+  align-items: center;
+}
+.cart-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.nav-toggle {
+  margin-left: 25px;
+  background: transparent;
+  border: transparent;
+  color: var(--clr-light-yellow);
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.cart-container svg {
+  height: 1.6rem;
+  margin-left: 5px;
+}
+
+.cart-value {
+  position: absolute;
+  top: -10px;
+  right: -16px;
+  background: #ffcf1a;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  color: var(--clr-blue);
+  padding: 12px;
+}
+.auth-btn {
+  background: var(--clr-yellow);
+  color: var(--clr-blue);
+  padding: 8px 30px;
+  margin: 30px 0;
+  border-radius: 30px;
+  transition: background 0.5s;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  display: none;
+}
+.cart-container svg {
+  margin-left: 10px;
+}
+
+@media (min-width: 800px) {
+  .auth-btn {
+    display: block;
+  }
+}

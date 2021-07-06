@@ -1,0 +1,142 @@
+/*
+=============== 
+Stripe Styles
+===============
+*/
+.nav {
+  background: var(--clr-blue);
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 2px solid var(--clr-yellow);
+}
+.nav-center {
+  width: 90vw;
+  max-width: var(--max-width);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+.nav-logo {
+  height: 80px;
+  width: 80px;
+}
+.right__item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+.nav-container {
+  display: flex;
+  position: relative;
+  margin-right: 20px;
+}
+
+.amount-container {
+  position: absolute;
+  top: -0.6rem;
+  right: -0.6rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: var(--clr-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.amount-container p {
+  color: var(--clr-blue);
+  font-size: 12px;
+}
+
+.btnn {
+  font-size: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius);
+  border-color: transparent;
+  color: white;
+  background: var(--clr-black);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn:hover {
+  background: var(--clr-grey-5);
+}
+.nav-links {
+  display: none;
+}
+.signin-btn {
+  display: none;
+}
+.cart {
+  font-size: 25px;
+  color: var(--clr-light-yellow);
+  cursor: pointer;
+}
+.toggle-btn {
+  font-size: 20px;
+  color: var(--clr-light-yellow);
+}
+@media screen and (min-width: 800px) {
+  .nav-center {
+    grid-template-columns: auto 1fr auto;
+  }
+  .toggle-btn {
+    display: none;
+  }
+
+  .signin-btn {
+    margin-right: 20px;
+    display: inline-block;
+  }
+
+  .amount-container p {
+    font-size: 14px;
+  }
+  .nav-links {
+    display: block;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    text-align: center;
+    height: 5rem;
+    display: grid;
+    align-items: center;
+  }
+  .nav-links li {
+    height: 100%;
+  }
+  .link-btn {
+    height: 100%;
+    background: transparent;
+    border-color: transparent;
+    font-size: 1.1rem;
+    color: var(--clr-light-yellow);
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    width: 10rem;
+  }
+
+  .cart {
+    font-size: 30px;
+  }
+}
