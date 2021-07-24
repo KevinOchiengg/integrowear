@@ -2,8 +2,8 @@
 .submenu {
   background: var(--clr-white);
   box-shadow: var(--dark-shadow);
-  position: absolute;
-  top: 4rem;
+  position: fixed;
+  top: 5rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
@@ -49,12 +49,12 @@
 .submenu-center a {
   width: 10rem;
   display: block;
-  color: var(--clr-grey-1);
+  color: var(--clr-blue);
   text-transform: capitalize;
   display: flex;
   align-items: center;
 }
 .submenu-center svg {
-  color: var(--clr-grey-5);
+  color: var(--clr-blue);
   margin-right: 1rem;
 }

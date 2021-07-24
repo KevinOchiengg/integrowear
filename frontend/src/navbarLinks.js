@@ -1,4 +1,7 @@
 import { FaCreditCard, FaBook, FaBriefcase } from 'react-icons/fa'
+import { CgProfile } from 'react-icons/cg'
+import { MdDashboard } from 'react-icons/md'
+import { BiSupport } from 'react-icons/bi'
 import React from 'react'
 
 const sublinks = [
@@ -10,20 +13,38 @@ const sublinks = [
       { label: 'connect', icon: <FaCreditCard />, url: '/products' },
     ],
   },
+
   {
-    page: 'developers',
+    page: 'Admin',
     links: [
-      { label: 'plugins', icon: <FaBook />, url: '/products' },
-      { label: 'libraries', icon: <FaBook />, url: '/products' },
-      { label: 'help', icon: <FaBook />, url: '/products' },
-      { label: 'billing', icon: <FaBook />, url: '/products' },
+      { label: 'Dashboard', icon: <MdDashboard />, url: '/dashboard' },
+      { label: 'Products', icon: <FaBriefcase />, url: '/productlist' },
+      { label: 'Orders', icon: <FaBriefcase />, url: '/orderlist' },
+      { label: 'Users', icon: <CgProfile />, url: '/userlist' },
+      { label: 'Support', icon: <BiSupport />, url: '/support' },
     ],
   },
   {
-    page: 'company',
+    page: 'Seller',
     links: [
-      { label: 'about', icon: <FaBriefcase />, url: '/products' },
-      { label: 'customers', icon: <FaBriefcase />, url: '/products' },
+      { label: 'Products', icon: <FaBriefcase />, url: '/productlist/seller' },
+      { label: 'Orders', icon: <FaBriefcase />, url: '/orderlist/seller' },
+    ],
+  },
+  {
+    page: 'Category',
+    links: [
+      { label: 'Pants', icon: <FaBriefcase />, url: '/products' },
+      { label: 'T-shirts', icon: <FaBriefcase />, url: '/products' },
+      { label: 'Hoods', icon: <FaBriefcase />, url: '/products' },
+      { label: 'Sneakers', icon: <FaBriefcase />, url: '/products' },
+    ],
+  },
+  {
+    page: 'Account',
+    links: [
+      { label: 'User Profile', icon: <CgProfile />, url: '/profile' },
+      { label: 'Order History', icon: <FaBriefcase />, url: '/orderhistory' },
     ],
   },
 ]

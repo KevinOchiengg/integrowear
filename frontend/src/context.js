@@ -30,6 +30,7 @@ const AppProvider = ({ children }) => {
         openSidebar,
         closeSidebar,
         isSubmenuOpen,
+        setIsSubmenuOpen,
         openSubmenu,
         closeSubmenu,
         page,
