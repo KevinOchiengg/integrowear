@@ -1,12 +1,12 @@
-import { FaCreditCard, FaBook, FaBriefcase } from 'react-icons/fa'
-import { CgProfile } from 'react-icons/cg'
-import { MdDashboard } from 'react-icons/md'
-import { BiSupport } from 'react-icons/bi'
-import React from 'react'
+import { FaCreditCard, FaBriefcase } from 'react-icons/fa';
+import { CgProfile } from 'react-icons/cg';
+import { MdDashboard } from 'react-icons/md';
+import { BiSupport } from 'react-icons/bi';
+import React from 'react';
 
 const sublinks = [
   {
-    page: 'products',
+    page: 'PRODUCTS',
     links: [
       { label: 'payment', icon: <FaCreditCard />, url: '/products' },
       { label: 'terminal', icon: <FaCreditCard />, url: '/products' },
@@ -15,7 +15,7 @@ const sublinks = [
   },
 
   {
-    page: 'Admin',
+    page: 'ADMIN',
     links: [
       { label: 'Dashboard', icon: <MdDashboard />, url: '/dashboard' },
       { label: 'Products', icon: <FaBriefcase />, url: '/productlist' },
@@ -25,14 +25,14 @@ const sublinks = [
     ],
   },
   {
-    page: 'Seller',
+    page: 'SELLER',
     links: [
       { label: 'Products', icon: <FaBriefcase />, url: '/productlist/seller' },
       { label: 'Orders', icon: <FaBriefcase />, url: '/orderlist/seller' },
     ],
   },
   {
-    page: 'Category',
+    page: 'CATEGORY',
     links: [
       { label: 'Pants', icon: <FaBriefcase />, url: '/products' },
       { label: 'T-shirts', icon: <FaBriefcase />, url: '/products' },
@@ -41,12 +41,12 @@ const sublinks = [
     ],
   },
   {
-    page: 'Account',
+    page: 'ACCOUNT',
     links: [
       { label: 'User Profile', icon: <CgProfile />, url: '/profile' },
       { label: 'Order History', icon: <FaBriefcase />, url: '/orderhistory' },
     ],
   },
-]
+];
 
-export default sublinks
+export default sublinks;

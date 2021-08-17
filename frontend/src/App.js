@@ -1,36 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { BrowserRouter, Link, Route } from 'react-router-dom'
-import { signout } from './actions/userActions'
-import AdminRoute from './components/Admin/AdminRoute'
-import PrivateRoute from './components/PrivateRoute/PrivateRoute'
-import CartScreen from './screens/CartPage/CartScreen'
-import HomeScreen from './screens/HomePage/HomeScreen'
-import OrderHistoryScreen from './screens/OrderHistoryPage/OrderHistoryScreen'
-import OrderScreen from './screens/OrderPage/OrderScreen'
-import PaymentMethodScreen from './screens/PaymentMethodPage/PaymentMethodScreen'
-import PlaceOrderScreen from './screens/PaymentOrderPage/PlaceOrderScreen'
-import ProductListScreen from './screens/ProductListPage/ProductListScreen'
-import ProductScreen from './screens/ProductPage/ProductScreen'
-import ProfileScreen from './screens/ProfilePage/ProfileScreen'
-import RegisterScreen from './screens/RegisterPage/RegisterScreen'
-import ShippingAddressScreen from './screens/ShippingAdressPage/ShippingAddressScreen'
-import SigninScreen from './screens/ShippingAdressPage/SigninScreen'
-import ProductEditScreen from './screens/ProductEditPage/ProductEditScreen'
-import OrderListScreen from './screens/OrderListPage/OrderListScreen'
-import UserListScreen from './screens/UserListPage/UserListScreen'
-import UserEditScreen from './screens/UserEditPage/UserEditScreen'
-import SellerRoute from './components/SellerRoute/SellerRoute'
-import SellerScreen from './screens/SellerPage/SellerScreen'
-import SearchScreen from './screens/SearchPage/SearchScreen'
-import MapScreen from './screens/MapPage/MapScreen'
-import DashboardScreen from './screens/DashbordPage/DashboardScreen'
-import SupportScreen from './screens/SupportPage/SupportScreen'
-import ChatBox from './components/ChartBox/ChatBox'
-import Navbar from './components/Navbar/Navbar'
-import Footer from './components/Footer/Footer'
-import NavigationBar from './components/NavigationBar/NavigationBar'
+import React from 'react'
+
+import { BrowserRouter, Route } from 'react-router-dom'
+import AdminRoute from './components/AdminRoute'
+import PrivateRoute from './components/PrivateRoute'
+import CartScreen from './screens/CartScreen'
+import HomeScreen from './screens/HomeScreen'
+import OrderHistoryScreen from './screens/OrderHistoryScreen'
+import OrderScreen from './screens/OrderScreen'
+import PaymentMethodScreen from './screens/PaymentMethodScreen'
+import PlaceOrderScreen from './screens/PlaceOrderScreen'
+import ProductListScreen from './screens/ProductListScreen'
+import ProductScreen from './screens/ProductScreen'
+import ProfileScreen from './screens/ProfileScreen'
+import ShippingAddressScreen from './screens/ShippingAddressScreen'
+import ProductEditScreen from './screens/ProductEditScreen'
+import OrderListScreen from './screens/OrderListScreen'
+import UserListScreen from './screens/UserListScreen'
+import UserEditScreen from './screens/UserEditScreen'
+import SellerRoute from './components/SellerRoute'
+import SellerScreen from './screens/SellerScreen'
+import SearchScreen from './screens/SearchScreen'
+import MapScreen from './screens/MapScreen'
+import DashboardScreen from './screens/DashboardScreen'
+import SupportScreen from './screens/SupportScreen'
+import Footer from './components/Footer'
+import NavigationBar from './components/NavigationBar'
 import { AppProvider } from './context'
+import LoginPage from './screens/LoginPage'
+import RegisterPage from './screens/RegisterPage'
+import ProductDetails from './screens/ProductDetails'
+import ProductsPage from './screens/ProductsPage'
 
 function App() {
   return (
@@ -40,17 +39,21 @@ function App() {
           <AppProvider>
             <NavigationBar />
           </AppProvider>
-          {/* <Navbar /> */}
           <Route path='/seller/:id' component={SellerScreen}></Route>
           <Route path='/cart/:id?' component={CartScreen}></Route>
-          <Route path='/product/:id' component={ProductScreen} exact></Route>
+
+          <Route path='/product/:id' component={ProductDetails} exact></Route>
+          <Route path='/products' component={ProductsPage} exact></Route>
+          {/*<Route path='/product/:id' component={ProductScreen} exact></Route>*/}
+
           <Route
             path='/product/:id/edit'
             component={ProductEditScreen}
             exact
           ></Route>
-          <Route path='/signin' component={SigninScreen}></Route>
-          <Route path='/register' component={RegisterScreen}></Route>
+
+          <Route path='/login' component={LoginPage}></Route>
+          <Route path='/register' component={RegisterPage}></Route>
           <Route path='/shipping' component={ShippingAddressScreen}></Route>
           <Route path='/payment' component={PaymentMethodScreen}></Route>
           <Route path='/placeorder' component={PlaceOrderScreen}></Route>
