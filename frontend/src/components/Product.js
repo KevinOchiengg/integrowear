@@ -8,6 +8,7 @@ import { AiOutlineHeart } from 'react-icons/ai'
 
 export default function Product(props) {
   const { product } = props
+
   return (
     <Wrapper>
       <div className='single-product-area'>
@@ -21,27 +22,13 @@ export default function Product(props) {
           </Link>
           <div className='label-product label_new'>New</div>
           <div className='action-links'>
-            <Link
-              to='cart.html'
-              className='cart-btn'
-              product-category-title='Add to Cart'
-            >
+            <Link to='cart' className='cart-btn'>
               <IoIosBasket />
             </Link>
-            <Link
-              to='wishlist.html'
-              className='wishlist-btn'
-              product-category-title='Add to Wish List'
-            >
+            <Link to='/' className='wishlist-btn'>
               <AiOutlineHeart />
             </Link>
-            <Link
-              to='#'
-              className='quick-view'
-              product-category-title='Quick View'
-              data-toggle='modal'
-              data-target='#exampleModalCenter'
-            >
+            <Link to='#' className='quick-view'>
               <BiShuffle />
             </Link>
           </div>
@@ -50,9 +37,11 @@ export default function Product(props) {
           <h4 className='product-name'>
             <Link to={`/product/${product._id}`}>{product.name}</Link>
           </h4>
-          <Rating rating={product.rating} numReviews={product.numReviews} />
+          <div className='product-rating'>
+            <Rating rating={product.rating} numReviews={product.numReviews} />
+          </div>
           <div className='price-box'>
-            <span className='new-price'>Ksh 1500</span>
+            <span className='new-price'>Ksh {product.price}</span>
             <span className='old-price'>Ksh 2000</span>
           </div>
           <div className='buttons__container'>
@@ -70,13 +59,30 @@ export default function Product(props) {
 const Wrapper = styled.section`
   position: relative;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  margin-bottom: 2px;
   border-radius: 5px;
-  .products-list {
-    border: 2px solid yellow;
-  }
+  margin: 2em 0;
+
   a {
     color: var(--clr-dark-grey);
+  }
+
+  .action-links a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--clr-white);
+    border-radius: 100%;
+    color: var(--clr-blue);
+    height: 3em;
+    width: 3em;
+    transition: var(--transition);
+    margin: 0 5px;
+    &:hover {
+      background-color: var(--clr-yellow);
+      color: var(--clr-blue);
+    }
+    opacity: 0;
+    transform: scale(0.8) rotate(-45deg);
   }
   .has-sub ul li {
     margin: 1em 0;
@@ -94,6 +100,7 @@ const Wrapper = styled.section`
     display: block;
   }
   .product-thumb a img {
+    width: 100%;
     border-radius: 5px;
   }
   .product-thumb .action-links {
@@ -116,10 +123,7 @@ const Wrapper = styled.section`
     width: 43px;
     transition: var(--transition);
   }
-  .action-links a:hover {
-    background-color: #c89979;
-    color: #fff;
-  }
+
   .action-links a {
     opacity: 0;
     transform: scale(0.8) rotate(-45deg);
@@ -140,11 +144,15 @@ const Wrapper = styled.section`
     text-align: center;
     text-transform: capitalize;
     top: 13px;
-    z-index: 3;
+    z-index: 0;
     padding: 0.2em;
   }
 
+  .product-rating {
+    margin: 1em 0;
+  }
   .product-caption {
+    width: 100%;
     text-align: center;
     padding: 20px 0;
     border-top: 1px solid var(--clr-light-grey);
@@ -175,6 +183,13 @@ const Wrapper = styled.section`
     grid-gap: 1em;
     margin: 0 1em;
   }
+  svg {
+    font-size: 1.25rem;
+    &:hover {
+      color: var(--clr-hover);
+      transition: var(--transition);
+    }
+  }
   .buttons__container {
     margin-top: 15px;
   }
@@ -195,9 +210,8 @@ const Wrapper = styled.section`
     flex-wrap: wrap;
   }
   @media (min-width: 800px) {
-    .products-category-container {
-      display: flex;
-      justify-content: space-between;
+    .single-product-area {
+      width: 250px;
     }
   }
 `

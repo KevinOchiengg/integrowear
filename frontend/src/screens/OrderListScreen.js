@@ -32,7 +32,7 @@ export default function OrderListScreen(props) {
   return (
     <Wrapper>
       <div className='section-center'>
-        <h1>Orders</h1>
+        <h3 className='title'>Orders</h3>
         {loadingDelete && <LoadingBox></LoadingBox>}
         {errorDelete && <MessageBox variant='danger'>{errorDelete}</MessageBox>}
         {loading ? (
@@ -68,7 +68,7 @@ export default function OrderListScreen(props) {
                   <td>
                     <button
                       type='button'
-                      className='small'
+                      className='edit-btn'
                       onClick={() => {
                         props.history.push(`/order/${order._id}`)
                       }}
@@ -77,6 +77,7 @@ export default function OrderListScreen(props) {
                     </button>
                     <button
                       type='button'
+                      className='delete-btn'
                       className='small'
                       onClick={() => deleteHandler(order)}
                     >
@@ -94,14 +95,39 @@ export default function OrderListScreen(props) {
 }
 
 const Wrapper = styled.section`
-  .section-center {
-    margin: 66em 0;
-    height: 100vh;
-    background: blue;
-    border: 2px solid red;
+  margin: 6em 0;
+
+  .title {
+    margin-bottom: 1em;
   }
 
-  h1 {
-    font-size: 66rem;
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .table tbody tr:nth-of-type(odd) {
+    background: var(--clr-light-blue);
+  }
+  td,
+  th {
+    text-align: center;
+    border: 0.1em solid #e4e4e4;
+    padding: 0.5em;
+  }
+  .table button {
+    margin: 0 0.2rem;
+  }
+
+  .primary {
+    color: var(--clr-blue);
+    font-size: 1rem;
+  }
+  h3 {
+    margin-bottom: 0;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    padding: 0.5em;
   }
 `

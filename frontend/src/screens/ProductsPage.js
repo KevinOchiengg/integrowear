@@ -1,24 +1,107 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import mixture from '../images/mixture.png'
-import { FaAlignRight, FaTh, FaThList } from 'react-icons/fa'
+import { FaTh, FaThList } from 'react-icons/fa'
 import { AiOutlineHeart } from 'react-icons/ai'
-import ProductLayoutList from '../components/ProductLayoutList'
 import Product from '../components/Product'
 import MessageBox from '../components/MessageBox'
 import LoadingBox from '../components/LoadingBox'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
+import { useState } from 'react'
+import Rating from '../components/Rating'
 
 const ProductsPage = () => {
   const dispatch = useDispatch()
   const productList = useSelector((state) => state.productList)
+  const [viewproducts, setViewProduct] = useState(true)
   const { loading, error, products } = productList
 
   useEffect(() => {
     dispatch(listProducts({}))
   }, [dispatch])
+
+  const productSectionView = () => {
+    if (loading) return <LoadingBox></LoadingBox>
+    else if (error)
+      return (
+        <MessageBox variant='danger'>Oops! Error fetching Products</MessageBox>
+      )
+    else if (products.length === 0)
+      return <MessageBox>No Product Found</MessageBox>
+    else if (viewproducts)
+      return (
+        <div className='products-list'>
+          {products.map((product) => (
+            <Product key={product._id} product={product} />
+          ))}
+        </div>
+      )
+    else
+      return (
+        <>
+          {products.map((product) => (
+            <div className='product-layout-list'>
+              <div className='product-image'>
+                <Link to='product-details.html'>
+                  <img src={product.image} alt={product.name} />
+                </Link>
+              </div>
+
+              <div className='product-content-list'>
+                <h4>
+                  <Link to='/productDetails' className='product-name'>
+                    {product.name}
+                  </Link>
+                </h4>
+                <div className='price-box'>
+                  <span className='new-price'>Ksh {product.price}</span>
+                  <span className='old-price'>ksh 2,000</span>
+                </div>
+
+                <div className='product-rating'>
+                  <Rating
+                    rating={product.rating}
+                    numReviews={product.numReviews}
+                  />
+                </div>
+
+                <p>{product.description}</p>
+              </div>
+
+              <div className='product-action-area'>
+                <ul className='stock-cont'>
+                  <li className='product-sku'>
+                    Sku: <span>P006</span>
+                  </li>
+                  <li className='product-stock-status'>
+                    Availability:
+                    {product.countInStock > 0 ? (
+                      <span className='in-stock'>In Stock</span>
+                    ) : (
+                      <span className='in-stock'>Out of stock</span>
+                    )}
+                  </li>
+                </ul>
+                <div className='product-button'>
+                  <ul className='actions'>
+                    <li className='add-to-wishlist'>
+                      <Link to='/' className='add_to_wishlist'>
+                        <AiOutlineHeart /> Add to Wishlist
+                      </Link>
+                    </li>
+                  </ul>
+                  <div className='add-to-cart-btn-container'>
+                    <button className='btn add-to-cart-btn'>Add to cart</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </>
+      )
+  }
+
   return (
     <Wrapper className='section'>
       <div className='section-center'>
@@ -28,12 +111,20 @@ const ProductsPage = () => {
               <ul className='nav shop-item-filter-list'>
                 <li className='active'>
                   <Link className='active grid-view'>
-                    <FaTh />
+                    <FaTh
+                      onClick={(e) => {
+                        setViewProduct(true)
+                      }}
+                    />
                   </Link>
                 </li>
                 <li>
                   <Link className='list-view'>
-                    <FaThList />
+                    <FaThList
+                      onClick={(e) => {
+                        setViewProduct(false)
+                      }}
+                    />
                   </Link>
                 </li>
               </ul>
@@ -49,27 +140,7 @@ const ProductsPage = () => {
                 </select>
               </div>
             </div>
-
-            {loading ? (
-              <LoadingBox></LoadingBox>
-            ) : error ? (
-              <MessageBox variant='danger'>
-                Oops! Error fetching Products
-              </MessageBox>
-            ) : (
-              <>
-                {products.length === 0 && (
-                  <MessageBox>No Product Found</MessageBox>
-                )}
-                <div className='products-list'>
-                  {products.map((product) => (
-                    <Product key={product._id} product={product} />
-                  ))}
-                </div>
-              </>
-            )}
-
-            <ProductLayoutList />
+            {productSectionView()}
             <div className='page-btn'>
               <span>1</span>
               <span>2</span>
@@ -284,6 +355,17 @@ const Wrapper = styled.section`
     transform: scale(0.8) rotate(-45deg);
   }
 
+  .product-rating,
+  .product-stock-status,
+  .add-to-cart-btn {
+    margin: 1em 0;
+  }
+
+  .add_to_wishlist {
+    display: flex;
+    align-items: center;
+    grid-gap: 0.7em;
+  }
   .single-product-area:hover .action-links a {
     opacity: 1;
     transform: scale(1) rotate(0deg);
@@ -384,6 +466,64 @@ const Wrapper = styled.section`
     font-size: 10px;
     color: var(--clr-dark-grey);
   }
+
+  .product-layout-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2em 0;
+    padding: 0.6em;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .product-content-list {
+    margin: 1em 0;
+  }
+
+  .product-action-area {
+    width: 100%;
+  }
+  .add-to-cart-btn-container {
+    margin-top: 0.5em;
+  }
+
+  svg {
+    font-size: 1.25rem;
+    &:hover {
+      color: var(--clr-hover);
+      transition: var(--transition);
+    }
+  }
+
+  .product-content-list h4 a {
+    font-size: 1rem;
+  }
+  @media (min-width: 800px) {
+    .product-layout-list {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .product-image {
+      width: 20%;
+      height: 180px;
+    }
+    .product-content-list {
+      width: 50%;
+      height: 180px;
+    }
+
+    h4 {
+      margin-bottom: 0.4em;
+    }
+    .product-content-list h4 a {
+      font-size: 1.2rem;
+    }
+    .product-action-area {
+      width: 23%;
+      height: 180px;
+    }
+  }
+
   @media only screen and (min-width: 475px) {
     .btn:first-child {
       margin-bottom: 5px;

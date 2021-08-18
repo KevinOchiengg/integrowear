@@ -26,8 +26,9 @@ const data = {
   products: [
     {
       image: '/images/hood5.png',
-      name: 'Original printed Hood',
-      description: 'Fashion 2021 Rick Morty Printed 3D Hoodie Sweatshirts',
+      name: 'Hoodies Graphic Space Pull-over',
+      description:
+        'Hgvoetty Unisex 3D Print Hoodies Graphic Space Pullover Hooded Sweatshirts for Men Women',
       rating: 4,
       price: 2500,
       numReviews: 10,
@@ -38,7 +39,7 @@ const data = {
 
     {
       image: '/images/shoe1.jpg',
-      name: 'Casual Sports Shoes',
+      name: 'Sports Shoes',
       description: 'Fashion Young Boys All-match Casual Sports Shoes',
       rating: 4,
       price: 2500,

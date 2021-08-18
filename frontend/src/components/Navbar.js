@@ -194,7 +194,10 @@ const Wrapper = styled.nav`
     .toggle-btn {
       display: none;
     }
-
+    .amount-container {
+      width: 1.25em;
+      height: 1.25em;
+    }
     .login-btn,
     .logout-btn {
       margin-left: 1.2em;
@@ -202,10 +205,9 @@ const Wrapper = styled.nav`
     }
 
     p {
-      font-size: 0.6rem;
+      font-size: 0.8rem;
     }
     .nav-links {
-      display: block;
       display: flex;
       text-align: center;
       height: 100%;

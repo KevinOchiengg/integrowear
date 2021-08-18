@@ -170,7 +170,9 @@ export default function SupportScreen() {
                       type='text'
                       placeholder='type message'
                     />
-                    <button type='submit'>Send</button>
+                    <button type='submit' className='btn'>
+                      Send
+                    </button>
                   </form>
                 </div>
               </div>
@@ -183,14 +185,5 @@ export default function SupportScreen() {
 }
 
 const Wrapper = styled.section`
-  .section-center {
-    margin: 66em 0;
-    height: 100vh;
-    background: blue;
-    border: 2px solid red;
-  }
-
-  h1 {
-    font-size: 66rem;
-  }
+  margin: 6em 0;
 `

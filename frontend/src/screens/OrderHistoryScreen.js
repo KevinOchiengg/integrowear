@@ -67,12 +67,38 @@ export default function OrderHistoryScreen(props) {
 
 const Wrapper = styled.section`
   margin: 6em 0;
-  .section-center {
-    height: 100vh;
-    border: 2px solid red;
+
+  .title {
+    margin-bottom: 1em;
   }
 
   .table {
-    border: 2px solid red;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .table tbody tr:nth-of-type(odd) {
+    background: var(--clr-light-blue);
+  }
+  td,
+  th {
+    text-align: center;
+    border: 0.1em solid #e4e4e4;
+    padding: 0.5em;
+  }
+  .table button {
+    margin: 0 0.2rem;
+  }
+
+  .primary {
+    color: var(--clr-blue);
+    font-size: 1rem;
+  }
+  h3 {
+    margin-bottom: 0;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    padding: 0.5em;
   }
 `

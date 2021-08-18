@@ -43,6 +43,7 @@ const ProductDetails = (props) => {
     }
     dispatch(detailsProduct(productId))
   }, [dispatch, productId, successReviewCreate])
+
   const addToCartHandler = () => {
     props.history.push(`/cart/${productId}?qty=${qty}`)
   }
@@ -105,14 +106,18 @@ const ProductDetails = (props) => {
                         setQty(e.target.value)
                       }}
                     >
-                      {[...Array(product.stock).keys()].map((x) => (
+                      {[...Array(product.countInStock).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
                         </option>
                       ))}
                     </select>
-                    {product.stock > 0 ? (
-                      <button className='btn add-to-cart' type='submit'>
+                    {product.countInStock > 0 ? (
+                      <button
+                        type='submit'
+                        className='btn add-to-cart '
+                        onClick={addToCartHandler}
+                      >
                         Add To Cart
                       </button>
                     ) : (
@@ -296,6 +301,7 @@ const Wrapper = styled.section`
   margin-top: 4rem;
   color: var(--clr-dark-grey);
   padding-top: 4em;
+
   .section-center {
     margin: 2em auto;
     max-width: var(--max-width);

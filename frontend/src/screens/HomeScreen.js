@@ -61,6 +61,7 @@ const Wrapper = styled.section`
       justify-content: space-between;
       align-items: center;
       grid-gap: 2em;
+      flex-wrap: wrap;
     }
   }
 `

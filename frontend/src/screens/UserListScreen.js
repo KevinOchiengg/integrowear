@@ -106,7 +106,7 @@ const Wrapper = styled.section`
   th {
     text-align: center;
     border: 0.1em solid #e4e4e4;
-    padding: 1em;
+    padding: 0.5em;
   }
   .table button {
     margin: 0 0.2rem;
