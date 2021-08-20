@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { FaTh, FaThList } from 'react-icons/fa'
 import { AiOutlineHeart } from 'react-icons/ai'
@@ -10,12 +10,55 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
 import { useState } from 'react'
 import Rating from '../components/Rating'
+import { prices, ratings } from '../utils'
 
-const ProductsPage = () => {
+const ProductsPage = (props) => {
   const dispatch = useDispatch()
   const productList = useSelector((state) => state.productList)
   const [viewproducts, setViewProduct] = useState(true)
-  const { loading, error, products } = productList
+
+  const {
+    name = 'all',
+    category = 'all',
+    min = 0,
+    max = 0,
+    rating = 0,
+    order = 'newest',
+    pageNumber = 1,
+  } = useParams()
+
+  const { loading, error, products, page, pages } = productList
+
+  const productCategoryList = useSelector((state) => state.productCategoryList)
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    categories,
+  } = productCategoryList
+  useEffect(() => {
+    dispatch(
+      listProducts({
+        pageNumber,
+        name: name !== 'all' ? name : '',
+        category: category !== 'all' ? category : '',
+        min,
+        max,
+        rating,
+        order,
+      })
+    )
+  }, [category, dispatch, max, min, name, order, rating, pageNumber])
+
+  const getFilterUrl = (filter) => {
+    const filterPage = filter.page || pageNumber
+    const filterCategory = filter.category || category
+    const filterName = filter.name || name
+    const filterRating = filter.rating || rating
+    const sortOrder = filter.order || order
+    const filterMin = filter.min ? filter.min : filter.min === 0 ? 0 : min
+    const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max
+    return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}/pageNumber/${filterPage}`
+  }
 
   useEffect(() => {
     dispatch(listProducts({}))
@@ -131,12 +174,17 @@ const ProductsPage = () => {
 
               <div className='product-relevance'>
                 <p className='sort-by'>Sort By :</p>
-                <select className='nice-select' name='sortby'>
-                  <option value='trending'>Relevance</option>
-                  <option value='sales'>Name(A - Z)</option>
-                  <option value='sales'>Name(Z - A)</option>
-                  <option value='rating'>Price(Low) High)</option>
-                  <option value='date'>Rating(Lowest)</option>
+                <select
+                  className='nice-select'
+                  value={order}
+                  onChange={(e) => {
+                    props.history.push(getFilterUrl({ order: e.target.value }))
+                  }}
+                >
+                  <option value='newest'>Newest Arrivals</option>
+                  <option value='lowest'>Price: Low to High</option>
+                  <option value='highest'>Price: High to Low</option>
+                  <option value='toprated'>Avg. Customer Reviews</option>
                 </select>
               </div>
             </div>
@@ -153,75 +201,32 @@ const ProductsPage = () => {
             <h4 className='product-category-title'>Product categories</h4>
 
             <div className='category-sub-menu'>
-              <ul>
-                <li className='has-sub'>
-                  <Link to='#'>Sports Watches</Link>
-                  <ul>
-                    <li>
-                      <Link to='#'>Watch men (3)</Link>
+              {loadingCategories ? (
+                <LoadingBox></LoadingBox>
+              ) : errorCategories ? (
+                <MessageBox variant='danger'>{errorCategories}</MessageBox>
+              ) : (
+                <ul>
+                  <li className='has-sub'>
+                    <Link
+                      className={'all' === category ? 'active has-sub' : ''}
+                      to={getFilterUrl({ category: 'all' })}
+                    >
+                      Any
+                    </Link>
+                  </li>
+                  {categories.map((c) => (
+                    <li key={c}>
+                      <Link
+                        className={c === category ? 'active has-sub' : ''}
+                        to={getFilterUrl({ category: c })}
+                      >
+                        {c}
+                      </Link>
                     </li>
-                  </ul>
-                </li>
-                <li className='has-sub'>
-                  <Link to='#'>Kitchen & Dining</Link>
-                  <ul>
-                    <li>
-                      <Link to='#'>Watch Woman (2)</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className='has-sub'>
-                  <Link to='#'>Casual Watches (12)</Link>
-                  <ul>
-                    <li>
-                      <Link to='#'>Watch Bag (4)</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className='has-sub'>
-                  <Link to='#'>Dress Watches (8)</Link>
-                  <ul>
-                    <li>
-                      <Link to='#'>Digital Watches</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className='has-sub'>
-                  <Link to='#'>Kitchen & Dining (11)</Link>
-                  <ul>
-                    <li>
-                      <Link to='#'>Digital (8)</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className='has-sub'>
-                  <Link to='#'>Digital Watches (12)</Link>
-                  <ul>
-                    <li>
-                      <Link to='#'>Digital Man (8)</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className='has-sub'>
-                  <Link to='#'>Crystal Watches (7)</Link>
-                  <ul>
-                    <li>
-                      <Link to='#'>Fusion Watch (8)</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className='has-sub'>
-                  <Link to='#'>watch series (0)</Link>
-                </li>
-                <li className='has-sub'>
-                  <Link to='#'>watch tnt (11)</Link>
-                  <ul>
-                    <li>
-                      <Link to='#'>Sports (8)</Link>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
+                  ))}
+                </ul>
+              )}
             </div>
             <div className='shop-sidebar'>
               <h4 className='product-category-title'>Filter By Price</h4>
@@ -235,13 +240,42 @@ const ProductsPage = () => {
                     </Link>
                     <div className='filter-price-cont'>
                       <span>Price:</span>
-                      <div className='input-type'>
-                        <input type='text' id='min-price' />
-                      </div>
-                      <span>—</span>
-                      <div className='input-type'>
-                        <input type='text' id='max-price' />
-                      </div>
+                      <ul>
+                        {prices.map((p) => (
+                          <li key={p.name}>
+                            <Link
+                              to={getFilterUrl({ min: p.min, max: p.max })}
+                              className={
+                                `${p.min}-${p.max}` === `${min}-${max}`
+                                  ? 'active'
+                                  : ''
+                              }
+                            >
+                              {p.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <span>Avg. Customer Review</span>
+                      <ul>
+                        {ratings.map((r) => (
+                          <li key={r.name}>
+                            <Link
+                              to={getFilterUrl({ rating: r.rating })}
+                              className={
+                                `${r.rating}` === `${rating}` ? 'active' : ''
+                              }
+                            >
+                              <Rating
+                                caption={' & up'}
+                                rating={r.rating}
+                              ></Rating>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </form>
@@ -255,6 +289,7 @@ const ProductsPage = () => {
                 <li>
                   <Link to='#'>accesories</Link>
                 </li>
+
                 <li>
                   <Link to='#'>blouse</Link>
                 </li>

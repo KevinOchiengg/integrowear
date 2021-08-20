@@ -1,69 +1,65 @@
 import React from 'react'
+import { FaStar, FaStarHalf } from 'react-icons/fa'
+import styled from 'styled-components'
 
 export default function Rating(props) {
   const { rating, numReviews, caption } = props
   return (
-    <div className='rating'>
-      <span>
-        <i
-          className={
-            rating >= 1
-              ? 'fa fa-star'
-              : rating >= 0.5
-              ? 'fa fa-star-half-o'
-              : 'fa fa-star-o'
-          }
-        ></i>
-      </span>
-      <span>
-        <i
-          className={
-            rating >= 2
-              ? 'fa fa-star'
-              : rating >= 1.5
-              ? 'fa fa-star-half-o'
-              : 'fa fa-star-o'
-          }
-        ></i>
-      </span>
-      <span>
-        <i
-          className={
-            rating >= 3
-              ? 'fa fa-star'
-              : rating >= 2.5
-              ? 'fa fa-star-half-o'
-              : 'fa fa-star-o'
-          }
-        ></i>
-      </span>
-      <span>
-        <i
-          className={
-            rating >= 4
-              ? 'fa fa-star'
-              : rating >= 3.5
-              ? 'fa fa-star-half-o'
-              : 'fa fa-star-o'
-          }
-        ></i>
-      </span>
-      <span>
-        <i
-          className={
-            rating >= 5
-              ? 'fa fa-star'
-              : rating >= 4.5
-              ? 'fa fa-star-half-o'
-              : 'fa fa-star-o'
-          }
-        ></i>
-      </span>
-      {caption ? (
-        <span>{caption}</span>
-      ) : (
-        <span>({numReviews + ' reviews'})</span>
-      )}
-    </div>
+    <Wrapper>
+      <div className='rating'>
+        {rating >= 1 ? (
+          <i>{<FaStar />}</i>
+        ) : rating >= 0.5 ? (
+          <i>{<FaStar />}</i>
+        ) : (
+          <i>{<FaStarHalf />}</i>
+        )}
+        {rating >= 2 ? (
+          <i>{<FaStar />}</i>
+        ) : rating >= 1.5 ? (
+          <i>{<FaStar />}</i>
+        ) : (
+          <i>{<FaStarHalf />}</i>
+        )}
+        {rating >= 3 ? (
+          <i>{<FaStar />}</i>
+        ) : rating >= 2.5 ? (
+          <i>{<FaStar />}</i>
+        ) : (
+          <i>{<FaStarHalf />}</i>
+        )}
+        {rating >= 4 ? (
+          <i>{<FaStar />}</i>
+        ) : rating >= 3.5 ? (
+          <i>{<FaStar />}</i>
+        ) : (
+          <i>{<FaStarHalf />}</i>
+        )}
+        {rating >= 5 ? (
+          <i>{<FaStar />}</i>
+        ) : rating >= 4.5 ? (
+          <i>{<FaStar />}</i>
+        ) : (
+          <i>{<FaStarHalf />}</i>
+        )}
+        {caption ? (
+          <span>{caption}</span>
+        ) : (
+          <span>({numReviews + ' reviews'})</span>
+        )}
+      </div>
+    </Wrapper>
   )
 }
+const Wrapper = styled.section`
+  .rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  svg {
+    color: var(--clr-yellow);
+    width: 0.8em;
+  }
+`

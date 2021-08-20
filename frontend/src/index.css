@@ -127,6 +127,7 @@ a {
   z-index: 2;
   transform: scale(1);
 }
+
 .submenu.show {
   display: block;
 }

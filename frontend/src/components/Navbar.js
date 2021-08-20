@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../images/logo.png'
 import { FaAlignRight } from 'react-icons/fa'
 import { IoIosBasket } from 'react-icons/io'
@@ -8,9 +8,21 @@ import { useGlobalContext } from '../context'
 import { useDispatch, useSelector } from 'react-redux'
 import { signout } from '../actions/userActions'
 import styled from 'styled-components'
+import { withRouter } from 'react-router'
 
-const Navbar = () => {
-  const { openSidebar, openSubmenu, closeSubmenu } = useGlobalContext()
+const Navbar = (props) => {
+  const {
+    openSidebar,
+    openSubmenu,
+    closeSubmenu,
+    openSeachBar,
+    isSearchBarOpen,
+  } = useGlobalContext()
+  const [name, setName] = useState('')
+  const submitHandler = (e) => {
+    e.preventDefault()
+    props.history.push(`/search/name/${name}`)
+  }
   const displaySubmenu = (e) => {
     const page = e.target.textContent
     const tempBtn = e.target.getBoundingClientRect()
@@ -83,11 +95,26 @@ const Navbar = () => {
             </button>
           </li>
         </ul>
+        <form
+          className={`${
+            isSearchBarOpen ? 'search-field show ' : 'search-field'
+          }`}
+          onSubmit={submitHandler}
+        >
+          <input
+            type='search'
+            name='q'
+            id='q'
+            placeholder='Search for products'
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button type='submit'>
+            <ImSearch />
+          </button>
+        </form>
 
         <div className='right__item'>
-          <Link to='/'>
-            <ImSearch className='search-icon' />
-          </Link>
+          <ImSearch className='search-icon' onClick={openSeachBar} />
 
           <div className='cart-container'>
             <Link to='/cart'>
@@ -127,6 +154,42 @@ const Wrapper = styled.nav`
   border-bottom: 1px solid var(--clr-yellow);
   .nav-logo {
     width: 3.5em;
+  }
+
+  .search-field.show {
+    visibility: visible;
+  }
+
+  .search-field {
+    display: flex;
+    position: absolute;
+    top: 4em;
+    margin: 0 auto;
+    width: 90%;
+    box-shadow: var(--dark-shadow);
+    visibility: hidden;
+  }
+
+  .search-field svg {
+    width: 3em;
+  }
+
+  .search-field button {
+    outline: none;
+    border: none;
+    background: var(--clr-yellow);
+    border-radius: 0;
+    color: var(--clr-blue);
+  }
+  .search-field input {
+    border-radius: 0;
+    height: 3em;
+    background: var(--clr-white);
+    color: var(--clr-blue);
+    outline: none;
+    border: none;
+    padding: 1em;
+    letter-spacing: var(--spacing);
   }
   .nav-center {
     width: 90%;
@@ -168,8 +231,9 @@ const Wrapper = styled.nav`
     display: none;
   }
   .search-icon {
+    cursor: pointer;
     font-size: 1.2rem;
-    margin-right: 1.2em;
+    margin-right: 1em;
     color: var(--clr-light-yellow);
   }
   .login-btn,
@@ -188,8 +252,12 @@ const Wrapper = styled.nav`
   }
   @media screen and (min-width: 800px) {
     .nav-center {
-      grid-template-columns: auto 1fr auto;
       max-width: var(--max-width);
+    }
+
+    .search-field {
+      margin-left: 16em;
+      width: 40%;
     }
     .toggle-btn {
       display: none;
@@ -229,4 +297,4 @@ const Wrapper = styled.nav`
   }
 `
 
-export default Navbar
+export default withRouter(Navbar)

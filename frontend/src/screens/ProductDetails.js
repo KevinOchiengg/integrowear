@@ -306,7 +306,10 @@ const Wrapper = styled.section`
     margin: 2em auto;
     max-width: var(--max-width);
   }
-
+  .rating {
+    font-size: 1.2rem;
+    justify-content: flex-start;
+  }
   .product-details-related-imgs {
     display: flex;
     align-items: center;
