@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { savePaymentMethod } from '../actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 
-export default function PaymentMethodScreen(props) {
+export default function PaymentMethodPage(props) {
   const cart = useSelector((state) => state.cart)
   const { shippingAddress } = cart
   if (!shippingAddress.address) {

@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { createReview, detailsProduct } from '../actions/productActions'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
+import LoadingBox from '../components/Loading'
+import MessageBox from '../components/Message'
 import Rating from '../components/Rating'
 import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/productConstants'
 
-export default function ProductScreen(props) {
+export default function ProductPage(props) {
   const dispatch = useDispatch()
   const productId = props.match.params.id
   const [qty, setQty] = useState(1)

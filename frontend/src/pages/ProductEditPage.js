@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Axios from 'axios'
 import { detailsProduct, updateProduct } from '../actions/productActions'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
+import LoadingBox from '../components/Loading'
+import MessageBox from '../components/Message'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 import styled from 'styled-components'
 
-export default function ProductEditScreen(props) {
+export default function ProductEditPage(props) {
   const productId = props.match.params.id
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')

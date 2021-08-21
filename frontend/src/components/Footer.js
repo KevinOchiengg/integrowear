@@ -1,25 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   FaFacebook,
   FaPinterest,
   FaInstagram,
   FaTwitter,
   FaPaperPlane,
-} from 'react-icons/fa';
-import logo from '../images/logo.png';
-import { useDispatch, useSelector } from 'react-redux';
-import ChatBox from './ChatBox';
-import styled from 'styled-components';
-import { signout } from '../actions/userActions';
+} from 'react-icons/fa'
+import logo from '../images/logo.png'
+import { useDispatch, useSelector } from 'react-redux'
+import ChatBox from './ChatBox'
+import styled from 'styled-components'
+import { signout } from '../actions/userActions'
 
 const Footer = () => {
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-  const dispatch = useDispatch();
+  const userSignin = useSelector((state) => state.userSignin)
+  const { userInfo } = userSignin
+  const dispatch = useDispatch()
   const signoutHandler = () => {
-    dispatch(signout());
-  };
+    dispatch(signout())
+  }
   return (
     <Wrapper className='footer-section'>
       {userInfo && !userInfo.isAdmin && <ChatBox userInfo={userInfo} />}
@@ -67,6 +67,9 @@ const Footer = () => {
             <ul>
               <li>
                 <Link to='/'>Home</Link>
+              </li>
+              <li>
+                <Link to='/'>Career</Link>
               </li>
               <li>
                 <Link to='/products'>Products</Link>
@@ -170,18 +173,17 @@ const Footer = () => {
         </div>
       </footer>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
 
 const Wrapper = styled.footer`
-
-   width: 100%;
-   position: relative;
-   bottom: 0;
-   left: 0;
-   right: 0;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
   .footer-top,
   .footer-bottom {
@@ -189,7 +191,6 @@ const Wrapper = styled.footer`
     width: 100%;
     line-height: 1.2em;
     letter-spacing: var(--spacing);
-    
   }
 
   .section-center {
@@ -201,20 +202,17 @@ const Wrapper = styled.footer`
     padding: 2em 0;
     margin: 0 auto;
     max-width: var(--max-width);
-    
   }
 
   p {
     color: var(--clr-light-yellow);
     text-decoration: capitalize;
-    
   }
 
   footer h3 {
     color: var(--clr-light-yellow);
     margin: 1em 0;
     font-size: 1rem;
-    
   }
 
   br {
@@ -229,17 +227,16 @@ const Wrapper = styled.footer`
   p,
   a {
     color: var(--clr-light-yellow);
-    font-size: .8rem;
+    font-size: 10.75rem;
   }
 
-   img {
+  img {
     width: 100px;
-    margin 0 auto;
+    margin: 0 auto;
   }
-  .footer-col{
+  .footer-col {
     width: 100%;
     text-align: center;
-   
   }
 
   input[type='text'] {
@@ -258,11 +255,6 @@ const Wrapper = styled.footer`
     display: flex;
     justify-content: center;
     align-items: center;
-    
-  }
-
-    color: var(--clr-light-yellow);
-    margin-left: 5px;
   }
 
   .footer-form button {
@@ -287,9 +279,9 @@ const Wrapper = styled.footer`
   .copyright a {
     color: #8aabca;
   }
-    .developer {
-      margin-left: 0.5em;
-    }
+  .developer {
+    margin-left: 0.5em;
+  }
 
   .social-icons {
     display: flex;
@@ -303,27 +295,26 @@ const Wrapper = styled.footer`
 
   a {
     color: var(--clr-light-yellow);
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       transition: var(--transition);
       color: var(--clr-yellow);
     }
   }
 
   @media (min-width: 800px) {
-  .footer-col{
-    height: 240px;
-    margin-left: 1.8em;
-    margin-top: 0;
-    
-  }
-  .section-center {
-    flex-direction: row;   
-  }
+    .footer-col {
+      height: 240px;
+      margin-left: 1.8em;
+      margin-top: 0;
+    }
+    .section-center {
+      flex-direction: row;
+    }
     input[type='text'] {
       color: var(--clr-light-yellow);
     }
 
-  
     footer h3 {
       font-size: 0.8rem;
       margin-bottom: 1.8em;
@@ -354,4 +345,4 @@ const Wrapper = styled.footer`
       font-size: 0.8rem;
     }
   }
-`;
+`

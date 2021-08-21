@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Chart from 'react-google-charts'
 import { summaryOrder } from '../actions/orderActions'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
+import LoadingBox from '../components/Loading'
+import MessageBox from '../components/Message'
 import styled from 'styled-components'
 
-export default function DashboardScreen() {
+export default function DashboardPage() {
   const orderSummary = useSelector((state) => state.orderSummary)
   const { loading, summary, error } = orderSummary
   const dispatch = useDispatch()

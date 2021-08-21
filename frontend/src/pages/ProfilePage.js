@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { detailsUser, updateUserProfile } from '../actions/userActions'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
+import LoadingBox from '../components/Loading'
+import MessageBox from '../components/Message'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
-export default function ProfileScreen() {
+export default function ProfilePage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

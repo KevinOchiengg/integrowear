@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 import { createOrder } from '../actions/orderActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { ORDER_CREATE_RESET } from '../constants/orderConstants'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
+import LoadingBox from '../components/Loading'
+import MessageBox from '../components/Message'
 
-export default function PlaceOrderScreen(props) {
+export default function PlaceOrderPage(props) {
   const cart = useSelector((state) => state.cart)
   if (!cart.paymentMethod) {
     props.history.push('/payment')

@@ -4,15 +4,15 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { deliverOrder, detailsOrder, payOrder } from '../actions/orderActions'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
+import LoadingBox from '../components/Loading'
+import MessageBox from '../components/Message'
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
 } from '../constants/orderConstants'
 import styled from 'styled-components'
 
-export default function OrderScreen(props) {
+export default function OrderPage(props) {
   const orderId = props.match.params.id
   const [sdkReady, setSdkReady] = useState(false)
   const orderDetails = useSelector((state) => state.orderDetails)

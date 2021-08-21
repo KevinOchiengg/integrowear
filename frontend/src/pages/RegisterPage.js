@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { register } from '../serviceWorker'
 import ErrorMessage from '../components/ErrorMessage'
-import LoadingBox from '../components/LoadingBox'
+import LoadingBox from '../components/Loading'
 import styled from 'styled-components'
 
 const RegisterPage = () => {

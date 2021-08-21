@@ -12,10 +12,10 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { createReview, detailsProduct } from '../actions/productActions'
 import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/productConstants'
-import MessageBox from '../components/MessageBox'
-import LoadingBox from '../components/LoadingBox'
+import MessageBox from '../components/Message'
+import LoadingBox from '../components/Loading'
 
-const ProductDetails = (props) => {
+const ProductDetailsPage = (props) => {
   const dispatch = useDispatch()
   const productId = props.match.params.id
   const [qty, setQty] = useState(1)
@@ -295,7 +295,7 @@ const ProductDetails = (props) => {
   )
 }
 
-export default ProductDetails
+export default ProductDetailsPage
 
 const Wrapper = styled.section`
   margin-top: 4rem;

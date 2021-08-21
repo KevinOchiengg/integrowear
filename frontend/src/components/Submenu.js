@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useGlobalContext } from '../context';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { listProductCategories } from '../actions/productActions';
-import LoadingBox from './LoadingBox';
-import MessageBox from './MessageBox';
-import { TiShoppingCart } from 'react-icons/ti';
-import styled from 'styled-components';
+import React, { useState, useRef, useEffect } from 'react'
+import { useGlobalContext } from '../context'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { listProductCategories } from '../actions/productActions'
+import LoadingBox from './Loading'
+import MessageBox from './Message'
+import { TiShoppingCart } from 'react-icons/ti'
+import styled from 'styled-components'
 
 const Submenu = () => {
   const {
@@ -14,37 +14,37 @@ const Submenu = () => {
     closeSubmenu,
     page: { page, links },
     location,
-  } = useGlobalContext();
+  } = useGlobalContext()
 
-  const container = useRef(null);
+  const container = useRef(null)
 
-  const [columns, setColumns] = useState('col-2');
-  const dispatch = useDispatch();
+  const [columns, setColumns] = useState('col-2')
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    setColumns('col-2');
-    const submenu = container.current;
-    const { center, bottom } = location;
-    submenu.style.left = `${center}px`;
-    submenu.style.top = `${bottom}px`;
-    console.log(links);
+    setColumns('col-2')
+    const submenu = container.current
+    const { center, bottom } = location
+    submenu.style.left = `${center}px`
+    submenu.style.top = `${bottom}px`
+    console.log(links)
     if (links.length === 3) {
-      setColumns('col-3');
+      setColumns('col-3')
     }
     if (links.length > 3) {
-      setColumns('col-4');
+      setColumns('col-4')
     }
-  }, [page, location, links]);
+  }, [page, location, links])
 
-  const productCategoryList = useSelector((state) => state.productCategoryList);
+  const productCategoryList = useSelector((state) => state.productCategoryList)
   const {
     loading: loadingCategories,
     error: errorCategories,
     categories,
-  } = productCategoryList;
+  } = productCategoryList
   useEffect(() => {
-    dispatch(listProductCategories());
-  }, [dispatch]);
+    dispatch(listProductCategories())
+  }, [dispatch])
   return (
     <Wrapper
       className={`${isSubmenuOpen ? 'submenu show' : 'submenu'}`}
@@ -54,11 +54,11 @@ const Submenu = () => {
         <h4>{page}</h4>
         <div className={`submenu-center ${columns}`}>
           {links.map((link, index) => {
-            const { url, icon, label } = link;
+            const { url, icon, label } = link
 
-            if (loadingCategories) return <LoadingBox />;
+            if (loadingCategories) return <LoadingBox />
             else if (errorCategories)
-              return <MessageBox variant='danger'>Error</MessageBox>;
+              return <MessageBox variant='danger'>Error</MessageBox>
             else if (page === 'Category' && categories) {
               return categories.map((c) => (
                 <Link
@@ -69,22 +69,22 @@ const Submenu = () => {
                   {<TiShoppingCart />}
                   {c}
                 </Link>
-              ));
+              ))
             } else
               return (
                 <Link to={url} key={index} onClick={closeSubmenu}>
                   {icon}
                   {label}
                 </Link>
-              );
+              )
           })}
         </div>
       </section>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default Submenu;
+export default Submenu
 
 const Wrapper = styled.section`
   background: var(--clr-white);
@@ -143,4 +143,4 @@ const Wrapper = styled.section`
     color: var(--clr-blue);
     margin-right: 1rem;
   }
-`;
+`

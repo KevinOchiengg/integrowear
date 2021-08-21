@@ -15,7 +15,7 @@ const Navbar = (props) => {
     openSidebar,
     openSubmenu,
     closeSubmenu,
-    openSeachBar,
+    toggleSeachBar,
     isSearchBarOpen,
   } = useGlobalContext()
   const [name, setName] = useState('')
@@ -109,12 +109,12 @@ const Navbar = (props) => {
             onChange={(e) => setName(e.target.value)}
           />
           <button type='submit'>
-            <ImSearch />
+            <ImSearch onClick={toggleSeachBar} />
           </button>
         </form>
 
         <div className='right__item'>
-          <ImSearch className='search-icon' onClick={openSeachBar} />
+          <ImSearch className='search-icon' onClick={toggleSeachBar} />
 
           <div className='cart-container'>
             <Link to='/cart'>

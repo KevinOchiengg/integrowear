@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import { useSelector } from 'react-redux'
-import MessageBox from '../components/MessageBox'
+import MessageBox from '../components/Message'
 import styled from 'styled-components'
 
 let allUsers = []
@@ -12,7 +12,7 @@ const ENDPOINT =
     ? 'http://127.0.0.1:5000'
     : window.location.host
 
-export default function SupportScreen() {
+export default function SupportPage() {
   const [selectedUser, setSelectedUser] = useState({})
   const [socket, setSocket] = useState(null)
   const uiMessagesRef = useRef(null)

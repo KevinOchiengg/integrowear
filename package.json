@@ -2,7 +2,7 @@
   "name": "Integrowears",
   "type": "module",
   "version": "1.0.0",
-  "description": "Integro Wears - Ecommerce Website",
+  "description": "Integrowears Shop - Ecommerce Website",
   "main": "index.js",
   "scripts": {
     "build": "cd frontend && npm install && npm run build",

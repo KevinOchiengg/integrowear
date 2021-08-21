@@ -1,47 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
-import { FaQuoteRight } from 'react-icons/fa';
-import data from './TestimonialData';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react'
+import { FiChevronRight, FiChevronLeft } from 'react-icons/fi'
+import { FaQuoteRight } from 'react-icons/fa'
+import data from './TestimonialData'
+import styled from 'styled-components'
 
 function Testimonial() {
-  const [people] = useState(data);
-  const [index, setIndex] = useState(0);
+  const [people] = useState(data)
+  const [index, setIndex] = useState(0)
 
   useEffect(() => {
-    const lastIndex = people.length - 1;
+    const lastIndex = people.length - 1
     if (index < 0) {
-      setIndex(lastIndex);
+      setIndex(lastIndex)
     }
     if (index > lastIndex) {
-      setIndex(0);
+      setIndex(0)
     }
-  }, [index, people]);
+  }, [index, people])
 
   useEffect(() => {
     let slider = setInterval(() => {
-      setIndex(index + 1);
-    }, 3000);
-    return () => clearInterval(slider);
-  }, [index]);
+      setIndex(index + 1)
+    }, 3000)
+    return () => clearInterval(slider)
+  }, [index])
 
   return (
     <Wrapper className='section'>
-      <h2 className='title'>Testimonials</h2>
+      <h3 className='title'>Testimonials</h3>
       <div className='section-center'>
         {people.map((person, personIndex) => {
-          const { id, image, name, title, quote } = person;
+          const { id, image, name, title, quote } = person
 
-          let position = 'nextSlide';
+          let position = 'nextSlide'
           if (personIndex === index) {
-            position = 'activeSlide';
+            position = 'activeSlide'
           }
 
           if (
             personIndex === index - 1 ||
             (index === 0 && personIndex === people.length - 1)
           ) {
-            position = 'lastSlide';
+            position = 'lastSlide'
           }
 
           return (
@@ -52,7 +52,7 @@ function Testimonial() {
               <p className='text'>{quote}</p>
               <FaQuoteRight className='icon' />
             </article>
-          );
+          )
         })}
 
         <button className='prev' onClick={() => setIndex(index - 1)}>
@@ -64,10 +64,10 @@ function Testimonial() {
         </button>
       </div>
     </Wrapper>
-  );
+  )
 }
 
-export default Testimonial;
+export default Testimonial
 
 const Wrapper = styled.section`
   width: 100%;
@@ -183,4 +183,4 @@ const Wrapper = styled.section`
       max-width: 60%;
     }
   }
-`;
+`

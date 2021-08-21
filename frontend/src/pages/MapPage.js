@@ -5,7 +5,7 @@ import {
   StandaloneSearchBox,
   Marker,
 } from '@react-google-maps/api'
-import LoadingBox from '../components/LoadingBox'
+import LoadingBox from '../components/Loading'
 import Axios from 'axios'
 import { USER_ADDRESS_MAP_CONFIRM } from '../constants/userConstants'
 import { useDispatch } from 'react-redux'
@@ -14,7 +14,7 @@ import styled from 'styled-components'
 const libs = ['places']
 const defaultLocation = { lat: 45.516, lng: -73.56 }
 
-export default function MapScreen(props) {
+export default function MapPage(props) {
   const [googleApiKey, setGoogleApiKey] = useState('')
   const [center, setCenter] = useState(defaultLocation)
   const [location, setLocation] = useState(center)

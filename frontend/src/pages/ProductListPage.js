@@ -7,14 +7,14 @@ import {
   deleteProduct,
   listProducts,
 } from '../actions/productActions'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
+import LoadingBox from '../components/Loading'
+import MessageBox from '../components/Message'
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
 } from '../constants/productConstants'
 
-export default function ProductListScreen(props) {
+export default function ProductListPage(props) {
   const { pageNumber = 1 } = useParams()
 
   const sellerMode = props.match.path.indexOf('/seller') >= 0

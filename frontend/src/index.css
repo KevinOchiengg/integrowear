@@ -107,6 +107,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: var(--clr-white);
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
 img {

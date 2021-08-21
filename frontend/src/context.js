@@ -9,7 +9,7 @@ const AppProvider = ({ children }) => {
   const [page, setPage] = useState({ page: '', links: [] })
   const [location, setLocation] = useState({})
 
-  const openSeachBar = () => {
+  const toggleSeachBar = () => {
     setisSearchBarOpen(!isSearchBarOpen)
   }
   const openSidebar = () => {
@@ -32,7 +32,7 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         isSearchBarOpen,
-        openSeachBar,
+        toggleSeachBar,
         isSidebarOpen,
         openSidebar,
         closeSidebar,

@@ -1,40 +1,21 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { deleteOrder, listOrders } from '../actions/orderActions'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
-import { ORDER_DELETE_RESET } from '../constants/orderConstants'
+import { listOrderMine } from '../actions/orderActions'
+import LoadingBox from '../components/Loading'
+import MessageBox from '../components/Message'
 
-export default function OrderListScreen(props) {
-  const sellerMode = props.match.path.indexOf('/seller') >= 0
-  const orderList = useSelector((state) => state.orderList)
-  const { loading, error, orders } = orderList
-  const orderDelete = useSelector((state) => state.orderDelete)
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = orderDelete
-
-  const userSignin = useSelector((state) => state.userSignin)
-  const { userInfo } = userSignin
+export default function OrderHistoryPage(props) {
+  const orderMineList = useSelector((state) => state.orderMineList)
+  const { loading, error, orders } = orderMineList
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch({ type: ORDER_DELETE_RESET })
-    dispatch(listOrders({ seller: sellerMode ? userInfo._id : '' }))
-  }, [dispatch, sellerMode, successDelete, userInfo._id])
-  const deleteHandler = (order) => {
-    if (window.confirm('Are you sure to delete?')) {
-      dispatch(deleteOrder(order._id))
-    }
-  }
+    dispatch(listOrderMine())
+  }, [dispatch])
   return (
     <Wrapper>
       <div className='section-center'>
-        <h3 className='title'>Orders</h3>
-        {loadingDelete && <LoadingBox></LoadingBox>}
-        {errorDelete && <MessageBox variant='danger'>{errorDelete}</MessageBox>}
+        <h3 className='title'>Order History</h3>
         {loading ? (
           <LoadingBox></LoadingBox>
         ) : error ? (
@@ -44,7 +25,6 @@ export default function OrderListScreen(props) {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>USER</th>
                 <th>DATE</th>
                 <th>TOTAL</th>
                 <th>PAID</th>
@@ -56,7 +36,6 @@ export default function OrderListScreen(props) {
               {orders.map((order) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
-                  <td>{order.user.name}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
                   <td>{order.totalPrice.toFixed(2)}</td>
                   <td>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</td>
@@ -68,20 +47,12 @@ export default function OrderListScreen(props) {
                   <td>
                     <button
                       type='button'
-                      className='edit-btn'
+                      className='btn small'
                       onClick={() => {
                         props.history.push(`/order/${order._id}`)
                       }}
                     >
                       Details
-                    </button>
-                    <button
-                      type='button'
-                      className='delete-btn'
-                      className='small'
-                      onClick={() => deleteHandler(order)}
-                    >
-                      Delete
                     </button>
                   </td>
                 </tr>

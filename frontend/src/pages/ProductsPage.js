@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import { FaTh, FaThList } from 'react-icons/fa'
 import { AiOutlineHeart } from 'react-icons/ai'
 import Product from '../components/Product'
-import MessageBox from '../components/MessageBox'
-import LoadingBox from '../components/LoadingBox'
+import MessageBox from '../components/Message'
+import LoadingBox from '../components/Loading'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
 import { useState } from 'react'
@@ -86,14 +86,14 @@ const ProductsPage = (props) => {
           {products.map((product) => (
             <div className='product-layout-list'>
               <div className='product-image'>
-                <Link to='product-details.html'>
+                <Link to={`/product/${product._id}`}>
                   <img src={product.image} alt={product.name} />
                 </Link>
               </div>
 
               <div className='product-content-list'>
                 <h4>
-                  <Link to='/productDetails' className='product-name'>
+                  <Link to={`/product/${product._id}`} className='product-name'>
                     {product.name}
                   </Link>
                 </h4>
@@ -152,23 +152,27 @@ const ProductsPage = (props) => {
           <div className='products-list-section'>
             <div className='products-list-header'>
               <ul className='nav shop-item-filter-list'>
-                <li className='active'>
-                  <Link className='active grid-view'>
-                    <FaTh
-                      onClick={(e) => {
-                        setViewProduct(true)
-                      }}
-                    />
-                  </Link>
+                <li
+                  className={`${
+                    viewproducts ? 'active grid-view' : 'grid-view'
+                  }`}
+                >
+                  <FaTh
+                    onClick={(e) => {
+                      setViewProduct(true)
+                    }}
+                  />
                 </li>
-                <li>
-                  <Link className='list-view'>
-                    <FaThList
-                      onClick={(e) => {
-                        setViewProduct(false)
-                      }}
-                    />
-                  </Link>
+                <li
+                  className={`${
+                    !viewproducts ? 'active grid-view' : 'grid-view'
+                  }`}
+                >
+                  <FaThList
+                    onClick={(e) => {
+                      setViewProduct(false)
+                    }}
+                  />
                 </li>
               </ul>
 
@@ -216,9 +220,9 @@ const ProductsPage = (props) => {
                     </Link>
                   </li>
                   {categories.map((c) => (
-                    <li key={c}>
+                    <li key={c} className='has-sub'>
                       <Link
-                        className={c === category ? 'active has-sub' : ''}
+                        className={c === category ? 'active' : ''}
                         to={getFilterUrl({ category: c })}
                       >
                         {c}
@@ -336,7 +340,7 @@ const Wrapper = styled.section`
   a {
     color: var(--clr-dark-grey);
   }
-  .has-sub ul li {
+  .has-sub {
     margin: 1em 0;
   }
   .single-product-area {
@@ -368,6 +372,11 @@ const Wrapper = styled.section`
     padding: 5px;
     border: 1px solid var(--clr-light-grey);
     border-radius: 2px;
+  }
+
+  .active {
+    transition: var(--transition);
+    color: var(--clr-yellow);
   }
   .action-links a {
     background-color: var(--clr-white);

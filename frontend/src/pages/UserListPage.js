@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { deleteUser, listUsers } from '../actions/userActions'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
+import LoadingBox from '../components/Loading'
+import MessageBox from '../components/Message'
 import { USER_DETAILS_RESET } from '../constants/userConstants'
 
-export default function UserListScreen(props) {
+export default function UserListPage(props) {
   const userList = useSelector((state) => state.userList)
   const { loading, error, users } = userList
 

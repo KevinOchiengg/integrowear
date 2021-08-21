@@ -4,7 +4,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import Register from './RegisterPage'
 import styled from 'styled-components'
 import { signin } from '../actions/userActions'
-import LoadingBox from '../components/LoadingBox'
+import LoadingBox from '../components/Loading'
 import ErrorMessage from '../components/ErrorMessage'
 
 const LoginPage = () => {

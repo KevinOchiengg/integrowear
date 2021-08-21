@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { saveShippingAddress } from '../actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 
-export default function ShippingAddressScreen(props) {
+export default function ShippingAddressPage(props) {
   const userSignin = useSelector((state) => state.userSignin)
 
   const { userInfo } = userSignin

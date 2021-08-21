@@ -6,12 +6,10 @@ import { IoIosBasket } from 'react-icons/io'
 import { BiShuffle } from 'react-icons/bi'
 import { AiOutlineHeart } from 'react-icons/ai'
 
-export default function Product(props) {
-  const { product } = props
-
+export default function Product({ product }) {
   return (
     <Wrapper>
-      <div className='single-product-area'>
+      <article className='single-product-area'>
         <figure className='product-thumb'>
           <Link to={`/product/${product._id}`}>
             <img
@@ -51,15 +49,12 @@ export default function Product(props) {
             </button>
           </div>
         </div>
-      </div>
+      </article>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.section`
-  position: relative;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
   margin: 2em 0;
 
   a {
@@ -90,8 +85,8 @@ const Wrapper = styled.section`
   .single-product-area {
     position: relative;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-    margin-bottom: 2px;
     border-radius: 5px;
+    margin: 0 auto;
   }
   .product-thumb {
     position: relative;

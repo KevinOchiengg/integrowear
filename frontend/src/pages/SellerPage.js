@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
 import { detailsUser } from '../actions/userActions'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
+import LoadingBox from '../components/Loading'
+import MessageBox from '../components/Message'
 import Product from '../components/Product'
 import Rating from '../components/Rating'
 
-export default function SellerScreen(props) {
+export default function SellerPage(props) {
   const sellerId = props.match.params.id
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails

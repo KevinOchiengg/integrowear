@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaStar, FaStarHalf } from 'react-icons/fa'
+import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs'
 import styled from 'styled-components'
 
 export default function Rating(props) {
@@ -8,39 +8,39 @@ export default function Rating(props) {
     <Wrapper>
       <div className='rating'>
         {rating >= 1 ? (
-          <i>{<FaStar />}</i>
+          <i>{<BsStarFill />}</i>
         ) : rating >= 0.5 ? (
-          <i>{<FaStar />}</i>
+          <i>{<BsStarHalf />}</i>
         ) : (
-          <i>{<FaStarHalf />}</i>
+          <i>{<BsStar />}</i>
         )}
         {rating >= 2 ? (
-          <i>{<FaStar />}</i>
+          <i>{<BsStarFill />}</i>
         ) : rating >= 1.5 ? (
-          <i>{<FaStar />}</i>
+          <i>{<BsStarHalf />}</i>
         ) : (
-          <i>{<FaStarHalf />}</i>
+          <i>{<BsStar />}</i>
         )}
         {rating >= 3 ? (
-          <i>{<FaStar />}</i>
+          <i>{<BsStarFill />}</i>
         ) : rating >= 2.5 ? (
-          <i>{<FaStar />}</i>
+          <i>{<BsStarHalf />}</i>
         ) : (
-          <i>{<FaStarHalf />}</i>
+          <i>{<BsStar />}</i>
         )}
         {rating >= 4 ? (
-          <i>{<FaStar />}</i>
+          <i>{<BsStarFill />}</i>
         ) : rating >= 3.5 ? (
-          <i>{<FaStar />}</i>
+          <i>{<BsStarHalf />}</i>
         ) : (
-          <i>{<FaStarHalf />}</i>
+          <i>{<BsStar />}</i>
         )}
         {rating >= 5 ? (
-          <i>{<FaStar />}</i>
+          <i>{<BsStarFill />}</i>
         ) : rating >= 4.5 ? (
-          <i>{<FaStar />}</i>
+          <i>{<BsStarHalf />}</i>
         ) : (
-          <i>{<FaStarHalf />}</i>
+          <i>{<BsStar />}</i>
         )}
         {caption ? (
           <span>{caption}</span>
