@@ -206,7 +206,7 @@ const ProductsPage = (props) => {
 
             <div className='category-sub-menu'>
               {loadingCategories ? (
-                <LoadingBox></LoadingBox>
+                <Loading />
               ) : errorCategories ? (
                 <MessageBox variant='danger'>{errorCategories}</MessageBox>
               ) : (
