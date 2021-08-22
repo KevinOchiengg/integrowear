@@ -11,6 +11,7 @@ import { listProducts } from '../actions/productActions'
 import { useState } from 'react'
 import Rating from '../components/Rating'
 import { prices, ratings } from '../utils'
+import Loading from '../components/Loading'
 
 const ProductsPage = (props) => {
   const dispatch = useDispatch()
