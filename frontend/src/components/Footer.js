@@ -227,7 +227,7 @@ const Wrapper = styled.footer`
   p,
   a {
     color: var(--clr-light-yellow);
-    font-size: 10.75rem;
+    font-size: 0.75rem;
   }
 
   img {

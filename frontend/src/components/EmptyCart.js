@@ -1,24 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import './EmptyCart.css'
 
 export default function EmptyCart() {
   return (
-    <>
-      <Wrapper className='empty-cart'>
-        <h2>Oops! Your Cart is Empty...</h2>
-        <Link to='/' className='btn'>
-          Fill It
-        </Link>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <h2>Oops! Your Cart is Empty...</h2>
+      <Link to='/' className='btn'>
+        Fill It
+      </Link>
+    </Wrapper>
   )
 }
 
 const Wrapper = styled.section`
+  border: 2px solid red;
   width: 100%;
-  height: 95vh;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -45,12 +45,15 @@ const Wrapper = styled.section`
   margin: 6rem auto;
 
   .row {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 4em;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     .row {
-      grid-template-columns: repeat(3, 1fr);
     }
   }
 `

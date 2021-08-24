@@ -4,8 +4,7 @@ import styled from 'styled-components'
 import { FaTh, FaThList } from 'react-icons/fa'
 import { AiOutlineHeart } from 'react-icons/ai'
 import Product from '../components/Product'
-import MessageBox from '../components/Message'
-import LoadingBox from '../components/Loading'
+import Message from '../components/Message'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
 import { useState } from 'react'
@@ -66,13 +65,10 @@ const ProductsPage = (props) => {
   }, [dispatch])
 
   const productSectionView = () => {
-    if (loading) return <LoadingBox></LoadingBox>
+    if (loading) return <Loading />
     else if (error)
-      return (
-        <MessageBox variant='danger'>Oops! Error fetching Products</MessageBox>
-      )
-    else if (products.length === 0)
-      return <MessageBox>No Product Found</MessageBox>
+      return <Message variant='danger'>Oops! Error fetching Products</Message>
+    else if (products.length === 0) return <Message>No Product Found</Message>
     else if (viewproducts)
       return (
         <div className='products-list'>
@@ -103,12 +99,10 @@ const ProductsPage = (props) => {
                   <span className='old-price'>ksh 2,000</span>
                 </div>
 
-                <div className='product-rating'>
-                  <Rating
-                    rating={product.rating}
-                    numReviews={product.numReviews}
-                  />
-                </div>
+                <Rating
+                  rating={product.rating}
+                  numReviews={product.numReviews}
+                />
 
                 <p>{product.description}</p>
               </div>
@@ -209,7 +203,7 @@ const ProductsPage = (props) => {
               {loadingCategories ? (
                 <Loading />
               ) : errorCategories ? (
-                <MessageBox variant='danger'>{errorCategories}</MessageBox>
+                <Message variant='danger'>{errorCategories}</Message>
               ) : (
                 <ul>
                   <li className='has-sub'>
@@ -240,9 +234,8 @@ const ProductsPage = (props) => {
                 <form action='#' method='post'>
                   <div id='price-slider' className='price-slider'></div>
                   <div className='filter-price-wrapper'>
-                    <Link className='add-to-cart-button'>
-                      <span>FILTER</span>
-                    </Link>
+                    <span>FILTER</span>
+
                     <div className='filter-price-cont'>
                       <span>Price:</span>
                       <ul>
@@ -344,31 +337,14 @@ const Wrapper = styled.section`
   .has-sub {
     margin: 1em 0;
   }
-  .single-product-area {
-    position: relative;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-    margin: 2em 0;
-    border-radius: 5px;
-  }
+
   .product-thumb {
     position: relative;
   }
   .sort-by {
     display: none;
   }
-  .product-thumb a {
-    display: block;
-  }
-  .product-thumb a img {
-    border-radius: 5px;
-  }
-  .product-thumb .action-links {
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
-  }
+
   .sidebar-tag li {
     padding: 5px;
     border: 1px solid var(--clr-light-grey);
@@ -379,44 +355,22 @@ const Wrapper = styled.section`
     transition: var(--transition);
     color: var(--clr-yellow);
   }
-  .action-links a {
-    background-color: var(--clr-white);
-    border-radius: 100%;
-    color: var(--clr-blue);
-    display: inline-block;
-    font-weight: normal;
-    height: 43px;
-    line-height: 43px;
-    text-align: center;
-    vertical-align: top;
-    width: 43px;
-    transition: var(--transition);
-    margin: 0 5px;
-    &:hover {
-      background-color: var(--clr-yellow);
-      color: var(--clr-blue);
-    }
-    opacity: 0;
-    transform: scale(0.8) rotate(-45deg);
-  }
 
   .product-rating,
   .product-stock-status,
   .add-to-cart-btn {
     margin: 1em 0;
   }
-
-  .add_to_wishlist {
+  .products-list {
     display: flex;
-    align-items: center;
-    grid-gap: 0.7em;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-gap: 2em;
+    margin: 2em 0;
   }
-  .single-product-area:hover .action-links a {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
+
   .page-btn {
-    margin: 0 auto 80px;
+    margin-top: 6em;
   }
 
   .page-btn span {
@@ -436,42 +390,12 @@ const Wrapper = styled.section`
     background: var(--clr-hover);
   }
 
-  .label-product {
-    background: var(--clr-yellow);
-    color: var(--clr-blue);
-    font-size: 0.8em;
-    font-weight: 500;
-    position: absolute;
-    border-radius: 3px;
-    left: 13px;
-    text-align: center;
-    text-transform: capitalize;
-    top: 13px;
-    padding: 0.2em;
-  }
-
-  .product-caption {
-    text-align: center;
-    padding: 20px 0;
-    border-top: 1px solid var(--clr-light-grey);
-  }
   .product-name {
     display: block;
     font-size: 0.9rem;
     font-weight: 500;
     padding: 0;
     text-transform: capitalize;
-  }
-  .new-price {
-    color: var(--clr-yellow);
-    font-weight: 400;
-    margin-right: 10px;
-  }
-  .old-price {
-    font-size: 15px;
-    text-decoration: line-through;
-    color: #555;
-    padding-left: 5px;
   }
 
   .products-list-header {
@@ -486,6 +410,11 @@ const Wrapper = styled.section`
     align-items: center;
     grid-gap: 1em;
     margin: 0 1em;
+  }
+
+  .product-layout-list .rating {
+    margin: 1em 0;
+    justify-content: flex-start;
   }
 
   .buttons__container {
@@ -532,14 +461,6 @@ const Wrapper = styled.section`
     margin-top: 0.5em;
   }
 
-  svg {
-    font-size: 1.25rem;
-    &:hover {
-      color: var(--clr-hover);
-      transition: var(--transition);
-    }
-  }
-
   .product-content-list h4 a {
     font-size: 1rem;
   }
@@ -557,6 +478,19 @@ const Wrapper = styled.section`
       height: 180px;
     }
 
+    .product-layout-list .price-box {
+      font-size: 1rem;
+    }
+
+    .new-price {
+      color: var(--clr-yellow);
+      font-weight: 400;
+      margin-right: 10px;
+    }
+    .old-price {
+      text-decoration: line-through;
+      color: var(--clr-light-grey);
+    }
     h4 {
       margin-bottom: 0.4em;
     }
@@ -574,7 +508,7 @@ const Wrapper = styled.section`
       margin-bottom: 5px;
     }
   }
-  @media (min-width: 800px) {
+  @media (min-width: 769px) {
     .products-category-container {
       display: flex;
       flex-direction: row-reverse;
@@ -585,9 +519,6 @@ const Wrapper = styled.section`
     }
     .products-category-nav {
       width: 25%;
-    }
-    .single-product-area {
-      margin: 0;
     }
 
     select {
@@ -604,12 +535,6 @@ const Wrapper = styled.section`
       border-bottom: 1px solid var(--clr-light-grey);
       margin-bottom: 2em;
       padding-bottom: 1em;
-    }
-
-    .products-list {
-      display: flex;
-      grid-gap: 2em;
-      margin: 2em 0;
     }
   }
 `

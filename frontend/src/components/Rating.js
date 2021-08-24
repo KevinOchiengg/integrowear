@@ -56,10 +56,15 @@ const Wrapper = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.7rem;
   }
 
   svg {
     color: var(--clr-yellow);
-    width: 0.8em;
+  }
+  @media (min-width: 800px) {
+    .rating {
+      font-size: 0.825rem;
+    }
   }
 `

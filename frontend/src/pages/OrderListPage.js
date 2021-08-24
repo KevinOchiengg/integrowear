@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { deleteOrder, listOrders } from '../actions/orderActions'
-import LoadingBox from '../components/Loading'
-import MessageBox from '../components/Message'
+import Loading from '../components/Loading'
+import Message from '../components/Message'
 import { ORDER_DELETE_RESET } from '../constants/orderConstants'
 
 export default function OrderListPage(props) {
@@ -33,12 +33,12 @@ export default function OrderListPage(props) {
     <Wrapper>
       <div className='section-center'>
         <h3 className='title'>Orders</h3>
-        {loadingDelete && <LoadingBox></LoadingBox>}
-        {errorDelete && <MessageBox variant='danger'>{errorDelete}</MessageBox>}
+        {loadingDelete && <Loading />}
+        {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <Loading />
         ) : error ? (
-          <MessageBox variant='danger'>{error}</MessageBox>
+          <Message variant='danger'>{error}</Message>
         ) : (
           <table className='table'>
             <thead>

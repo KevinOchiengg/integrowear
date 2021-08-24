@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { addToCart, removeFromCart } from '../actions/cartActions'
-import MessageBox from '../components/Message'
+import Message from '../components/Message'
+import EmptyCart from '../components/EmptyCart'
 import Rating from '../components/Rating'
 
 export default function CartPage(props) {
@@ -32,27 +33,29 @@ export default function CartPage(props) {
     <Wrapper>
       <div className='small-container cart-page'>
         <div className='section-center'>
-          <h3 className='title'>Your Shopping</h3>
+          {error && <Message variant='danger'>{error}</Message>}
+          {cartItems.length === 0 ? (
+            <Message
+              message='Oops! Your Cart is Empty...'
+              buttonText='Go Shopping'
+              url='/products'
+            />
+          ) : (
+            <>
+              <h3 className='title'>Your Shopping</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>PRODUCT</th>
+                    <th>QUANTITY</th>
+                    <th>SUBTOTAL</th>
+                  </tr>
+                </thead>
 
-          <>
-            <table>
-              <thead>
-                <tr>
-                  <th>PRODUCT</th>
-                  <th>QUANTITY</th>
-                  <th>SUBTOTAL</th>
-                </tr>
-              </thead>
-              {error && <MessageBox variant='danger'>{error}</MessageBox>}
-              {cartItems.length === 0 ? (
-                <MessageBox>
-                  Cart is empty. <Link to='/'>Go Shopping</Link>
-                </MessageBox>
-              ) : (
                 <tbody>
                   {cartItems.map((item) => {
                     return (
-                      <tr>
+                      <tr key={item.name}>
                         <td>
                           <div className='cart-info'>
                             <img src={item.image} alt='' />
@@ -96,32 +99,32 @@ export default function CartPage(props) {
                     )
                   })}
                 </tbody>
-              )}
-            </table>
-            <div className='total-price'>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Total Items</td>
-                    <td>{cartItems.reduce((a, c) => a + c.qty, 0)} item</td>
-                  </tr>
-                  <tr>
-                    <td>Total Price</td>
-                    <td>
-                      Ksh {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
-                    </td>
-                  </tr>
-                </tbody>
               </table>
-              <button
-                className='checkout-btn btn'
-                disabled={cartItems.length === 0}
-                onClick={checkoutHandler}
-              >
-                Proceed to Checkout &#8594;
-              </button>
-            </div>
-          </>
+              <div className='total-price'>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Total Items</td>
+                      <td>{cartItems.reduce((a, c) => a + c.qty, 0)} item</td>
+                    </tr>
+                    <tr>
+                      <td>Total Price</td>
+                      <td>
+                        Ksh {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button
+                  className='checkout-btn btn'
+                  disabled={cartItems.length === 0}
+                  onClick={checkoutHandler}
+                >
+                  Proceed to Checkout &#8594;
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </Wrapper>

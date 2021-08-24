@@ -13,7 +13,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createReview, detailsProduct } from '../actions/productActions'
 import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/productConstants'
 import MessageBox from '../components/Message'
-import LoadingBox from '../components/Loading'
+import Message from '../components/Message'
+import Loading from '../components/Loading'
 
 const ProductDetailsPage = (props) => {
   const dispatch = useDispatch()
@@ -60,7 +61,7 @@ const ProductDetailsPage = (props) => {
   return (
     <Wrapper className='product-details-container'>
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <Loading />
       ) : error ? (
         <MessageBox variant='danger'>{error}</MessageBox>
       ) : (
@@ -82,8 +83,8 @@ const ProductDetailsPage = (props) => {
                 <h3>{product.name}</h3>
                 <Rating rating={product.rating} reviews={product.reviews} />
                 <div className='price-box'>
-                  <span class='new-price'>Ksh {product.price}</span>
-                  <span class='old-price'>Ksh. 3500</span>
+                  <span className='new-price'>Ksh {product.price}</span>
+                  <span className='old-price'>Ksh. 3500</span>
                 </div>
                 <div className='product-details-description'>
                   <p>{product.description}</p>
@@ -142,12 +143,12 @@ const ProductDetailsPage = (props) => {
                     <li className='product-stock-status'>
                       Categories: <Link to='#'>{product.category}</Link>
                     </li>
-                    <li class='product-stock-status'>
+                    <li className='product-stock-status'>
                       Tag: <Link to='/products'>{product.category}</Link>
                     </li>
                   </ul>
                 </div>
-                <div class='share-product-socail-area'>
+                <div className='share-product-socail-area'>
                   <p>Share this product</p>
                   <ul className='single-product-share'>
                     <li>
@@ -251,14 +252,14 @@ const ProductDetailsPage = (props) => {
                         </label>
                         <input type='text' required='required' name='Name' />
                       </div>
-                      <div class='row'>
+                      <div className='row'>
                         <label>
                           Email <span className='required'>*</span>
                         </label>
                         <input type='text' required='required' name='email' />
                       </div>
 
-                      <div class='row'>
+                      <div className='row'>
                         <label>Comment</label>
                         <textarea
                           id='comment'
@@ -266,25 +267,29 @@ const ProductDetailsPage = (props) => {
                           onChange={(e) => setComment(e.target.value)}
                         ></textarea>
                       </div>
-                      <div class='row'>
+                      <div className='row'>
                         <button type='submit' className='btn review-btn'>
                           Submit
                         </button>
                       </div>
                       <div>
-                        {loadingReviewCreate && <LoadingBox></LoadingBox>}
+                        {loadingReviewCreate && <Loading />}
                         {errorReviewCreate && (
-                          <MessageBox variant='danger'>
-                            {errorReviewCreate}
-                          </MessageBox>
+                          <Message
+                            message='Please Login To give A Review'
+                            buttonText='Login'
+                            url='/login'
+                          />
                         )}
                       </div>
                     </form>
                   </div>
                 ) : (
-                  <MessageBox>
-                    Please <Link to='/login'>Sign In</Link> to write a review
-                  </MessageBox>
+                  <Message
+                    message='Please Login To give A Review'
+                    buttonText='Login'
+                    url='/login'
+                  />
                 )}
               </div>
             </div>
