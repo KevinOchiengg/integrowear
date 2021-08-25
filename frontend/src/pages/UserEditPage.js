@@ -119,6 +119,7 @@ export default function UserEditPage(props) {
 const Wrapper = styled.section`
   margin: 6em 0;
   color: var(--clr-grey);
+
   .form {
     width: 100%;
   }

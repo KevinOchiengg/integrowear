@@ -173,6 +173,9 @@ export default function ProfilePage() {
 const Wrapper = styled.section`
   margin: 6em 0;
   color: var(--clr-dark-grey);
+  form {
+    margin: 0 auto;
+  }
   h3 {
     margin-bottom: 0;
   }
@@ -188,5 +191,8 @@ const Wrapper = styled.section`
   }
   .seller-title {
     margin: 1em 0;
+  }
+  label {
+    margin-bottom: 0.6em;
   }
 `

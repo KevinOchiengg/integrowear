@@ -6,6 +6,13 @@ import styled from 'styled-components'
 import { signin } from '../actions/userActions'
 import LoadingBox from '../components/Loading'
 import ErrorMessage from '../components/ErrorMessage'
+import {
+  FaFacebook,
+  FaPinterest,
+  FaInstagram,
+  FaTwitter,
+  FaPaperPlane,
+} from 'react-icons/fa'
 
 const LoginPage = () => {
   const [loginForm] = useState(true)
@@ -39,9 +46,9 @@ const LoginPage = () => {
   }, [userInfo])
 
   return (
-    <Wrapper className='signin-page'>
-      <div className='account-page'>
-        <div className='form-container'>
+    <Wrapper>
+      <div className='account-page section-center'>
+        {/* <div className='form-container'>
           <h4 className='form-title'>Login</h4>
 
           <form onSubmit={submitHandler} className='login-form '>
@@ -74,65 +81,90 @@ const LoginPage = () => {
             </Link>
           </form>
           {loginForm ? null : <Register />}
+        </div> */}
+        {/*Another one */}
+        <div class='displaycontainer centerflex'>
+          <div class='entry-menu'>
+            <div class='menu-cell menu-left'>
+              <div class='form-content'>
+                <p>Have an account?</p>
+                <div id='btnHaveAccount' class='entrybutton'>
+                  Sign in
+                </div>
+              </div>
+            </div>
+            <div class='menu-cell menu-right'>
+              <div class='form-content'>
+                <p>Don't have an account?</p>
+                <div id='btnNoAccount' class='entrybutton'>
+                  Register
+                </div>
+              </div>
+            </div>
+
+            <div class='form-container'>
+              <div class='form form-signin'>
+                <div class='form-content'>
+                  <div id='divNameInput' class='input'>
+                    <div class='centerflex'>
+                      <input
+                        type='text'
+                        id='txtName'
+                        placeholder='display name'
+                      />
+                      <label class='fa fa-user'></label>
+                    </div>
+                  </div>
+                  <div class='input'>
+                    <div class='centerflex'>
+                      <input
+                        type='text'
+                        id='txtEmail'
+                        placeholder='email@domain.com'
+                      />
+                      <label class='fa fa-envelope'></label>
+                    </div>
+                  </div>
+                  <div class='input'>
+                    <div class='centerflex'>
+                      <input
+                        type='password'
+                        id='txtPassword'
+                        placeholder='password'
+                      />
+                      <label class='fa fa-lock'></label>
+                    </div>
+                  </div>
+                  <div id='btnSignin' class='button'></div>
+
+                  <div class='strike'>
+                    <span>OR</span>
+                  </div>
+
+                  <div>sign in using:</div>
+                  <div class='alternatelogins'>
+                    <div class='loginrow'>
+                      <label class='fa fa-github-square'>
+                        <FaFacebook />
+                      </label>
+
+                      <label class='fa fa-twitter-square'>
+                        <FaPinterest />
+                      </label>
+                      <label class='fa fa-google-plus-square'>
+                        <FaInstagram />
+                      </label>
+                      <label class='fa fa-facebook-square'>
+                        <FaTwitter />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      {/*
-      <div class="displaycontainer centerflex">
-  <div class="entry-menu">
-    <div class="menu-cell menu-left">
-      <div class="form-content">
-        <p>Have an account?</p>
-        <div id="btnHaveAccount" class="entrybutton">Sign in</div>
-        </div>
-    </div>
-    <div class="menu-cell menu-right">
-      <div class="form-content">
-        <p>Don't have an account?</p>
-        <div id="btnNoAccount" class="entrybutton">Register</div>
-      </div>
-    </div>
-    
-    <div class="form-container">
-    <div class="form form-signin">
-      <div class="form-content">
-        <div id="divNameInput" class="input">
-          <div class="centerflex">
-            <input type="text" id="txtName" placeholder="display name" />
-            <label class="fa fa-user"></label>
-          </div>
-        </div>
-        <div class="input">
-          <div class="centerflex">
-            <input type="text" id="txtEmail" placeholder="email@domain.com" />
-            <label class="fa fa-envelope"></label>
-          </div>
-        </div>
-        <div class="input">
-          <div class="centerflex">
-            <input type="password" id="txtPassword" placeholder="password" />
-            <label class="fa fa-lock"></label>
-          </div>
-        </div>
-        <div id="btnSignin" class="button"></div>
-        
-        <div class="strike"><span>OR</span></div>
-        
-        <div>sign in using:</div>
-        <div class="alternatelogins">
-          <div class="loginrow">
-            <label class="fa fa-github-square"></label>
-            <label class="fa fa-twitter-square"></label>
-            <label class="fa fa-google-plus-square"></label>
-            <label class="fa fa-facebook-square"></label>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-  </div>
-</div>
-      
-      */}
     </Wrapper>
   )
 }
@@ -233,20 +265,6 @@ const Wrapper = styled.section`
   }
 
   /* new*/
-  @import 'https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900';
-  html {
-    height: 100%;
-    width: 100%;
-  }
-
-  body {
-    background-color: #1e161f;
-    color: #fff;
-    font-family: Lato, sans-serif;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
 
   input {
     font-family: Lato, sans-serif;
@@ -260,6 +278,7 @@ const Wrapper = styled.section`
     display: block;
     height: 100%;
     width: 100%;
+    border: 2px solid red;
   }
 
   .centerflex {
@@ -275,20 +294,23 @@ const Wrapper = styled.section`
     margin: auto;
     overflow: auto;
     padding: 2em;
-    width: 700px;
-    height: 233.3333333333px;
+    width: 70%;
+    height: 400px;
+    border: 2px solid pink;
   }
   .entry-menu .menu-cell {
     display: block;
     text-align: center;
-    width: 350px;
-    height: 233.3333333333px;
+    width: 50%;
+    height: auto;
   }
   .entry-menu .menu-left {
     float: left;
+    border: 2px solid pink;
   }
   .entry-menu .menu-right {
     float: right;
+    border: 2px solid yellow;
   }
   .entry-menu .entrybutton {
     background-color: rgba(255, 255, 255, 0);
@@ -309,8 +331,8 @@ const Wrapper = styled.section`
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    width: 350px;
-    height: 233.3333333333px;
+    width: 400px;
+    height: 400px;
   }
 
   .form-container {
@@ -327,7 +349,7 @@ const Wrapper = styled.section`
     position: absolute;
     top: -60px;
     width: 350px;
-    height: 313.3333333333px;
+    height: 450px;
     transition: all 0.5s ease;
   }
   .form .input {

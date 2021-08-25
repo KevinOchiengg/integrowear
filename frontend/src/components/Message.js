@@ -8,8 +8,8 @@ export default function Message(props) {
       <div className='section-center'>
         <div className={`alert alert-${props.variant || 'info'}`}>
           <h4> {props.message}</h4>
-          <button className='btn'>
-            <Link to={props.url}>{props.buttonText}</Link>
+          <button className={`btn btn-${props.name}`}>
+            <Link to={`${props.url}`}>{props.buttonText}</Link>
           </button>
         </div>
       </div>
@@ -19,15 +19,15 @@ export default function Message(props) {
 
 const Wrapper = styled.section`
   .alert {
-    padding: 1rem;
-    border-radius: 0.5rem;
     text-align: center;
   }
-  .alert-info {
+  a {
     color: var(--clr-blue);
   }
   .btn {
+    padding: 0.5em 3em;
     font-size: 1rem;
+    margin-top: 0;
   }
   @media only screen and (min-width: 800px) {
     .btn {

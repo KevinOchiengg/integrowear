@@ -15,6 +15,7 @@ import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/productConstants'
 import MessageBox from '../components/Message'
 import Message from '../components/Message'
 import Loading from '../components/Loading'
+import ErrorMessage from '../components/ErrorMessage'
 
 const ProductDetailsPage = (props) => {
   const dispatch = useDispatch()
@@ -63,7 +64,7 @@ const ProductDetailsPage = (props) => {
       {loading ? (
         <Loading />
       ) : error ? (
-        <MessageBox variant='danger'>{error}</MessageBox>
+        <Message variant='danger'>{error}</Message>
       ) : (
         <>
           <div className='section-center'>
@@ -186,7 +187,7 @@ const ProductDetailsPage = (props) => {
             <div className='section-center'>
               <h4>Reviews</h4>
               {product.reviews.length === 0 && (
-                <MessageBox>There is no review</MessageBox>
+                <Message message='This Product has no review yet' name='hide' />
               )}
               <div className='reviews-product-row'>
                 {product.reviews.map((review) => (
@@ -275,10 +276,9 @@ const ProductDetailsPage = (props) => {
                       <div>
                         {loadingReviewCreate && <Loading />}
                         {errorReviewCreate && (
-                          <Message
-                            message='Please Login To give A Review'
-                            buttonText='Login'
-                            url='/login'
+                          <ErrorMessage
+                            message='Error Creating review'
+                            variant='danger'
                           />
                         )}
                       </div>
@@ -314,6 +314,9 @@ const Wrapper = styled.section`
   .rating {
     font-size: 1.2rem;
     justify-content: flex-start;
+  }
+  .btn-hide {
+    display: none;
   }
   .product-details-related-imgs {
     display: flex;
@@ -403,7 +406,7 @@ const Wrapper = styled.section`
   select {
     border: 1px solid var(--clr-light-grey);
     height: 3.5em;
-    width: 60%;
+    width: 100%;
   }
 
   .share-product-socail-area {
@@ -477,11 +480,6 @@ const Wrapper = styled.section`
     }
     .wish-list-btn-container a:first-child {
       margin-bottom: 0;
-    }
-
-    .row input,
-    .row textarea {
-      width: 60%;
     }
 
     .product-details-imgs-container {

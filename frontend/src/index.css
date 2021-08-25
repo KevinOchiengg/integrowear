@@ -86,6 +86,10 @@ p {
   color: var(--clr-grey);
 }
 
+.danger {
+  color: var(--clr-red);
+}
+
 p,
 li {
   font-size: 0.8em;
