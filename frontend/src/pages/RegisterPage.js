@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useLocation } from 'react-router-dom'
+import {
+  FaFacebook,
+  FaTwitter,
+  FaGoogle,
+  FaLock,
+  FaEnvelope,
+  FaRegUserCircle,
+  FaUser,
+} from 'react-icons/fa'
 import { register } from '../serviceWorker'
 import ErrorMessage from '../components/ErrorMessage'
-import LoadingBox from '../components/Loading'
+import Loading from '../components/Loading'
 import styled from 'styled-components'
 
 const RegisterPage = () => {
@@ -35,42 +44,86 @@ const RegisterPage = () => {
   }, [history, redirect, userInfo])
 
   return (
-    <Wrapper className='signin-page'>
-      <div className='account-page'>
-        <div className='form-container'>
-          <h3 className='form-title'>Register</h3>
-          <form onSubmit={submitHandler} className='reg-form '>
-            <input
-              type='text'
-              placeholder='Name'
-              required
-              onChange={(e) => setName(e.target.value)}
-            />
-            <input
-              type='email'
-              placeholder='Email'
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type='password'
-              placeholder='Password'
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <input
-              type='password'
-              placeholder='Confirm Password'
-              required
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            {loading && <LoadingBox />}
+    <Wrapper>
+      <div className='section-center'>
+        <div className='form'>
+          <div className='header'>
+            <FaRegUserCircle />
+            <h4>Register</h4>
+          </div>
+          <form onSubmit={submitHandler} className='form-content'>
+            <div className='field-container'>
+              <FaUser />
+
+              <input
+                type='text'
+                placeholder='Name'
+                required
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className='field-container'>
+              <FaEnvelope />
+
+              <input
+                type='email'
+                placeholder='email@domain.com'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className='field-container'>
+              <FaLock />
+              <input
+                type='password'
+                placeholder='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className='field-container'>
+              <FaLock />
+              <input
+                type='password'
+                placeholder='Confirm Password'
+                required
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+
+            {loading && <Loading />}
             {error && <ErrorMessage />}
             <button type='submit' className='btn'>
               Register
             </button>
-            <Link to={`/login`}>Have an account? Login</Link>
           </form>
+          <div className='strike'>
+            <span>OR</span>
+          </div>
+
+          <div className='sign-in-using'>
+            <h6>sign in using:</h6>
+          </div>
+          <div className='alternate-logins-cotainer'>
+            <Link to='/'>
+              <FaFacebook className='facebook' />
+            </Link>
+
+            <Link to='/' className='twitter'>
+              <FaTwitter />
+            </Link>
+            <Link to='/'>
+              <FaGoogle className='google' />
+            </Link>
+          </div>
+
+          <div className='register-text-container'>
+            <p>Have an account?</p>
+            <Link to='/login'>
+              <h6>Login</h6>
+            </Link>
+          </div>
         </div>
       </div>
     </Wrapper>
@@ -78,99 +131,144 @@ const RegisterPage = () => {
 }
 
 const Wrapper = styled.section`
-  margin-top: 6rem;
-
-  .account-page {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 94vh;
+  margin: 6rem 0;
+  color: var(--clr-light-yellow);
+  .btn {
+    width: 50%;
+    border: none;
+    margin: 0.8em auto;
+    outline: none;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: var(--clr-blue);
   }
 
-  .form-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background: var(--clr-light-yellow);
-    width: 500px;
-    height: auto;
-    padding: 40px 0;
-    margin: 0 20px;
+  .form-content {
+    text-align: center;
+    margin: 3em auto 0 auto;
+  }
+
+  .form {
+    background: var(--clr-blue);
+    border-radius: 4px;
     box-shadow: var(--dark-shadow);
+    padding: 0.5em;
+    width: 100%;
+    height: auto;
+    transition: var(--transition);
+    margin: 2em auto;
+  }
+  .field-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid var(--clr-dark-grey);
+    width: 70%;
+    margin: 1em auto;
   }
 
-  .form-title {
-    font-size: 2rem;
+  .field-container svg {
     color: var(--clr-dark-grey);
   }
-
-  .form-btn {
-    display: inline-block;
-  }
-
-  form {
-    max-width: 400px;
-    padding: 20px 20px;
-    transition: var(--transition);
+  svg {
+    margin-right: 10px;
   }
 
   input {
+    background: var(--clr-blue);
+    border-radius: none;
+    border: none;
+    color: var(--clr-white);
+    font-size: 1rem;
+    padding: 6px;
     width: 100%;
-    height: 30px;
-    margin: 10px 0;
-    padding: 0 10px;
-    background: none;
-    border: 1px solid var(--clr-light-grey);
-    letter-spacing: 2px;
-    &:focus {
-      outline: none;
-    }
   }
 
-  .btn {
-    width: 100%;
-    border: none;
-    cursor: pointer;
-    margin: 10px 0;
-    outline: none;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    color: var(--clr-blue);
-    &:focus {
-      outline: none;
-    }
+  .alternate-logins-cotainer {
+    display: flex;
+    margin-top: 1em;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .alternate-logins-cotainer svg {
+    font-size: 1.25rem;
+    color: var(--clr-light-yellow);
+    margin: 0 0.4em;
   }
 
-  .forgot-password {
-    font-size: 14px;
-    color: #8aabca;
+  .twitter:hover {
+    border-bottom: 3px solid #62aadc;
   }
-  .create-account {
-    margin: 10px 0;
-    cursor: pointer;
-    background: 0;
-    border: none;
-    font-size: 14px;
-    color: #8aabca;
+  .google:hover {
+    border-bottom: 3px solid #dd4b39;
   }
-  .form-title {
+  .facebook:hover {
+    border-bottom: 3px solid #3b5998;
+  }
+
+  .strike {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .strike > span {
+    position: relative;
+    display: inline-block;
+  }
+
+  .header h4 {
+    margin-top: 1em;
+  }
+
+  .header svg {
     font-size: 2rem;
-    color: var(--clr-dark-grey);
   }
 
+  .header svg,
+  h4 {
+    margin: 0 auto;
+  }
+
+  .strike > span:before,
+  .strike > span:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 525%;
+    height: 2px;
+    background: var(--clr-dark-grey);
+  }
+
+  .strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+  }
+
+  .strike > span:after {
+    left: 100%;
+    margin-left: 15px;
+  }
+
+  .sign-in-using h6 {
+    margin: 0 auto;
+    font-size: 1rem;
+  }
+  .register-text-container {
+    text-align: center;
+  }
+  .register-text-container h6 {
+    font-size: 1rem;
+    text-decoration: underline;
+    color: var(--clr-light-yellow);
+  }
   @media only screen and (min-width: 800px) {
-    .form-title {
-      font-size: 2.5rem;
-    }
-    .form-container {
-      margin: auto;
-    }
-    input {
-      height: 40px;
-      font-size: 16px;
+    .form {
+      width: 40%;
     }
   }
 `

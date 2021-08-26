@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useLocation } from 'react-router-dom'
-import Register from './RegisterPage'
 import styled from 'styled-components'
 import { signin } from '../actions/userActions'
-import LoadingBox from '../components/Loading'
+import Loading from '../components/Loading'
 import ErrorMessage from '../components/ErrorMessage'
 import {
   FaFacebook,
-  FaPinterest,
-  FaInstagram,
   FaTwitter,
-  FaPaperPlane,
+  FaGoogle,
+  FaLock,
+  FaEnvelope,
+  FaRegUserCircle,
 } from 'react-icons/fa'
 
 const LoginPage = () => {
-  const [loginForm] = useState(true)
   const [email, setEmail] = useState()
   const [password, setPassword] = useState('')
   const userSignin = useSelector((state) => state.userSignin)
@@ -47,121 +46,69 @@ const LoginPage = () => {
 
   return (
     <Wrapper>
-      <div className='account-page section-center'>
-        {/* <div className='form-container'>
-          <h4 className='form-title'>Login</h4>
+      <div className='section-center'>
+        <div className='form'>
+          <div className='header'>
+            <FaRegUserCircle />
+            <h4>Login</h4>
+          </div>
+          <form onSubmit={submitHandler} className='form-content'>
+            <div className='field-container'>
+              <FaEnvelope />
 
-          <form onSubmit={submitHandler} className='login-form '>
-            <input
-              type='email'
-              placeholder='E-mail'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type='password'
-              placeholder='Password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+              <input
+                type='email'
+                placeholder='email@domain.com'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-            {loading && <LoadingBox />}
-            {error && <ErrorMessage />}
-            <button type='submit' className='btn '>
-              Login
-            </button>
-            <div>
-              <Link to='' className='forgot-password'>
-                Forgot password? Reset
+            <div className='field-container'>
+              <FaLock />
+              <input
+                type='password'
+                placeholder='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className='forgot-password'>
+              <Link to='/'>
+                <p>Forgot password</p>
               </Link>
             </div>
-
-            <Link to={`/register?redirect=${redirect}`}>
-              Dont have an account? Create One
-            </Link>
+            {loading && <Loading />}
+            {error && <ErrorMessage />}
+            <button type='submit' className='btn'>
+              Login
+            </button>
           </form>
-          {loginForm ? null : <Register />}
-        </div> */}
-        {/*Another one */}
-        <div class='displaycontainer centerflex'>
-          <div class='entry-menu'>
-            <div class='menu-cell menu-left'>
-              <div class='form-content'>
-                <p>Have an account?</p>
-                <div id='btnHaveAccount' class='entrybutton'>
-                  Sign in
-                </div>
-              </div>
-            </div>
-            <div class='menu-cell menu-right'>
-              <div class='form-content'>
-                <p>Don't have an account?</p>
-                <div id='btnNoAccount' class='entrybutton'>
-                  Register
-                </div>
-              </div>
-            </div>
+          <div className='strike'>
+            <span>OR</span>
+          </div>
 
-            <div class='form-container'>
-              <div class='form form-signin'>
-                <div class='form-content'>
-                  <div id='divNameInput' class='input'>
-                    <div class='centerflex'>
-                      <input
-                        type='text'
-                        id='txtName'
-                        placeholder='display name'
-                      />
-                      <label class='fa fa-user'></label>
-                    </div>
-                  </div>
-                  <div class='input'>
-                    <div class='centerflex'>
-                      <input
-                        type='text'
-                        id='txtEmail'
-                        placeholder='email@domain.com'
-                      />
-                      <label class='fa fa-envelope'></label>
-                    </div>
-                  </div>
-                  <div class='input'>
-                    <div class='centerflex'>
-                      <input
-                        type='password'
-                        id='txtPassword'
-                        placeholder='password'
-                      />
-                      <label class='fa fa-lock'></label>
-                    </div>
-                  </div>
-                  <div id='btnSignin' class='button'></div>
+          <div className='sign-in-using'>
+            <h6>sign in using:</h6>
+          </div>
+          <div className='alternate-logins-cotainer'>
+            <Link to='/'>
+              <FaFacebook className='facebook' />
+            </Link>
 
-                  <div class='strike'>
-                    <span>OR</span>
-                  </div>
+            <Link to='/' className='twitter'>
+              <FaTwitter />
+            </Link>
+            <Link to='/'>
+              <FaGoogle className='google' />
+            </Link>
+          </div>
 
-                  <div>sign in using:</div>
-                  <div class='alternatelogins'>
-                    <div class='loginrow'>
-                      <label class='fa fa-github-square'>
-                        <FaFacebook />
-                      </label>
-
-                      <label class='fa fa-twitter-square'>
-                        <FaPinterest />
-                      </label>
-                      <label class='fa fa-google-plus-square'>
-                        <FaInstagram />
-                      </label>
-                      <label class='fa fa-facebook-square'>
-                        <FaTwitter />
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className='register-text-container'>
+            <p>Don't have an account?</p>
+            <Link to={`/register?redirect=${redirect}`}>
+              <h6>Register</h6>
+            </Link>
           </div>
         </div>
       </div>
@@ -170,296 +117,84 @@ const LoginPage = () => {
 }
 
 const Wrapper = styled.section`
-  margin-top: 6rem;
-
-  .account-page {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 94vh;
-  }
-
-  .form-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background: var(--clr-light-yellow);
-    width: 500px;
-    height: auto;
-    padding: 40px 0;
-    margin: 0 20px;
-    box-shadow: var(--dark-shadow);
-  }
-
-  .form-btn {
-    display: inline-block;
-  }
-
-  form {
-    max-width: 400px;
-    padding: 20px;
-    transition: var(--transition);
-  }
-
-  input {
-    width: 100%;
-    height: 30px;
-    margin: 10px 0;
-    padding: 0 10px;
-    background: none;
-    border: 1px solid var(--clr-light-grey);
-    letter-spacing: 2px;
-    &:focus {
-      outline: none;
-    }
-  }
-
+  margin: 6rem 0;
+  color: var(--clr-light-yellow);
   .btn {
-    width: 100%;
+    width: 50%;
     border: none;
-    cursor: pointer;
-    margin: 10px 0;
+    margin: 0.8em auto;
     outline: none;
-    font-size: 1.2rem;
+    font-size: 1rem;
     letter-spacing: 2px;
     color: var(--clr-blue);
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .forgot-password {
-    font-size: 15px;
-    margin-bottom: 10px;
-    color: #8aabca;
-  }
-  .create-account {
-    margin: 10px 0;
-    cursor: pointer;
-    background: 0;
-    border: none;
-    font-size: 14px;
-    color: #8aabca;
-  }
-
-  a {
-    font-size: 15px;
-    margin: 14px 0;
-    letter-spacing: 2px;
-  }
-
-  @media only screen and (min-width: 800px) {
-    .form-title {
-      font-size: 2.5rem;
-    }
-    .form-container {
-      margin: auto;
-    }
-    input {
-      height: 40px;
-      font-size: 16px;
-    }
-  }
-
-  /* new*/
-
-  input {
-    font-family: Lato, sans-serif;
-  }
-  input:focus,
-  input:active {
-    outline: none;
-  }
-
-  .displaycontainer {
-    display: block;
-    height: 100%;
-    width: 100%;
-    border: 2px solid red;
-  }
-
-  .centerflex {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-  }
-
-  .entry-menu {
-    background-color: #3e363f;
-    border-radius: 4px;
-    display: flex;
-    margin: auto;
-    overflow: auto;
-    padding: 2em;
-    width: 70%;
-    height: 400px;
-    border: 2px solid pink;
-  }
-  .entry-menu .menu-cell {
-    display: block;
-    text-align: center;
-    width: 50%;
-    height: auto;
-  }
-  .entry-menu .menu-left {
-    float: left;
-    border: 2px solid pink;
-  }
-  .entry-menu .menu-right {
-    float: right;
-    border: 2px solid yellow;
-  }
-  .entry-menu .entrybutton {
-    background-color: rgba(255, 255, 255, 0);
-    border: 1px solid #fff;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 14pt;
-    padding: 16px;
-    width: 80px;
-    transition: background-color 0.2s linear;
-  }
-  .entry-menu .entrybutton:hover {
-    background-color: rgba(255, 255, 255, 0.25);
   }
 
   .form-content {
-    display: table-cell;
     text-align: center;
-    vertical-align: middle;
-    width: 400px;
-    height: 400px;
-  }
-
-  .form-container {
-    position: absolute;
+    margin: 3em auto 0 auto;
   }
 
   .form {
-    background-color: #3e363f;
-    border: 2px solid #514a50;
+    background: var(--clr-blue);
     border-radius: 4px;
-    box-shadow: 5px 5px 5px #1e161f;
-    color: #fff;
-    padding: 20px;
-    position: absolute;
-    top: -60px;
-    width: 350px;
-    height: 450px;
-    transition: all 0.5s ease;
+    box-shadow: var(--dark-shadow);
+    padding: 0.5em;
+    width: 100%;
+    height: auto;
+    transition: var(--transition);
+    margin: 2em auto;
   }
-  .form .input {
-    border-bottom: 2px solid #514a50;
-    display: inline-block;
-    margin-bottom: 8px;
-  }
-  .form .input div {
+  .field-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid var(--clr-dark-grey);
+    width: 70%;
+    margin: 1em auto;
   }
-  .form .input div label:last-child {
-    margin-right: 4px;
-    order: -1;
+
+  svg {
+    margin-right: 10px;
   }
-  .form .input label {
-    opacity: 0.2;
-    transition: opacity 0.2s ease;
-  }
-  .form input[type='text'],
-  .form input[type='password'] {
-    background-color: #3e363f;
+
+  input[type='email'],
+  input[type='password'] {
+    background: var(--clr-blue);
+    border-radius: none;
     border: none;
-    color: #fff;
-    font-size: 12pt;
+    color: var(--clr-white);
+    font-size: 1rem;
     padding: 6px;
-    width: 250px;
-  }
-  .form input[type='text']:focus ~ label,
-  .form input[type='password']:focus ~ label {
-    opacity: 1;
-  }
-  .form .button {
-    background-color: #dd403a;
-    border: 1px solid #3e363f;
-    border-radius: 4px;
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 12px;
-    padding: 8px 16px 8px 16px;
-    width: 250px;
-    transition: all 0.2s ease;
-  }
-  .form .button:hover {
-    border: 1px solid #fff;
-  }
-
-  #divNameInput {
-    position: relative;
-    left: 0px;
-    transition: all 0.5s ease;
-  }
-
-  .form-signin {
-    left: 0px;
-  }
-  .form-signin #divNameInput {
-    opacity: 0;
-    left: 350px;
-  }
-  .form-signin .button:before {
-    content: 'Sign in';
-  }
-
-  .form-register {
-    left: 310px;
-  }
-  .form-register #divNameInput {
-    opacity: 1;
-  }
-  .form-register .button:before {
-    content: 'Register';
-  }
-
-  .alternatelogins {
-    border-radius: 4px;
-    display: block;
-    justify-content: space-between;
-    font-size: 32pt;
-    margin: auto;
-    margin-top: 12px;
-    padding: 8px;
-    width: 60%;
-  }
-  .alternatelogins .loginrow {
-    display: flex;
-    justify-content: space-between;
     width: 100%;
   }
-  .alternatelogins label {
-    background: transparent;
-    border-bottom: 4px solid #3e363f;
-    cursor: pointer;
-    padding-bottom: 2px;
-    transition: all 0.2s ease;
+
+  .alternate-logins-cotainer {
+    display: flex;
+    margin-top: 1em;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
-  .alternatelogins .loginline {
-    width: 0.9em;
-    height: 0.9em;
+  .alternate-logins-cotainer svg {
+    font-size: 1.25rem;
+    color: var(--clr-light-yellow);
+    margin: 0 0.4em;
   }
-  .alternatelogins label.fa-github-square:hover {
-    border-bottom: 4px solid #000;
+  .forgot-password {
+    margin-top: 2em;
   }
-  .alternatelogins label.fa-twitter-square:hover {
-    border-bottom: 4px solid #62aadc;
+
+  .forgot-password a {
+    color: var(--clr-light-yellow);
   }
-  .alternatelogins label.fa-google-plus-square:hover {
-    border-bottom: 4px solid #dd4b39;
+  .twitter:hover {
+    border-bottom: 3px solid #62aadc;
   }
-  .alternatelogins label.fa-facebook-square:hover {
-    border-bottom: 4px solid #3b5998;
+  .google:hover {
+    border-bottom: 3px solid #dd4b39;
+  }
+  .facebook:hover {
+    border-bottom: 3px solid #3b5998;
   }
 
   .strike {
@@ -476,14 +211,27 @@ const Wrapper = styled.section`
     display: inline-block;
   }
 
+  .header h4 {
+    margin-top: 1em;
+  }
+
+  .header svg {
+    font-size: 2rem;
+  }
+
+  .header svg,
+  h4 {
+    margin: 0 auto;
+  }
+
   .strike > span:before,
   .strike > span:after {
     content: '';
     position: absolute;
     top: 50%;
-    width: 9999px;
+    width: 525%;
     height: 2px;
-    background: #514a50;
+    background: var(--clr-dark-grey);
   }
 
   .strike > span:before {
@@ -494,6 +242,24 @@ const Wrapper = styled.section`
   .strike > span:after {
     left: 100%;
     margin-left: 15px;
+  }
+
+  .sign-in-using h6 {
+    margin: 0 auto;
+    font-size: 1rem;
+  }
+  .register-text-container {
+    text-align: center;
+  }
+  .register-text-container h6 {
+    font-size: 1rem;
+    text-decoration: underline;
+    color: var(--clr-light-yellow);
+  }
+  @media only screen and (min-width: 800px) {
+    .form {
+      width: 40%;
+    }
   }
 `
 
