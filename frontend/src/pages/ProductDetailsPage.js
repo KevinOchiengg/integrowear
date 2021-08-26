@@ -201,7 +201,10 @@ const ProductDetailsPage = (props) => {
                     </div>
                     <div className='review_details'>
                       <div className='review_info '>
-                        <Rating rating={review.rating} caption=''></Rating>
+                        <Rating
+                          rating={product.rating}
+                          numReviews={product.numReviews}
+                        ></Rating>
                         <h5>
                           {review.name} -
                           <span> {review.createdAt.substring(0, 10)}</span>
