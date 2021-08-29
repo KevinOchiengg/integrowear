@@ -58,8 +58,9 @@ const SigninPage = () => {
 
               <input
                 type='email'
-                placeholder='email@domain.com'
-                value={email}
+                id='email'
+                placeholder='Enter email'
+                required
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -68,10 +69,11 @@ const SigninPage = () => {
               <FaLock />
               <input
                 type='password'
-                placeholder='password'
-                value={password}
+                id='password'
+                placeholder='Enter password'
+                required
                 onChange={(e) => setPassword(e.target.value)}
-              />
+              ></input>
             </div>
             <div className='forgot-password'>
               <Link to='/'>
@@ -81,7 +83,7 @@ const SigninPage = () => {
             {loading && <Loading />}
             {error && <ErrorMessage />}
             <button type='submit' className='btn'>
-              Login
+              Sign In
             </button>
           </form>
           <div className='strike'>

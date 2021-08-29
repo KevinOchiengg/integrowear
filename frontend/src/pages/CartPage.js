@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { addToCart, removeFromCart } from '../actions/cartActions'
 import Message from '../components/Message'
-import EmptyCart from '../components/EmptyCart'
 import Rating from '../components/Rating'
 
 export default function CartPage(props) {
   const productId = props.match.params.id
+
   const qty = props.location.search
     ? Number(props.location.search.split('=')[1])
     : 1
@@ -115,13 +115,13 @@ export default function CartPage(props) {
                     </tr>
                   </tbody>
                 </table>
-                <button
+                <Link
+                  to='/signin?redirect=shipping'
                   className='checkout-btn btn'
                   disabled={cartItems.length === 0}
-                  onClick={checkoutHandler}
                 >
                   Proceed to Checkout &#8594;
-                </button>
+                </Link>
               </div>
             </>
           )}
