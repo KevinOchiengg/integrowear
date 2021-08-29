@@ -107,6 +107,7 @@ const Footer = () => {
 
       <hr />
       <footer className='footer-bottom'>
+        {userInfo && !userInfo.isAdmin && <ChatBox userInfo={userInfo} />}
         <div className='section-center'>
           <div>
             <p className='copyright'>

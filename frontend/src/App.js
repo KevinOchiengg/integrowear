@@ -2,31 +2,31 @@ import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import AdminRoute from './components/AdminRoute'
 import PrivateRoute from './components/PrivateRoute'
-import CartScreen from './pages/CartPage'
-import HomeScreen from './pages/HomePage'
-import OrderHistoryScreen from './pages/OrderHistoryPage'
-import OrderScreen from './pages/OrderPage'
-import PaymentMethodScreen from './pages/PaymentMethodPage'
-import PlaceOrderScreen from './pages/PlaceOrderPage'
-import ProductListScreen from './pages/ProductListPage'
-import ProfileScreen from './pages/ProfilePage'
-import ShippingAddressScreen from './pages/ShippingAddressPage'
-import ProductEditScreen from './pages/ProductEditPage'
-import OrderListScreen from './pages/OrderListPage'
-import UserListScreen from './pages/UserListPage'
-import UserEditScreen from './pages/UserEditPage'
 import SellerRoute from './components/SellerRoute'
-import SellerScreen from './pages/SellerPage'
-import MapScreen from './pages/MapPage'
-import DashboardScreen from './pages/DashboardPage'
-import SupportScreen from './pages/SupportPage'
 import Footer from './components/Footer'
 import NavigationBar from './components/NavigationBar'
 import { AppProvider } from './context'
-import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ProductDetails from './pages/ProductDetailsPage'
 import ProductsPage from './pages/ProductsPage'
+import OrderListPage from './pages/OrderListPage'
+import HomePage from './pages/HomePage'
+import ProductListPage from './pages/ProductListPage'
+import SupportPage from './pages/SupportPage'
+import DashboardPage from './pages/DashboardPage'
+import UserEditPage from './pages/UserEditPage'
+import UserListPage from './pages/UserListPage'
+import MapPage from './pages/MapPage'
+import ProfilePage from './pages/ProfilePage'
+import ProductEditPage from './pages/ProductEditPage'
+import SellerPage from './pages/SellerPage'
+import CartPage from './pages/CartPage'
+import ShippingAddressPage from './pages/ShippingAddressPage'
+import PaymentMethodPage from './pages/PaymentMethodPage'
+import PlaceOrderPage from './pages/PlaceOrderPage'
+import OrderPage from './pages/OrderPage'
+import OrderHistoryPage from './pages/OrderHistoryPage'
+import SigninPage from './pages/SigninPage'
 
 function App() {
   return (
@@ -36,25 +36,25 @@ function App() {
           <AppProvider>
             <NavigationBar />
           </AppProvider>
-          <Route path='/seller/:id' component={SellerScreen}></Route>
-          <Route path='/cart/:id?' component={CartScreen}></Route>
+          <Route path='/seller/:id' component={SellerPage}></Route>
+          <Route path='/cart/:id?' component={CartPage}></Route>
 
           <Route path='/product/:id' component={ProductDetails} exact></Route>
           <Route path='/products' component={ProductsPage} exact></Route>
 
           <Route
             path='/product/:id/edit'
-            component={ProductEditScreen}
+            component={ProductEditPage}
             exact
           ></Route>
 
-          <Route path='/login' component={LoginPage}></Route>
+          <Route path='/signin' component={SigninPage}></Route>
           <Route path='/register' component={RegisterPage}></Route>
-          <Route path='/shipping' component={ShippingAddressScreen}></Route>
-          <Route path='/payment' component={PaymentMethodScreen}></Route>
-          <Route path='/placeorder' component={PlaceOrderScreen}></Route>
-          <Route path='/order/:id' component={OrderScreen}></Route>
-          <Route path='/orderhistory' component={OrderHistoryScreen}></Route>
+          <Route path='/shipping' component={ShippingAddressPage}></Route>
+          <Route path='/payment' component={PaymentMethodPage}></Route>
+          <Route path='/placeorder' component={PlaceOrderPage}></Route>
+          <Route path='/order/:id' component={OrderPage}></Route>
+          <Route path='/orderhistory' component={OrderHistoryPage}></Route>
           <Route
             path='/search/name/:name?'
             component={ProductsPage}
@@ -75,48 +75,42 @@ function App() {
             component={ProductsPage}
             exact
           ></Route>
-          <PrivateRoute
-            path='/profile'
-            component={ProfileScreen}
-          ></PrivateRoute>
-          <PrivateRoute path='/map' component={MapScreen}></PrivateRoute>
+          <PrivateRoute path='/profile' component={ProfilePage}></PrivateRoute>
+          <PrivateRoute path='/map' component={MapPage}></PrivateRoute>
           <AdminRoute
             path='/productlist'
-            component={ProductListScreen}
+            component={ProductListPage}
             exact
           ></AdminRoute>
           <AdminRoute
             path='/productlist/pageNumber/:pageNumber'
-            component={ProductListScreen}
+            component={ProductListPage}
             exact
           ></AdminRoute>
           <AdminRoute
             path='/orderlist'
-            component={OrderListScreen}
+            component={OrderListPage}
             exact
           ></AdminRoute>
-          <AdminRoute path='/userlist' component={UserListScreen}></AdminRoute>
+          <AdminRoute path='/userlist' component={UserListPage}></AdminRoute>
           <AdminRoute
             path='/user/:id/edit'
-            component={UserEditScreen}
+            component={UserEditPage}
           ></AdminRoute>
 
-          <AdminRoute
-            path='/dashboard'
-            component={DashboardScreen}
-          ></AdminRoute>
-          <AdminRoute path='/support' component={SupportScreen}></AdminRoute>
+          <AdminRoute path='/dashboard' component={DashboardPage}></AdminRoute>
+          <AdminRoute path='/support' component={SupportPage}></AdminRoute>
 
           <SellerRoute
             path='/productlist/seller'
-            component={ProductListScreen}
+            component={ProductListPage}
           ></SellerRoute>
           <SellerRoute
             path='/orderlist/seller'
-            component={OrderListScreen}
+            component={OrderListPage}
           ></SellerRoute>
 
-          <Route path='/' component={HomeScreen} exact></Route>
+          <Route path='/' component={HomePage} exact></Route>
           <Footer />
         </main>
       </div>

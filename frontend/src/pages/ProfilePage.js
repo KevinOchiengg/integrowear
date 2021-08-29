@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { detailsUser, updateUserProfile } from '../actions/userActions'
-import LoadingBox from '../components/Loading'
+import Loading from '../components/Loading'
 import MessageBox from '../components/Message'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
@@ -67,12 +67,12 @@ export default function ProfilePage() {
             <h3 className='title'>User Profile</h3>
           </div>
           {loading ? (
-            <LoadingBox></LoadingBox>
+            <Loading />
           ) : error ? (
             <MessageBox variant='danger'>{error}</MessageBox>
           ) : (
             <>
-              {loadingUpdate && <LoadingBox></LoadingBox>}
+              {loadingUpdate && <Loading />}
               {errorUpdate && (
                 <MessageBox variant='danger'>{errorUpdate}</MessageBox>
               )}

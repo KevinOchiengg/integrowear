@@ -71,7 +71,7 @@ export default function ShippingAddressPage(props) {
         <CheckoutSteps step1 step2></CheckoutSteps>
         <form className='form' onSubmit={submitHandler}>
           <div>
-            <h1>Shipping Address</h1>
+            <h3 className='title'>Shipping Address</h3>
           </div>
           <div>
             <label htmlFor='fullName'>Full Name</label>
@@ -130,13 +130,12 @@ export default function ShippingAddressPage(props) {
           </div>
           <div>
             <label htmlFor='chooseOnMap'>Location</label>
-            <button type='button' onClick={chooseOnMap}>
+            <button type='button' className='primary' onClick={chooseOnMap}>
               Choose On Map
             </button>
           </div>
           <div>
-            <label />
-            <button className='primary' type='submit'>
+            <button className='btn primary' type='submit'>
               Continue
             </button>
           </div>
@@ -146,14 +145,44 @@ export default function ShippingAddressPage(props) {
   )
 }
 const Wrapper = styled.section`
-  .section-center {
-    margin: 66em 0;
-    height: 100vh;
-    background: blue;
-    border: 2px solid red;
+  margin: 6em 0;
+  color: var(--clr-grey);
+
+  .form {
+    margin: 0 auto;
+    width: 100%;
   }
 
-  h1 {
-    font-size: 66rem;
+  label {
+    margin-bottom: 0.5rem;
+  }
+  input {
+    border: 1px solid var(--clr-light-grey);
+    height: 3.5em;
+  }
+
+  .title {
+    margin-bottom: 0;
+  }
+
+  .checkbox-container {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .primary {
+    color: var(--clr-blue);
+    font-size: 1rem;
+  }
+
+  @media screen and (min-width: 800px) {
+    .form {
+      width: 60%;
+    }
+
+    .checkbox {
+      height: 1.5em;
+      width: 1.5em;
+    }
   }
 `

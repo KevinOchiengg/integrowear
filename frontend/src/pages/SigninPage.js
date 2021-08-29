@@ -14,7 +14,7 @@ import {
   FaRegUserCircle,
 } from 'react-icons/fa'
 
-const LoginPage = () => {
+const SigninPage = () => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState('')
   const userSignin = useSelector((state) => state.userSignin)
@@ -263,4 +263,4 @@ const Wrapper = styled.section`
   }
 `
 
-export default LoginPage
+export default SigninPage

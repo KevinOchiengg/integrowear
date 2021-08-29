@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 import { createOrder } from '../actions/orderActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { ORDER_CREATE_RESET } from '../constants/orderConstants'
-import LoadingBox from '../components/Loading'
+import Loading from '../components/Loading'
 import MessageBox from '../components/Message'
+import styled from 'styled-components'
 
 export default function PlaceOrderPage(props) {
   const cart = useSelector((state) => state.cart)
@@ -32,111 +33,168 @@ export default function PlaceOrderPage(props) {
     }
   }, [dispatch, order, props.history, success])
   return (
-    <div>
-      <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
-      <div className='row top'>
-        <div className='col-2'>
-          <ul>
-            <li>
-              <div className='card card-body'>
-                <h2>Shipping</h2>
-                <p>
-                  <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
-                  <strong>Address: </strong> {cart.shippingAddress.address},
-                  {cart.shippingAddress.city}, {cart.shippingAddress.postalCode}
-                  ,{cart.shippingAddress.country}
-                </p>
-              </div>
-            </li>
-            <li>
-              <div className='card card-body'>
-                <h2>Payment</h2>
-                <p>
-                  <strong>Method:</strong> {cart.paymentMethod}
-                </p>
-              </div>
-            </li>
-            <li>
-              <div className='card card-body'>
-                <h2>Order Items</h2>
-                <ul>
-                  {cart.cartItems.map((item) => (
-                    <li key={item.product}>
-                      <div className='row'>
-                        <div>
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            className='small'
-                          ></img>
-                        </div>
-                        <div className='min-30'>
-                          <Link to={`/product/${item.product}`}>
-                            {item.name}
-                          </Link>
-                        </div>
-
-                        <div>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div className='col-1'>
-          <div className='card card-body'>
+    <Wrapper>
+      <div className='section-center'>
+        <CheckoutSteps step1 step2 step3 step4 />
+        <div className='row top'>
+          <div className='col-2'>
             <ul>
               <li>
-                <h2>Order Summary</h2>
-              </li>
-              <li>
-                <div className='row'>
-                  <div>Items</div>
-                  <div>${cart.itemsPrice.toFixed(2)}</div>
+                <div className='card card-body'>
+                  <h3>Shipping</h3>
+                  <p>
+                    <strong>Name:</strong> {cart.shippingAddress.fullName}{' '}
+                    <br />
+                    <strong>Address: </strong> {cart.shippingAddress.address},
+                    {cart.shippingAddress.city},{' '}
+                    {cart.shippingAddress.postalCode},
+                    {cart.shippingAddress.country}
+                  </p>
                 </div>
               </li>
               <li>
-                <div className='row'>
-                  <div>Shipping</div>
-                  <div>${cart.shippingPrice.toFixed(2)}</div>
+                <div className='card card-body'>
+                  <h2>Payment</h2>
+                  <p>
+                    <strong>Method:</strong> {cart.paymentMethod}
+                  </p>
                 </div>
               </li>
               <li>
-                <div className='row'>
-                  <div>Tax</div>
-                  <div>${cart.taxPrice.toFixed(2)}</div>
+                <div className='card card-body'>
+                  <h2>Order Items</h2>
+                  <ul>
+                    {cart.cartItems.map((item) => (
+                      <li key={item.product}>
+                        <div className='row'>
+                          <div>
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className='small'
+                            ></img>
+                          </div>
+                          <div className='min-30'>
+                            <Link to={`/product/${item.product}`}>
+                              {item.name}
+                            </Link>
+                          </div>
+
+                          <div>
+                            {item.qty} x ${item.price} = $
+                            {item.qty * item.price}
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </li>
-              <li>
-                <div className='row'>
-                  <div>
-                    <strong> Order Total</strong>
-                  </div>
-                  <div>
-                    <strong>${cart.totalPrice.toFixed(2)}</strong>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <button
-                  type='button'
-                  onClick={placeOrderHandler}
-                  className='primary block'
-                  disabled={cart.cartItems.length === 0}
-                >
-                  Place Order
-                </button>
-              </li>
-              {loading && <LoadingBox></LoadingBox>}
-              {error && <MessageBox variant='danger'>{error}</MessageBox>}
             </ul>
+          </div>
+          <div className='col-1'>
+            <div className='card card-body'>
+              <ul>
+                <li>
+                  <h2>Order Summary</h2>
+                </li>
+                <li>
+                  <div className='row'>
+                    <div>Items</div>
+                    <div>${cart.itemsPrice.toFixed(2)}</div>
+                  </div>
+                </li>
+                <li>
+                  <div className='row'>
+                    <div>Shipping</div>
+                    <div>${cart.shippingPrice.toFixed(2)}</div>
+                  </div>
+                </li>
+                <li>
+                  <div className='row'>
+                    <div>Tax</div>
+                    <div>${cart.taxPrice.toFixed(2)}</div>
+                  </div>
+                </li>
+                <li>
+                  <div className='row'>
+                    <div>
+                      <strong> Order Total</strong>
+                    </div>
+                    <div>
+                      <strong>${cart.totalPrice.toFixed(2)}</strong>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <button
+                    type='button'
+                    onClick={placeOrderHandler}
+                    className='primary btn block'
+                    disabled={cart.cartItems.length === 0}
+                  >
+                    Place Order
+                  </button>
+                </li>
+                {loading && <Loading />}
+                {error && <MessageBox variant='danger'>{error}</MessageBox>}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Wrapper>
   )
 }
+const Wrapper = styled.section`
+  margin: 6em 0;
+  .card {
+    border: 0.1rem #c0c0c0 solid;
+    background-color: #f8f8f8;
+    border-radius: 0.5rem;
+    margin: 1rem;
+  }
+  .card-body {
+    padding: 1rem;
+  }
+  .card-body > * {
+    margin-bottom: 0.5rem;
+  }
+  .price {
+    font-size: 2rem;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .row.center {
+    justify-content: center;
+  }
+  .row.top {
+    align-items: flex-start;
+  }
+  .row.start {
+    justify-content: flex-start;
+  }
+  .col-1 {
+    flex: 1 1 25rem;
+  }
+  .col-2 {
+    flex: 2 1 50rem;
+  }
+  .col-3 {
+    flex: 32 1 75rem;
+  }
+  .min-30 {
+    min-width: 30rem;
+  }
+  .p-1 {
+    padding: 1rem;
+  }
+  img.small {
+    max-width: 5rem;
+    width: 100%;
+  }
+`

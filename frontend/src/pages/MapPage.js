@@ -5,7 +5,7 @@ import {
   StandaloneSearchBox,
   Marker,
 } from '@react-google-maps/api'
-import LoadingBox from '../components/Loading'
+import Loading from '../components/Loading'
 import Axios from 'axios'
 import { USER_ADDRESS_MAP_CONFIRM } from '../constants/userConstants'
 import { useDispatch } from 'react-redux'
@@ -110,7 +110,7 @@ export default function MapPage(props) {
           >
             <div className='map-input-box'>
               <input type='text' placeholder='Enter your address'></input>
-              <button type='button' className='primary' onClick={onConfirm}>
+              <button type='button' className='btn primary' onClick={onConfirm}>
                 Confirm
               </button>
             </div>
@@ -120,7 +120,7 @@ export default function MapPage(props) {
       </LoadScript>
     </Wrapper>
   ) : (
-    <LoadingBox></LoadingBox>
+    <Loading />
   )
 }
 

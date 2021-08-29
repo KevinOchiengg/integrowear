@@ -27,7 +27,7 @@ export default function CartPage(props) {
   }
 
   const checkoutHandler = () => {
-    props.history.push('/login?redirect=shipping')
+    props.history.push('/signin?redirect=shipping')
   }
   return (
     <Wrapper>

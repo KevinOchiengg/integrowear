@@ -129,7 +129,7 @@ const Navbar = (props) => {
               <button className='btn login-btn'>Logout</button>
             </Link>
           ) : (
-            <Link to={'/login'}>
+            <Link to={'/signin'}>
               <button className='btn logout-btn'>Login</button>
             </Link>
           )}

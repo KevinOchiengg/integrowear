@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { deliverOrder, detailsOrder, payOrder } from '../actions/orderActions'
-import LoadingBox from '../components/Loading'
-import MessageBox from '../components/Message'
+import Loading from '../components/Loading'
+import Message from '../components/Message'
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
@@ -69,19 +69,21 @@ export default function OrderPage(props) {
   }
 
   return loading ? (
-    <LoadingBox></LoadingBox>
+    <Loading />
   ) : error ? (
-    <MessageBox variant='danger'>{error}</MessageBox>
+    <Message message='Error ocurred' variant='danger'>
+      {error}
+    </Message>
   ) : (
     <Wrapper>
       <div className='section-center'>
-        <h1>Order {order._id}</h1>
+        <h3>Order {order._id}</h3>
         <div className='row top'>
           <div className='col-2'>
             <ul>
               <li>
                 <div className='card card-body'>
-                  <h2>Shippring</h2>
+                  <h3>Shippring</h3>
                   <p>
                     <strong>Name:</strong> {order.shippingAddress.fullName}
                     <br />
@@ -91,32 +93,30 @@ export default function OrderPage(props) {
                     {order.shippingAddress.country}
                   </p>
                   {order.isDelivered ? (
-                    <MessageBox variant='success'>
+                    <Message messsage='paid' variant='success'>
                       Delivered at {order.deliveredAt}
-                    </MessageBox>
+                    </Message>
                   ) : (
-                    <MessageBox variant='danger'>Not Delivered</MessageBox>
+                    <Message variant='danger'>Not Delivered</Message>
                   )}
                 </div>
               </li>
               <li>
                 <div className='card card-body'>
-                  <h2>Payment</h2>
+                  <h3>Payment</h3>
                   <p>
                     <strong>Method:</strong> {order.paymentMethod}
                   </p>
                   {order.isPaid ? (
-                    <MessageBox variant='success'>
-                      Paid at {order.paidAt}
-                    </MessageBox>
+                    <Message variant='success'>Paid at {order.paidAt}</Message>
                   ) : (
-                    <MessageBox variant='danger'>Not Paid</MessageBox>
+                    <Message variant='danger'>Not Paid</Message>
                   )}
                 </div>
               </li>
               <li>
                 <div className='card card-body'>
-                  <h2>Order Items</h2>
+                  <h3>Order Items</h3>
                   <ul>
                     {order.orderItems.map((item) => (
                       <li key={item.product}>
@@ -183,27 +183,27 @@ export default function OrderPage(props) {
                 {!order.isPaid && (
                   <li>
                     {!sdkReady ? (
-                      <LoadingBox></LoadingBox>
+                      <Loading />
                     ) : (
                       <>
                         {errorPay && (
-                          <MessageBox variant='danger'>{errorPay}</MessageBox>
+                          <Message variant='danger'>{errorPay}</Message>
                         )}
-                        {loadingPay && <LoadingBox></LoadingBox>}
+                        {loadingPay && <Loading />}
 
                         <PayPalButton
                           amount={order.totalPrice}
                           onSuccess={successPaymentHandler}
-                        ></PayPalButton>
+                        />
                       </>
                     )}
                   </li>
                 )}
                 {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                   <li>
-                    {loadingDeliver && <LoadingBox></LoadingBox>}
+                    {loadingDeliver && <Loading />}
                     {errorDeliver && (
-                      <MessageBox variant='danger'>{errorDeliver}</MessageBox>
+                      <Message variant='danger'>{errorDeliver}</Message>
                     )}
                     <button
                       type='button'
@@ -224,14 +224,54 @@ export default function OrderPage(props) {
 }
 
 const Wrapper = styled.section`
-  .section-center {
-    margin: 66em 0;
-    height: 100vh;
-    background: blue;
-    border: 2px solid red;
+  margin: 6em 0;
+  .card {
+    border: 0.1rem #c0c0c0 solid;
+    background-color: #f8f8f8;
+    border-radius: 0.5rem;
+    margin: 1rem;
   }
-
-  h1 {
-    font-size: 66rem;
+  .card-body {
+    padding: 1rem;
+  }
+  .card-body > * {
+    margin-bottom: 0.5rem;
+  }
+  .price {
+    font-size: 2rem;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .row.center {
+    justify-content: center;
+  }
+  .row.top {
+    align-items: flex-start;
+  }
+  .row.start {
+    justify-content: flex-start;
+  }
+  .col-1 {
+    flex: 1 1 25rem;
+  }
+  .col-2 {
+    flex: 2 1 50rem;
+  }
+  .col-3 {
+    flex: 32 1 75rem;
+  }
+  .min-30 {
+    min-width: 30rem;
+  }
+  .p-1 {
+    padding: 1rem;
+  }
+  img.small {
+    max-width: 5rem;
+    width: 100%;
   }
 `
