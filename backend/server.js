@@ -15,11 +15,15 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/integrowear', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-})
+mongoose.connect(
+  'mongodb+srv://Kevin:cliveotieno9019$@cluster0.l3ae2.mongodb.net/integrowears?retryWrites=true&w=majority' ||
+    'mongodb://localhost/integrowear',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  }
+)
 app.use('/api/uploads', uploadRouter)
 app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)
