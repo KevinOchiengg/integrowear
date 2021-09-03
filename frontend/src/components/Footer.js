@@ -26,17 +26,6 @@ const Footer = () => {
       <footer className='footer-top'>
         <div className='section-center'>
           <div className='footer-col'>
-            <h3>NEWSLETTER</h3>
-            <p>We Love To Share New Offers And Exclusive Promotions</p>
-            <form className='footer-form'>
-              <input type='text' placeholder='Enter Your E-mail Address' />
-              <button type='submit'>
-                <FaPaperPlane />
-              </button>
-            </form>
-          </div>
-
-          <div className='footer-col'>
             <div className='footer_logo'>
               <h3>INTEGRO</h3>
               <Link to='/'>
@@ -50,17 +39,32 @@ const Footer = () => {
             </p>
           </div>
           <div className='footer-col'>
+            <h3>NEWSLETTER</h3>
+            <p>We Love To Share New Offers And Exclusive Promotions</p>
+            <form className='footer-form'>
+              <input type='text' placeholder='Enter Your E-mail' />
+              <button type='submit'>
+                <FaPaperPlane />
+              </button>
+            </form>
+          </div>
+
+          <div className='footer-col'>
             <h3>CONTACT INFO</h3>
-            <p>Address: Main Street, Nakuru - Kenya.</p>
-            <p>
-              Phone: <a href='tel:'>+254758231661</a>
-            </p>
-            <p>
-              Whatsapp: <a href='tel:'>+254758231661</a>
-            </p>
-            <p>
-              Email: <a href='tel:'>mosesjuma@gmail.com</a>
-            </p>
+            <ul>
+              <li>
+                <a href='tel:'>+254758231661</a>
+              </li>
+              <li>
+                <a href='tel:'>+254758231661</a>
+              </li>
+              <li>
+                <a href='tel:'>mosesjuma@gmail.com</a>
+              </li>
+              <li>
+                <a href='#'>shoppers, kenya - 400104</a>
+              </li>
+            </ul>
           </div>
           <div className='footer-col'>
             <h3>QUICK LINKS</h3>
@@ -108,69 +112,66 @@ const Footer = () => {
       <hr />
       <footer className='footer-bottom'>
         {userInfo && !userInfo.isAdmin && <ChatBox userInfo={userInfo} />}
-        <div className='section-center'>
-          <div>
-            <p className='copyright'>
-              Copyright &copy; {new Date().getFullYear()} - Powered by
+        <div className='footer-bottom-container section-center'>
+          <p className='copyright'>
+            Copyright &copy; {new Date().getFullYear()} - Powered by
+            <Link
+              className='developer'
+              to={{
+                pathname: 'https://ko-technologies.netlify.com',
+              }}
+              target='_blank'
+            >
+              K&O Technologies
+            </Link>
+          </p>
+
+          <ul className='social-icons'>
+            <li>
               <Link
-                className='developer'
                 to={{
-                  pathname: 'https://ko-technologies.netlify.com',
+                  pathname:
+                    'https://www.facebook.com/Swag-Mode-100392718038597',
                 }}
                 target='_blank'
               >
-                K&O Technologies
+                <FaFacebook />
               </Link>
-            </p>
-          </div>
-          <div>
-            <ul className='social-icons'>
-              <li>
-                <Link
-                  to={{
-                    pathname:
-                      'https://www.facebook.com/Swag-Mode-100392718038597',
-                  }}
-                  target='_blank'
-                >
-                  <FaFacebook />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={{
-                    pathname:
-                      'https://www.facebook.com/Swag-Mode-100392718038597',
-                  }}
-                  target='_blank'
-                >
-                  <FaInstagram />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={{
-                    pathname:
-                      'https://www.facebook.com/Swag-Mode-100392718038597',
-                  }}
-                  target='_blank'
-                >
-                  <FaPinterest />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={{
-                    pathname:
-                      'https://www.facebook.com/Swag-Mode-100392718038597',
-                  }}
-                  target='_blank'
-                >
-                  <FaTwitter />
-                </Link>
-              </li>
-            </ul>
-          </div>
+            </li>
+            <li>
+              <Link
+                to={{
+                  pathname:
+                    'https://www.facebook.com/Swag-Mode-100392718038597',
+                }}
+                target='_blank'
+              >
+                <FaInstagram />
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={{
+                  pathname:
+                    'https://www.facebook.com/Swag-Mode-100392718038597',
+                }}
+                target='_blank'
+              >
+                <FaPinterest />
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={{
+                  pathname:
+                    'https://www.facebook.com/Swag-Mode-100392718038597',
+                }}
+                target='_blank'
+              >
+                <FaTwitter />
+              </Link>
+            </li>
+          </ul>
         </div>
       </footer>
     </Wrapper>
@@ -180,12 +181,6 @@ const Footer = () => {
 export default Footer
 
 const Wrapper = styled.footer`
-  width: 100%;
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
   .footer-top,
   .footer-bottom {
     background: var(--clr-blue);
@@ -195,44 +190,38 @@ const Wrapper = styled.footer`
   }
 
   .section-center {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    gap: 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 1.5rem;
     padding: 2em 0;
     margin: 0 auto;
     max-width: var(--max-width);
   }
 
   p {
-    color: var(--clr-light-yellow);
     text-decoration: capitalize;
   }
 
   footer h3 {
     color: var(--clr-light-yellow);
     margin: 1em 0;
-    font-size: 1rem;
-  }
-
-  br {
-    display: none;
+    font-size: 2rem;
   }
 
   li {
-    margin: 0.2em 0;
+    margin: 1.2rem 0;
     color: var(--clr-light-yellow);
   }
 
   p,
   a {
     color: var(--clr-light-yellow);
-    font-size: 0.75rem;
+    font-size: 1.6rem;
+    line-height: 1.5;
   }
 
   img {
-    width: 100px;
+    width: 30%;
     margin: 0 auto;
   }
   .footer-col {
@@ -241,42 +230,46 @@ const Wrapper = styled.footer`
   }
 
   input[type='text'] {
-    width: 100%;
-    height: 3em;
-    margin-top: 1.2em;
+    width: 60%;
+    height: 4rem;
     padding: 0 0.5em;
     background: var(--clr-blue);
     color: var(--clr-light-yellow);
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     border: 2px solid var(--clr-yellow);
     outline: 0;
+    border-radius: 0;
   }
 
   .footer-form {
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin-top: 2rem;
   }
 
   .footer-form button {
-    margin-top: 1em;
-    width: 3em;
-    height: 3em;
-    line-height: 3em;
-    text-align: center;
-    font-size: 0.8rem;
+    width: 4rem;
+    height: 4rem;
+    line-height: 4rem;
+    font-size: 2rem;
     color: var(--clr-blue);
     background-color: var(--clr-yellow);
     border: none;
     outline: none;
-    margin-top: 1.2em;
+    border-radius: 0;
   }
 
-  .copyright {
-    margin: 0;
-    text-align: center;
+  .footer-bottom {
+    border-top: 1px solid var(--clr-light-blue);
+    background: var(--clr-blue);
   }
 
+  .footer-bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
   .copyright a {
     color: #8aabca;
   }
@@ -288,10 +281,10 @@ const Wrapper = styled.footer`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 0.8em;
+    width: 100%;
   }
   .social-icons > li {
-    margin: 0 1.2em;
+    margin: 0 1.6rem;
   }
 
   a {
@@ -304,21 +297,12 @@ const Wrapper = styled.footer`
   }
 
   @media (min-width: 800px) {
-    .footer-col {
-      height: 240px;
-      margin-left: 1.8em;
-      margin-top: 0;
-    }
-    .section-center {
-      flex-direction: row;
-    }
     input[type='text'] {
       color: var(--clr-light-yellow);
     }
 
     footer h3 {
-      font-size: 0.8rem;
-      margin-bottom: 1.8em;
+      margin-bottom: 1.8rem;
     }
 
     .footer-top,
@@ -326,24 +310,19 @@ const Wrapper = styled.footer`
       line-height: 1.6em;
     }
 
-    br {
-      display: block;
-    }
-
     .social-icons {
       margin-top: 0;
     }
 
     .footer-bottom {
-      font-size: 1.2rem;
+      font-size: 1.6rem;
     }
 
     .developer {
-      font-size: 0.8rem;
+      font-size: 1.6rem;
     }
-    p,
-    a {
-      font-size: 0.8rem;
+    .social-icons {
+      width: auto;
     }
   }
 `

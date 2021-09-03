@@ -104,6 +104,7 @@ const Sidebar = () => {
           {userInfo && userInfo.isAdmin && (
             <section className='sidebar-conatainer'>
               <h4>Admin</h4>
+
               <div className='sidebar-sublinks'>
                 <Link to='/dashboard' onClick={closeSidebar}>
                   {<MdDashboard />}
@@ -191,8 +192,8 @@ const Wrapper = styled.aside`
   }
 
   .sidebar-header h2 {
-    font-size: 1.8rem;
-    color: var(--clr-dark-grey);
+    font-size: 2.7rem;
+    color: var(--clr-blue);
   }
   .sidebar-header span {
     color: var(--clr-yellow);
@@ -201,12 +202,12 @@ const Wrapper = styled.aside`
     font-size: 1.8rem;
     background: transparent;
     border-color: transparent;
-    color: var(--clr-dark-grey);
+    color: var(--clr-blue);
     cursor: pointer;
   }
 
   .sidebar-links {
-    margin-top: 80px;
+    margin-top: 2rem;
   }
   .sidebar-sublinks {
     display: grid;
@@ -217,8 +218,8 @@ const Wrapper = styled.aside`
     margin: 1rem 0;
   }
   .sidebar-conatainer h4 {
-    font-size: 1rem;
-    color: var(--clr-dark-grey);
+    font-size: 1.6rem;
+    color: var(--clr-blue);
   }
   .sidebar-sublinks a {
     display: block;
@@ -226,7 +227,7 @@ const Wrapper = styled.aside`
     text-transform: capitalize;
     display: flex;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
   }
   .sidebar-sublinks svg {
     color: var(--clr-dark-grey);

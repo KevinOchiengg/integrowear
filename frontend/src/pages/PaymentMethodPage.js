@@ -60,7 +60,7 @@ export default function PaymentMethodPage(props) {
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
+  margin: 1rem 0;
   .form {
     width: 100%;
   }

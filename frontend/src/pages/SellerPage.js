@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 import { listProducts } from '../actions/productActions'
 import { detailsUser } from '../actions/userActions'
 import LoadingBox from '../components/Loading'
@@ -25,8 +26,8 @@ export default function SellerPage(props) {
     dispatch(listProducts({ seller: sellerId }))
   }, [dispatch, sellerId])
   return (
-    <div className='row top'>
-      <div className='col-1'>
+    <Wrapper>
+      <div className='col-1 section-center'>
         {loading ? (
           <LoadingBox></LoadingBox>
         ) : error ? (
@@ -76,6 +77,10 @@ export default function SellerPage(props) {
           </>
         )}
       </div>
-    </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.section`
+  margin: 22rem 0;
+`

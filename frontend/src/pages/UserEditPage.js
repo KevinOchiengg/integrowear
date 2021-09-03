@@ -51,7 +51,8 @@ export default function UserEditPage(props) {
       <div className='section-center'>
         <form className='form' onSubmit={submitHandler}>
           <div>
-            <h3 className='title'>Edit User</h3>
+            <h3 className='sub-heading'>products</h3>
+            <h1 className='heading'>Product list</h1>
             {loadingUpdate && <LoadingBox></LoadingBox>}
             {errorUpdate && (
               <MessageBox variant='danger'>{errorUpdate}</MessageBox>
@@ -63,7 +64,7 @@ export default function UserEditPage(props) {
             <MessageBox variant='danger'>{error}</MessageBox>
           ) : (
             <>
-              <div>
+              <div className='field-container'>
                 <label htmlFor='name'>Name</label>
                 <input
                   id='name'
@@ -73,7 +74,7 @@ export default function UserEditPage(props) {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              <div>
+              <div className='field-container'>
                 <label htmlFor='email'>Email</label>
                 <input
                   id='email'
@@ -84,7 +85,6 @@ export default function UserEditPage(props) {
                 />
               </div>
               <div className='checkbox-container'>
-                <label htmlFor='isSeller'>Is Seller</label>
                 <input
                   id='isSeller'
                   type='checkbox'
@@ -92,9 +92,9 @@ export default function UserEditPage(props) {
                   className='checkbox'
                   onChange={(e) => setIsSeller(e.target.checked)}
                 />
+                <label htmlFor='isSeller'>Seller</label>
               </div>
               <div className='checkbox-container'>
-                <label htmlFor='isAdmin'>Is Admin</label>
                 <input
                   id='isAdmin'
                   type='checkbox'
@@ -102,6 +102,7 @@ export default function UserEditPage(props) {
                   className='checkbox'
                   onChange={(e) => setIsAdmin(e.target.checked)}
                 />
+                <label htmlFor='isAdmin'>Admin</label>
               </div>
               <div>
                 <button type='submit' className='btn primary'>
@@ -117,45 +118,27 @@ export default function UserEditPage(props) {
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
-  color: var(--clr-grey);
-
-  .form {
-    width: 100%;
-  }
-  input {
-    border: 1px solid var(--clr-light-grey);
-    height: 3.5em;
-  }
-
-  .title {
-    margin-bottom: 0;
-  }
-
+  margin: 12rem 0;
   .checkbox-container {
-    align-items: center;
+    display: flex;
     flex-direction: row;
   }
 
   .checkbox {
-    height: 1em;
-    width: 1em;
-    margin-left: 1.5em;
+    margin-top: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+    margin-right: 1.5rem;
   }
 
   .primary {
-    color: var(--clr-blue);
-    font-size: 1rem;
+    font-size: 2rem;
   }
 
   @media screen and (min-width: 800px) {
-    .form {
-      width: 60%;
-    }
-
     .checkbox {
-      height: 1.5em;
-      width: 1.5em;
+      height: 2rem;
+      width: 2rem;
     }
   }
 `

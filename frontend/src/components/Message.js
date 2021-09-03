@@ -5,12 +5,14 @@ import styled from 'styled-components'
 export default function Message(props) {
   return (
     <Wrapper>
-      <div className='section-center'>
+      <div className='message-container'>
         <div className={`alert alert-${props.variant || 'info'}`}>
-          <h4> {props.message}</h4>
-          <button className={`btn btn-${props.name}`}>
-            <Link to={`${props.url}`}>{props.buttonText}</Link>
-          </button>
+          <h2> {props.message}</h2>
+          <Link to={`${props.url}`}>
+            <button className={`btn btn-${props.name}`}>
+              {props.buttonText}
+            </button>
+          </Link>
         </div>
       </div>
     </Wrapper>
@@ -25,13 +27,33 @@ const Wrapper = styled.section`
     color: var(--clr-blue);
   }
   .btn {
-    padding: 0.5em 3em;
-    font-size: 1rem;
+    background: var(--clr-yellow);
+    font-size: 1.25rem;
+    color: var(--clr-blue);
     margin-top: 0;
+  }
+
+  .message-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 13rem auto;
+    height: 60vh;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+    color: var(--clr-blue);
   }
   @media only screen and (min-width: 800px) {
     .btn {
-      font-size: 1.25rem;
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 4rem;
     }
   }
 `

@@ -88,7 +88,7 @@ export default function OrderPage(props) {
                     <strong>Name:</strong> {order.shippingAddress.fullName}
                     <br />
                     <strong>Address: </strong> {order.shippingAddress.address},
-                    {order.shippingAddress.city},{' '}
+                    {order.shippingAddress.city},
                     {order.shippingAddress.postalCode},
                     {order.shippingAddress.country}
                   </p>
@@ -207,7 +207,7 @@ export default function OrderPage(props) {
                     )}
                     <button
                       type='button'
-                      className='primary block'
+                      className='btn primary block'
                       onClick={deliverHandler}
                     >
                       Deliver Order

@@ -32,7 +32,9 @@ export default function UserListPage(props) {
   return (
     <Wrapper>
       <div className='section-center'>
-        <h3 className='title'>Users</h3>
+        <h3 class='sub-heading'>users</h3>
+        <h1 class='heading'>user list</h1>
+
         {loadingDelete && <LoadingBox></LoadingBox>}
         {errorDelete && <MessageBox variant='danger'>{errorDelete}</MessageBox>}
         {successDelete && (
@@ -91,7 +93,7 @@ export default function UserListPage(props) {
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
+  margin: 12rem 0;
   color: var(--clr-grey);
   .table {
     margin-top: 3em;

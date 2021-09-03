@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   createProduct,
@@ -9,6 +9,7 @@ import {
 } from '../actions/productActions'
 import LoadingBox from '../components/Loading'
 import MessageBox from '../components/Message'
+import Pagination from '../components/Pagination'
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
@@ -19,7 +20,7 @@ export default function ProductListPage(props) {
 
   const sellerMode = props.match.path.indexOf('/seller') >= 0
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products, page, pages } = productList
+  const { loading, error, products } = productList
 
   const productCreate = useSelector((state) => state.productCreate)
   const {
@@ -72,7 +73,8 @@ export default function ProductListPage(props) {
     <Wrapper>
       <div className='section-center'>
         <div className='row'>
-          <h3 className='title'>Products</h3>
+          <h3 className='sub-heading'>products</h3>
+          <h1 className='heading'>Product list</h1>
           <button type='button' className='btn primary' onClick={createHandler}>
             Create Product
           </button>
@@ -131,16 +133,7 @@ export default function ProductListPage(props) {
               </tbody>
             </table>
             <div className='row center pagination'></div>
-            <div className='page-btn'>
-              {[...Array(pages).keys()].map((x) => (
-                <Link key={x + 1} to={`/productlist/pageNumber/${x + 1}`}>
-                  <span className={x + 1 === page ? 'active' : ''}>
-                    {x + 1}
-                  </span>
-                </Link>
-              ))}
-              <span>&#8594;</span>
-            </div>
+            <Pagination />
           </>
         )}
       </div>
@@ -149,61 +142,14 @@ export default function ProductListPage(props) {
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .table tbody tr:nth-of-type(odd) {
-    background: var(--clr-light-blue);
-  }
-  td,
-  th {
-    text-align: center;
-    border: 0.1em solid #e4e4e4;
-    padding: 0.5em;
-  }
-  .table button {
+  margin: 12rem 0;
+
+  button {
+    padding: 1rem;
     margin: 0 0.2rem;
   }
 
   .primary {
-    color: var(--clr-blue);
-    font-size: 1rem;
-  }
-  h3 {
-    margin-bottom: 0;
-  }
-  .page-btn {
-    margin: 20px auto 80px;
-  }
-
-  a {
-    color: var(--clr-blue);
-  }
-
-  .page-btn span {
-    display: inline-block;
-    border: 1px solid var(--clr-blue);
-    margin: 5px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    cursor: pointer;
-    line-height: 40px;
-    color: var(--clr-blue);
-    transition: var(--transition);
-  }
-
-  .page-btn span:hover {
-    background: var(--clr-hover);
-  }
-  .page-btn .active {
-    background: var(--clr-yellow);
-  }
-
-  .edit-btn,
-  .delete-btn {
-    padding: 0.5em;
+    margin-bottom: 2rem;
   }
 `

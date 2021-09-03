@@ -89,7 +89,7 @@ const Wrapper = styled.section`
   background: var(--clr-white);
   box-shadow: var(--dark-shadow);
   position: fixed;
-  top: 5rem;
+  top: 8rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
@@ -127,19 +127,26 @@ const Wrapper = styled.section`
   }
   h4 {
     color: var(--clr-blue);
-    font-size: 1rem;
+    font-size: 1.6rem;
     margin-bottom: 1.5rem;
   }
-  .submenu-center a {
+  a {
     width: 10rem;
     display: block;
     color: var(--clr-blue);
     text-transform: capitalize;
     display: flex;
     align-items: center;
+    font-size: 1.6rem;
+    &:hover,
+    &:focus {
+      color: var(--clr-yellow);
+    }
   }
+
   .submenu-center svg {
     color: var(--clr-blue);
     margin-right: 1rem;
+    font-size: 1.6rem;
   }
 `

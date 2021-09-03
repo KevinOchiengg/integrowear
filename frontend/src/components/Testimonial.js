@@ -26,8 +26,9 @@ function Testimonial() {
   }, [index])
 
   return (
-    <Wrapper className='section'>
-      <h3 className='title'>Testimonials</h3>
+    <Wrapper>
+      <h3 className='sub-heading'>customer's review</h3>
+      <h1 className='heading'>what they say</h1>
       <div className='section-center'>
         {people.map((person, personIndex) => {
           const { id, image, name, title, quote } = person
@@ -125,12 +126,10 @@ const Wrapper = styled.section`
     transform: translateY(-50%);
     background: var(--clr-yellow);
     color: var(--clr-blue);
-    width: 1.25rem;
-    height: 1.25rem;
     display: grid;
     place-items: center;
     border-color: transparent;
-    font-size: 1rem;
+    font-size: 2.7rem;
     border-radius: 0.25em;
     cursor: pointer;
     transition: var(--transition);
@@ -161,26 +160,22 @@ const Wrapper = styled.section`
   article.lastSlide {
     transform: translateX(-100%);
   }
+  h4 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1.8rem;
+  }
   article.nextSlide {
     transform: translateX(100%);
   }
   @media (min-width: 675px) {
-    .prev,
-    .next {
-      width: 2rem;
-      height: 2rem;
-      font-size: 1.5rem;
-    }
-    h4 {
-      font-size: 1rem;
-    }
-
-    p {
-      font-size: 0.9rem;
-    }
-
     .text {
       max-width: 60%;
+    }
+    .prev,
+    .next {
+      font-size: 3rem;
     }
   }
 `

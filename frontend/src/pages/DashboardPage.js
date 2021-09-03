@@ -2,9 +2,11 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Chart from 'react-google-charts'
 import { summaryOrder } from '../actions/orderActions'
-import LoadingBox from '../components/Loading'
-import MessageBox from '../components/Message'
+import Loading from '../components/Loading'
+import Message from '../components/Message'
 import styled from 'styled-components'
+import { IoIosBasket } from 'react-icons/io'
+import { FaUsers, FaMoneyBillAlt } from 'react-icons/fa'
 
 export default function DashboardPage() {
   const orderSummary = useSelector((state) => state.orderSummary)
@@ -16,21 +18,20 @@ export default function DashboardPage() {
   return (
     <Wrapper>
       <div className='section-center'>
-        <div>
-          <h3 className='title'>Dashboard</h3>
-        </div>
+        <h3 className='sub-heading'>dashbord</h3>
+        <h1 className='heading'>Your dashbord</h1>
         <div className='dashbord-container'>
           {loading ? (
-            <LoadingBox />
+            <Loading />
           ) : error ? (
-            <MessageBox variant='danger'>{error}</MessageBox>
+            <Message variant='danger'>{error}</Message>
           ) : (
             <>
               <ul className='row summary'>
                 <li>
                   <div className='summary-title color1'>
                     <span>
-                      <i className='fa fa-users' /> Users
+                      <FaUsers /> Users
                     </span>
                   </div>
                   <div className='summary-body'>
@@ -40,7 +41,7 @@ export default function DashboardPage() {
                 <li>
                   <div className='summary-title color2'>
                     <span>
-                      <i className='fa fa-shopping-cart' /> Orders
+                      <IoIosBasket /> Orders
                     </span>
                   </div>
                   <div className='summary-body'>
@@ -50,7 +51,7 @@ export default function DashboardPage() {
                 <li>
                   <div className='summary-title color3'>
                     <span>
-                      <i className='fa fa-money' /> Sales
+                      <FaMoneyBillAlt /> Sales
                     </span>
                   </div>
                   <div className='summary-body'>
@@ -63,15 +64,18 @@ export default function DashboardPage() {
               </ul>
               <div>
                 <div>
-                  <h3 className='title'>Sales</h3>
+                  <h3 className='sub-heading'>sales</h3>
+                  <h1 className='heading'>Your sales</h1>
                   {summary.dailyOrders.length === 0 ? (
-                    <MessageBox>No Sale</MessageBox>
+                    <Message message='No Sales'></Message>
                   ) : (
                     <Chart
                       width='100%'
                       height='400px'
                       chartType='AreaChart'
-                      loader={<div>Loading Chart</div>}
+                      loader={
+                        <div className='chart-loading'>Loading Chart...</div>
+                      }
                       data={[
                         ['Date', 'Sales'],
                         ...summary.dailyOrders.map((x) => [x._id, x.sales]),
@@ -81,15 +85,18 @@ export default function DashboardPage() {
                 </div>
               </div>
               <div>
-                <h3 className='title'>Categories</h3>
+                <h3 className='sub-heading'>categories</h3>
+                <h1 className='heading'>product categories</h1>
                 {summary.productCategories.length === 0 ? (
-                  <MessageBox>No Category</MessageBox>
+                  <Message message='No Category'></Message>
                 ) : (
                   <Chart
                     width='100%'
                     height='400px'
                     chartType='PieChart'
-                    loader={<div>Loading Chart</div>}
+                    loader={
+                      <div className='chart-loading'>Loading Chart...</div>
+                    }
                     data={[
                       ['Category', 'Products'],
                       ...summary.productCategories.map((x) => [x._id, x.count]),
@@ -106,17 +113,20 @@ export default function DashboardPage() {
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
+  margin: 12rem 0;
 
   @media screen and (min-width: 800px) {
     .row {
       display: flex;
     }
-    .title {
-      margin: 2em 0;
-    }
   }
 
+  .chart-loading {
+    font-size: 2rem;
+    text-align: center;
+    padding: 6rem 0;
+    color: var(--clr-dark-grey);
+  }
   .summary > li {
     border: 0.1rem var(--clr-blue) solid;
     margin: 2rem;
@@ -124,7 +134,7 @@ const Wrapper = styled.section`
     flex: 1 1 20rem;
   }
   .summary-title {
-    font-size: 2rem;
+    font-size: 3rem;
     padding: 1rem;
     color: var(--clr-white);
     background: var(--clr-blue);
@@ -134,5 +144,12 @@ const Wrapper = styled.section`
     padding: 1rem;
     text-align: center;
     color: var(--clr-blue);
+  }
+
+  @media (min-width: 450px) {
+    .summary-body,
+    .summary-title {
+      font-size: 5rem;
+    }
   }
 `

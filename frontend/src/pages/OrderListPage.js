@@ -32,7 +32,8 @@ export default function OrderListPage(props) {
   return (
     <Wrapper>
       <div className='section-center'>
-        <h3 className='title'>Orders</h3>
+        <h3 class='sub-heading'>Orders</h3>
+        <h1 class='heading'>Your Orders</h1>
         {loadingDelete && <Loading />}
         {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
         {loading ? (
@@ -95,39 +96,15 @@ export default function OrderListPage(props) {
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
-
-  .title {
-    margin-bottom: 1em;
-  }
-
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .table tbody tr:nth-of-type(odd) {
-    background: var(--clr-light-blue);
-  }
-  td,
-  th {
-    text-align: center;
-    border: 0.1em solid #e4e4e4;
-    padding: 0.5em;
-  }
-  .table button {
-    margin: 0 0.2rem;
-  }
+  margin: 12rem 0;
 
   .primary {
     color: var(--clr-blue);
     font-size: 1rem;
   }
-  h3 {
-    margin-bottom: 0;
-  }
 
-  .edit-btn,
-  .delete-btn {
-    padding: 0.5em;
+  button {
+    padding: 1rem;
+    margin: 0 0.2rem;
   }
 `

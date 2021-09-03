@@ -147,7 +147,7 @@ export default function PlaceOrderPage(props) {
   )
 }
 const Wrapper = styled.section`
-  margin: 6em 0;
+  margin: 12rem 0;
   .card {
     border: 0.1rem #c0c0c0 solid;
     background-color: #f8f8f8;

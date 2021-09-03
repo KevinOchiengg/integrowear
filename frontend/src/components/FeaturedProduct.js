@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import Product from './Product'
 import { useDispatch, useSelector } from 'react-redux'
-import LoadingBox from './Loading'
+import Loading from './Loading'
 import MessageBox from './Message'
 import styled from 'styled-components'
 import { listProducts } from '../actions/productActions'
 
-function FeaturedProduct() {
+function FeaturedProducts() {
   const productList = useSelector((state) => state.productList)
   const { loading, error, products } = productList
   const dispatch = useDispatch()
@@ -14,46 +14,34 @@ function FeaturedProduct() {
     dispatch(listProducts({}))
   }, [dispatch])
 
+  if (loading) {
+    return <Loading />
+  }
+  if (error) {
+    return <MessageBox />
+  }
   return (
-    <Wrapper>
+    <Wrapper className='section'>
       <div className='section-center'>
-        <h3 className='title'>Featured Products</h3>
-        {loading ? (
-          <LoadingBox></LoadingBox>
-        ) : error ? (
-          <MessageBox variant='danger'>
-            Oops! Error fetching Products
-          </MessageBox>
-        ) : (
-          <>
-            {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
-            <div className='row'>
-              {products.map((product) => (
-                <Product key={product._id} product={product} />
-              ))}
-            </div>
-          </>
-        )}
+        <h3 className='sub-heading'>our products</h3>
+        <h1 className='heading'>featured products</h1>
+        <div className='featured'>
+          {products.slice(0, 6).map((product) => {
+            return <Product key={product._id} product={product} />
+          })}
+        </div>
       </div>
     </Wrapper>
   )
 }
 
-export default FeaturedProduct
-
 const Wrapper = styled.section`
-  margin: 6rem auto;
-
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    gap: 4em;
-  }
-
-  @media (min-width: 769px) {
-    .row {
-    }
+  margin: 15rem 0 10rem 0;
+  .featured {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 1.5rem;
   }
 `
+
+export default FeaturedProducts

@@ -55,16 +55,10 @@ const Wrapper = styled.section`
   .rating {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
+    font-size: 1.7rem;
   }
 
   svg {
     color: var(--clr-yellow);
-  }
-  @media (min-width: 800px) {
-    .rating {
-      font-size: 0.825rem;
-    }
   }
 `

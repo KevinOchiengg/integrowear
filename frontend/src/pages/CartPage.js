@@ -31,116 +31,130 @@ export default function CartPage(props) {
   }
   return (
     <Wrapper>
-      <div className='small-container cart-page'>
-        <div className='section-center'>
-          {error && <Message variant='danger'>{error}</Message>}
-          {cartItems.length === 0 ? (
-            <Message
-              message='Oops! Your Cart is Empty...'
-              buttonText='Go Shopping'
-              url='/products'
-            />
-          ) : (
-            <>
-              <h3 className='title'>Your Shopping</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>PRODUCT</th>
-                    <th>QUANTITY</th>
-                    <th>SUBTOTAL</th>
-                  </tr>
-                </thead>
+      <div className='section-center'>
+        {error && <Message variant='danger'>{error}</Message>}
+        {cartItems.length === 0 ? (
+          <Message
+            message='Oops! Your Cart is Empty...'
+            buttonText='Go Shopping'
+            url='/products'
+          />
+        ) : (
+          <>
+            <h3 className='sub-heading'>Shopping</h3>
+            <h1 className='heading'>Your Shopping</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>PRODUCT</th>
+                  <th>QUANTITY</th>
+                  <th>SUBTOTAL</th>
+                </tr>
+              </thead>
 
-                <tbody>
-                  {cartItems.map((item) => {
-                    return (
-                      <tr key={item.name}>
-                        <td>
-                          <div className='cart-info'>
-                            <img src={item.image} alt='' />
-                            <div className='checkout-items'>
-                              <Link to={'/product/' + item.product}>
-                                <h5>{item.name}</h5>
-                              </Link>
+              <tbody>
+                {cartItems.map((item) => {
+                  return (
+                    <tr key={item.name}>
+                      <td>
+                        <div className='cart-info'>
+                          <img src={item.image} alt='' />
+                          <div className='checkout-items'>
+                            <Link to={'/product/' + item.product}>
+                              <h5>{item.name}</h5>
+                            </Link>
 
-                              <p>Price: Ksh {item.price}</p>
-                              <Rating />
-                              <button
-                                className='btn'
-                                onClick={() =>
-                                  removeFromCartHandler(item.product)
-                                }
-                              >
-                                Remove
-                              </button>
-                            </div>
+                            <p>Price: Ksh {item.price}</p>
+                            {/* <Rating /> */}
+                            <button
+                              className='btn'
+                              onClick={() =>
+                                removeFromCartHandler(item.product)
+                              }
+                            >
+                              Remove
+                            </button>
                           </div>
-                        </td>
-                        <td>
-                          <select
-                            className='quantity'
-                            value={item.quantity}
-                            onChange={(e) =>
-                              dispatch(
-                                addToCart(item.product, Number(e.target.value))
-                              )
-                            }
-                          >
-                            {[...Array(item.countInStock).keys()].map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
-                          </select>
-                        </td>
-                        <td>Ksh {item.price}</td>
-                      </tr>
-                    )
-                  })}
+                        </div>
+                      </td>
+                      <td>
+                        <select
+                          className='quantity'
+                          value={item.quantity}
+                          onChange={(e) =>
+                            dispatch(
+                              addToCart(item.product, Number(e.target.value))
+                            )
+                          }
+                        >
+                          {[...Array(item.countInStock).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>Ksh {item.price}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+            <div className='total-price'>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Total Items</td>
+                    <td>{cartItems.reduce((a, c) => a + c.qty, 0)} item</td>
+                  </tr>
+                  <tr>
+                    <td>Total Price</td>
+                    <td>
+                      Ksh {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                    </td>
+                  </tr>
                 </tbody>
               </table>
-              <div className='total-price'>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>Total Items</td>
-                      <td>{cartItems.reduce((a, c) => a + c.qty, 0)} item</td>
-                    </tr>
-                    <tr>
-                      <td>Total Price</td>
-                      <td>
-                        Ksh {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <Link
-                  to='/signin?redirect=shipping'
-                  className='checkout-btn btn'
-                  disabled={cartItems.length === 0}
-                >
-                  Proceed to Checkout &#8594;
+              <div className='checkout-btn-container'>
+                <Link to='/shipping'>
+                  <button
+                    type='button'
+                    className='checkout-btn btn'
+                    disabled={cartItems.length === 0}
+                  >
+                    Proceed to Checkout &#8594;
+                  </button>
+                </Link>
+                <Link to='/products'>
+                  <button
+                    type='button'
+                    className='checkout-btn btn'
+                    disabled={cartItems.length === 0}
+                  >
+                    Continue Shopping
+                  </button>
                 </Link>
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
       </div>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
+  margin: 12rem 0;
 
+  color: var(--clr-blue);
   table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 1.7rem;
   }
 
   .btn {
-    margin-top: 0.6em;
+    margin-top: 2rem;
   }
 
   .cart-info {
@@ -151,13 +165,17 @@ const Wrapper = styled.section`
 
   th {
     text-align: left;
-    padding: 1em;
+    padding: 1rem;
     color: var(--clr-white);
     background: var(--clr-blue);
-    font-size: 0.6rem;
+    font-size: 1rem;
+    border: none;
   }
 
   td:nth-child(2) {
+    text-align: left;
+  }
+  td:nth-child(1) {
     text-align: left;
   }
   th:last-child,
@@ -165,21 +183,31 @@ const Wrapper = styled.section`
     text-align: right;
   }
   p {
-    margin-bottom: 0.6em;
+    margin-bottom: 0.6rem;
   }
-
+  td {
+    text-align: center;
+    border: none;
+  }
   h3 {
     margin-bottom: 1.5em;
   }
   select {
-    width: 4em;
+    width: 4rem;
     padding: 5px;
-    height: 3em;
+    height: 4rem;
+  }
+
+  .checkout-btn-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
   }
 
   td a {
     color: var(--clr-blue);
-    font-size: 12px;
+    font-size: 2rem;
     &:hover {
       color: var(--clr-yellow);
     }
@@ -187,8 +215,8 @@ const Wrapper = styled.section`
   }
 
   td img {
-    width: 80px;
-    height: 80px;
+    margin: 0 auto;
+    width: 5rem;
   }
 
   .total-price {
@@ -200,13 +228,19 @@ const Wrapper = styled.section`
     padding: 0.6em 0;
   }
 
+  button {
+    font-size: 1rem;
+  }
+
   .total-price table {
     border-top: 3px solid var(--clr-yellow);
     width: 100%;
-    max-width: 400px;
   }
 
   @media (min-width: 800px) {
+    table {
+      font-size: 2rem;
+    }
     .checkout-items {
       margin-left: 1em;
     }
@@ -215,21 +249,18 @@ const Wrapper = styled.section`
       margin: 0 1.5em;
     }
     td img {
-      width: 5em;
-      height: 5em;
+      width: 5rem;
+      height: 5rem;
     }
     th {
-      font-size: 1rem;
+      font-size: 1.7rem;
     }
 
-    td,
-    th {
-      padding: 1em 2em;
+    td:first-child {
+      display: flex;
     }
     .checkout-btn {
-      padding: 0.8em 1.2em;
-      font-size: 1rem;
-      margin-right: 11.5em;
+      font-size: 2rem;
     }
   } ;
 `

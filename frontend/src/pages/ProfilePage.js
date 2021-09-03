@@ -63,9 +63,8 @@ export default function ProfilePage() {
     <Wrapper>
       <div className='section-center'>
         <form className='form' onSubmit={submitHandler}>
-          <div>
-            <h3 className='title'>User Profile</h3>
-          </div>
+          <h3 class='sub-heading'>profile</h3>
+          <h1 class='heading'>User Profile</h1>
           {loading ? (
             <Loading />
           ) : error ? (
@@ -121,7 +120,8 @@ export default function ProfilePage() {
               </div>
               {user.isSeller && (
                 <>
-                  <h3 className='seller-title'>Seller</h3>
+                  <h3 class='sub-heading'>seller</h3>
+                  <h1 class='heading'>seller info</h1>
                   <div>
                     <label htmlFor='sellerName'>Seller Name</label>
                     <input
@@ -171,7 +171,7 @@ export default function ProfilePage() {
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
+  margin: 12rem 0;
   color: var(--clr-dark-grey);
   form {
     margin: 0 auto;
@@ -187,7 +187,8 @@ const Wrapper = styled.section`
   }
 
   .primary {
-    font-size: 1rem;
+    width: 40%;
+    font-size: 2rem;
   }
   .seller-title {
     margin: 1em 0;

@@ -90,9 +90,8 @@ export default function ProductEditPage(props) {
     <Wrapper>
       <div className='section-center'>
         <form className='form' onSubmit={submitHandler}>
-          <div>
-            <h3 className='title'>Edit Product</h3>
-          </div>
+          <h3 className='sub-heading'>product</h3>
+          <h1 className='heading'>edit product</h1>
           {loadingUpdate && <LoadingBox></LoadingBox>}
           {errorUpdate && (
             <MessageBox variant='danger'>{errorUpdate}</MessageBox>
@@ -103,7 +102,7 @@ export default function ProductEditPage(props) {
             <MessageBox variant='danger'>{error}</MessageBox>
           ) : (
             <>
-              <div>
+              <div className='field-container'>
                 <label htmlFor='name'>Name</label>
                 <input
                   id='name'
@@ -113,7 +112,7 @@ export default function ProductEditPage(props) {
                   onChange={(e) => setName(e.target.value)}
                 ></input>
               </div>
-              <div>
+              <div className='field-container'>
                 <label htmlFor='price'>Price</label>
                 <input
                   id='price'
@@ -123,7 +122,7 @@ export default function ProductEditPage(props) {
                   onChange={(e) => setPrice(e.target.value)}
                 ></input>
               </div>
-              <div>
+              <div className='field-container'>
                 <label htmlFor='image'>Image</label>
                 <input
                   id='image'
@@ -133,7 +132,7 @@ export default function ProductEditPage(props) {
                   onChange={(e) => setImage(e.target.value)}
                 ></input>
               </div>
-              <div>
+              <div className='field-container'>
                 <label htmlFor='imageFile'>Image File</label>
                 <input
                   type='file'
@@ -146,7 +145,7 @@ export default function ProductEditPage(props) {
                   <MessageBox variant='danger'>{errorUpload}</MessageBox>
                 )}
               </div>
-              <div>
+              <div className='field-container'>
                 <label htmlFor='category'>Category</label>
                 <input
                   id='category'
@@ -156,7 +155,7 @@ export default function ProductEditPage(props) {
                   onChange={(e) => setCategory(e.target.value)}
                 />
               </div>
-              <div>
+              <div className='field-container'>
                 <label htmlFor='brand'>Brand</label>
                 <input
                   id='brand'
@@ -166,7 +165,7 @@ export default function ProductEditPage(props) {
                   onChange={(e) => setBrand(e.target.value)}
                 />
               </div>
-              <div>
+              <div className='field-container'>
                 <label htmlFor='countInStock'>Count In Stock</label>
                 <input
                   id='countInStock'
@@ -176,7 +175,7 @@ export default function ProductEditPage(props) {
                   onChange={(e) => setCountInStock(e.target.value)}
                 />
               </div>
-              <div>
+              <div className='field-container'>
                 <label htmlFor='description'>Description</label>
                 <textarea
                   id='description'
@@ -187,7 +186,7 @@ export default function ProductEditPage(props) {
                   onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
               </div>
-              <div>
+              <div className='field-container'>
                 <button className='btn primary' type='submit'>
                   Update
                 </button>
@@ -201,25 +200,9 @@ export default function ProductEditPage(props) {
 }
 
 const Wrapper = styled.section`
-  margin: 6rem 0;
-  color: var(--clr-grey);
-  .form {
-    width: 100%;
-  }
-  input {
-    border: 1px solid var(--clr-light-grey);
-    height: 3.5em;
-  }
-  h3 {
-    margin-bottom: 0;
-  }
+  margin: 12rem 0;
+
   .primary {
-    font-size: 1rem;
-    padding: 0.8em 0;
-  }
-  @media screen and (min-width: 800px) {
-    .form {
-      width: 60%;
-    }
+    font-size: 2rem;
   }
 `

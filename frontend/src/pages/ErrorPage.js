@@ -16,16 +16,14 @@ const ErrorPage = () => {
   )
 }
 
-export default ErrorPage
-
-const Wrapper = styled.secction`
+const Wrapper = styled.section`
   width: 100%;
   height: 94vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  top: 6rem;
+  top: 12rem;
   position: relative;
   padding: 0 20px;
   left: 0;
@@ -39,7 +37,7 @@ const Wrapper = styled.secction`
   }
 
   .content h1 {
-    font-size: 10rem;
+    font-size: 12rem;
     color: rgba(39, 55, 85);
   }
 
@@ -50,7 +48,7 @@ const Wrapper = styled.secction`
 
   .content .btn {
     color: rgba(39, 55, 85);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   @media only screen and (max-width: 800px) {
@@ -69,3 +67,4 @@ const Wrapper = styled.secction`
     }
   }
 `
+export default ErrorPage

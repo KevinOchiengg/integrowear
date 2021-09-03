@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { listOrderMine } from '../actions/orderActions'
-import LoadingBox from '../components/Loading'
+import Loading from '../components/Loading'
 import MessageBox from '../components/Message'
 
 export default function OrderHistoryPage(props) {
@@ -15,9 +15,10 @@ export default function OrderHistoryPage(props) {
   return (
     <Wrapper>
       <div className='section-center'>
-        <h3 className='title'>Order History</h3>
+        <h3 className='sub-heading'>Orders</h3>
+        <h1 className='heading'>Your Order History </h1>
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <Loading></Loading>
         ) : error ? (
           <MessageBox variant='danger'>{error}</MessageBox>
         ) : (
@@ -47,7 +48,7 @@ export default function OrderHistoryPage(props) {
                   <td>
                     <button
                       type='button'
-                      className='btn small'
+                      className='details-btn'
                       onClick={() => {
                         props.history.push(`/order/${order._id}`)
                       }}
@@ -66,11 +67,7 @@ export default function OrderHistoryPage(props) {
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
-
-  .title {
-    margin-bottom: 1em;
-  }
+  margin: 10rem 0;
 
   .table {
     width: 100%;
@@ -91,7 +88,7 @@ const Wrapper = styled.section`
 
   .primary {
     color: var(--clr-blue);
-    font-size: 1rem;
+    font-size: 11rem;
   }
   h3 {
     margin-bottom: 0;

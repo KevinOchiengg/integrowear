@@ -35,14 +35,14 @@ const SigninPage = () => {
     }
   }, [history, redirect, userInfo])
 
-  useEffect(() => {
-    if (userInfo) {
-      history.push('/')
-    }
-    return () => {
-      //cleanup
-    }
-  }, [userInfo])
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     history.push('/')
+  //   }
+  //   return () => {
+  //     //cleanup
+  //   }
+  // }, [userInfo])
 
   return (
     <Wrapper>
@@ -119,14 +119,14 @@ const SigninPage = () => {
 }
 
 const Wrapper = styled.section`
-  margin: 6rem 0;
+  margin: 12rem 0;
   color: var(--clr-light-yellow);
   .btn {
     width: 50%;
     border: none;
     margin: 0.8em auto;
     outline: none;
-    font-size: 1rem;
+    font-size: 1.6rem;
     letter-spacing: 2px;
     color: var(--clr-blue);
   }
@@ -153,6 +153,7 @@ const Wrapper = styled.section`
     border-bottom: 2px solid var(--clr-dark-grey);
     width: 70%;
     margin: 1em auto;
+    font-size: 2rem;
   }
 
   svg {
@@ -165,22 +166,22 @@ const Wrapper = styled.section`
     border-radius: none;
     border: none;
     color: var(--clr-white);
-    font-size: 1rem;
+    font-size: 2rem;
     padding: 6px;
     width: 100%;
   }
 
   .alternate-logins-cotainer {
     display: flex;
-    margin-top: 1em;
+    margin-top: 1rem;
     flex-direction: row;
     align-items: center;
     justify-content: center;
   }
   .alternate-logins-cotainer svg {
-    font-size: 1.25rem;
+    font-size: 2rem;
     color: var(--clr-light-yellow);
-    margin: 0 0.4em;
+    margin: 0 1rem;
   }
   .forgot-password {
     margin-top: 2em;
@@ -188,6 +189,7 @@ const Wrapper = styled.section`
 
   .forgot-password a {
     color: var(--clr-light-yellow);
+    font-size: 2rem;
   }
   .twitter:hover {
     border-bottom: 3px solid #62aadc;
@@ -211,14 +213,15 @@ const Wrapper = styled.section`
   .strike > span {
     position: relative;
     display: inline-block;
+    font-size: 1.6rem;
   }
 
   .header h4 {
-    margin-top: 1em;
+    margin-top: 1rem;
   }
 
-  .header svg {
-    font-size: 2rem;
+  .header {
+    font-size: 2.8rem;
   }
 
   .header svg,
@@ -248,13 +251,16 @@ const Wrapper = styled.section`
 
   .sign-in-using h6 {
     margin: 0 auto;
-    font-size: 1rem;
+    font-size: 2rem;
   }
   .register-text-container {
     text-align: center;
   }
+  .register-text-container p {
+    font-size: 2rem;
+  }
   .register-text-container h6 {
-    font-size: 1rem;
+    font-size: 2rem;
     text-decoration: underline;
     color: var(--clr-light-yellow);
   }

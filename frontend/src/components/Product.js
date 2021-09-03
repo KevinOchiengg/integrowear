@@ -2,184 +2,106 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Rating from './Rating'
 import styled from 'styled-components'
-import { IoIosBasket } from 'react-icons/io'
-import { BiShuffle } from 'react-icons/bi'
 import { AiOutlineHeart } from 'react-icons/ai'
+import { formatPrice } from '../utils/helpers'
 
 export default function Product({ product }) {
   return (
     <Wrapper>
-      <article className='single-product-area'>
-        <figure className='product-thumb'>
+      <article className='box'>
+        <div className='image'>
           <Link to={`/product/${product._id}`}>
-            <img
-              className='primary-image'
-              src={product.image}
-              alt={product.name}
-            />
+            <img src={product.image} alt={product.name} />
           </Link>
-          <div className='label-product label_new'>New</div>
-          <div className='action-links'>
-            <Link to='cart' className='cart-btn'>
-              <IoIosBasket />
-            </Link>
-            <Link to='/' className='wishlist-btn'>
-              <AiOutlineHeart />
-            </Link>
-            <Link to='#' className='quick-view'>
-              <BiShuffle />
-            </Link>
-          </div>
-        </figure>
-        <div className='product-caption'>
-          <h4 className='product-name'>
-            <Link to={`/product/${product._id}`}>{product.name}</Link>
-          </h4>
-          <div className='product-rating'>
+
+          <Link to='/' className='heart'>
+            <AiOutlineHeart />
+          </Link>
+        </div>
+        <div className='content'>
+          <div className='stars'>
             <Rating rating={product.rating} numReviews={product.numReviews} />
           </div>
-          <div className='price-box'>
-            <span className='new-price'>Ksh {product.price}</span>
-            <span className='old-price'>Ksh 2000</span>
-          </div>
+          <Link to={`/product/${product._id}`}>
+            <h3>{product.name.substring(0, 22)}</h3>
+          </Link>
+
+          <p>{product.description.substring(0, 50)}...</p>
+          <button className='btn'>add to cart</button>
+          <span className='price'>{formatPrice(product.price)}</span>
         </div>
       </article>
     </Wrapper>
   )
 }
 
-const Wrapper = styled.section`
-  margin: 2em 0;
-
-  a {
-    color: var(--clr-dark-grey);
-  }
-
-  .action-links a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--clr-white);
-    border-radius: 100%;
-    color: var(--clr-blue);
-    height: 3em;
-    width: 3em;
-    transition: var(--transition);
-    margin: 0 5px;
-    &:hover {
-      background-color: var(--clr-yellow);
-      color: var(--clr-blue);
-    }
-    opacity: 0;
-    transform: scale(0.8) rotate(-45deg);
-  }
-  .has-sub ul li {
-    margin: 1em 0;
-  }
-  .single-product-area {
-    position: relative;
-    border-radius: 5px;
+const Wrapper = styled.div`
+  margin: 0 auto;
+  .box {
+    background: var(--clr-white);
+    border: 0.1rem solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
+    box-shadow: var(--dark-shadow);
     margin: 0 auto;
-    width: 8em;
-    height: 10em;
   }
-  .product-thumb {
-    margin: 0 auto;
+
+  .box .image {
+    height: 25rem;
     width: 100%;
+    padding: 1.5rem;
+    overflow: hidden;
     position: relative;
   }
-  .product-thumb a {
-    display: block;
-  }
-  .product-thumb a img {
-    width: 100%;
+
+  .box .image img {
     height: 100%;
-    border-radius: 5px;
-  }
-  .product-thumb .action-links {
-    position: absolute;
-    flex-wrap: wrap;
-    top: 40%;
     width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  .action-links a {
-    display: flex;
-    background-color: var(--clr-white);
-    border-radius: 100%;
-    color: var(--clr-blue);
-    font-size: 1rem;
-
-    height: 2em;
-    text-align: center;
-    width: 2em;
-    transition: var(--transition);
-    transform: scale(0.8) rotate(-45deg);
-    opacity: 0;
-  }
-  .single-product-area:hover .action-links a {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
+    border-radius: 0.5rem;
+    object-fit: cover;
   }
 
-  .label-product {
-    background: var(--clr-yellow);
-    color: var(--clr-blue);
-    font-size: 0.6em;
-    font-weight: 500;
+  .box .image .heart {
     position: absolute;
-    border-radius: 3px;
-    left: 5px;
+    top: 2.5rem;
+    right: 2.5rem;
+    height: 5rem;
+    width: 5rem;
+    line-height: 5rem;
     text-align: center;
-    text-transform: capitalize;
-    top: 5px;
-    z-index: 0;
-    padding: 0.2em;
+    font-size: 2rem;
+    background: var(--clr-white);
+    border-radius: 50%;
+    color: var(--clr-blue);
   }
 
-  .product-rating {
-    margin: 1em 0;
-  }
-  .product-caption {
-    width: 100%;
-    text-align: center;
-    padding-top: 20px;
-  }
-  .product-name {
-    display: block;
-    font-size: 0.725rem;
-    font-weight: 500;
-    padding: 0;
-    text-transform: capitalize;
-  }
-  .price-box {
-    font-size: 0.725rem;
-  }
-  .new-price {
-    color: var(--clr-yellow);
-    font-weight: 400;
-    margin-right: 10px;
-  }
-  .old-price {
-    text-decoration: line-through;
-    color: var(--clr-light-grey);
+  .box .image .heart:hover {
+    background-color: var(--clr-blue);
+    color: var(--clr-white);
   }
 
-  @media (min-width: 800px) {
-    .single-product-area {
-      width: 12em;
-      height: 10em;
-      margin-bottom: 4em;
-    }
-    .action-links a {
-      height: 3em;
-      width: 3em;
-    }
-    .label-product,
-    .product-name,
-    .price-box {
-      font-size: 0.8em;
-    }
+  .box .content {
+    padding: 2rem;
+    padding-top: 0;
+  }
+
+  .box .content .stars {
+    padding-bottom: 1rem;
+  }
+
+  .box .content h3 {
+    color: var(--clr-blue);
+    font-size: 2.5rem;
+  }
+
+  .box .content p {
+    color: var(--clr-dark-grey);
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+
+  .box .content .price {
+    color: var(--clr-blue);
+    margin-left: 1rem;
+    font-size: 2.5rem;
   }
 `

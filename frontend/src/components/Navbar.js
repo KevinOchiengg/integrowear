@@ -142,7 +142,7 @@ const Navbar = (props) => {
 
 const Wrapper = styled.nav`
   background: var(--clr-blue);
-  height: 4em;
+  height: 8rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,7 +153,7 @@ const Wrapper = styled.nav`
   z-index: 1;
   border-bottom: 1px solid var(--clr-yellow);
   .nav-logo {
-    width: 3.5em;
+    width: 9rem;
   }
 
   .search-field.show {
@@ -163,7 +163,7 @@ const Wrapper = styled.nav`
   .search-field {
     display: flex;
     position: absolute;
-    top: 4em;
+    top: 8rem;
     margin: 0 auto;
     width: 90%;
     box-shadow: var(--dark-shadow);
@@ -171,7 +171,19 @@ const Wrapper = styled.nav`
   }
 
   .search-field svg {
-    width: 3em;
+    width: 3rem;
+  }
+
+  .link-btn {
+    padding: 0.5rem 1.5rem;
+    text-align: center;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: var(--clr-light-yellow);
+    text-transform: capitalize;
+    letter-spacing: var(--spacing);
+    cursor: pointer;
   }
 
   .search-field button {
@@ -212,10 +224,10 @@ const Wrapper = styled.nav`
 
   .amount-container {
     position: absolute;
-    top: -0.6rem;
-    right: -0.6rem;
-    width: 1em;
-    height: 1em;
+    top: -1rem;
+    right: -1rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
     background: var(--clr-yellow);
     display: flex;
@@ -224,7 +236,7 @@ const Wrapper = styled.nav`
   }
   p {
     color: var(--clr-blue);
-    font-size: 12px;
+    font-size: 1.5rem;
   }
 
   .nav-links {
@@ -232,25 +244,31 @@ const Wrapper = styled.nav`
   }
   .search-icon {
     cursor: pointer;
-    font-size: 1.2rem;
-    margin-right: 1em;
+    margin-right: 1rem;
     color: var(--clr-light-yellow);
   }
   .login-btn,
   .logout-btn {
+    background: var(--clr-yellow);
+    color: var(--clr-blue);
     display: none;
   }
-  .cart {
-    font-size: 1.2rem;
-    color: var(--clr-light-yellow);
+  .cart,
+  .search-icon {
     cursor: pointer;
+    margin-left: 0.5rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    text-align: center;
+    color: var(--clr-light-yellow);
   }
   .toggle-btn {
-    font-size: 1.2rem;
+    height: 2rem;
+    width: 2rem;
     color: var(--clr-light-yellow);
-    margin: 0 0.4rem 0 1rem;
+    margin: 0 0.4rem 0 2rem;
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 768px) {
     .nav-center {
       max-width: var(--max-width);
     }
@@ -263,17 +281,20 @@ const Wrapper = styled.nav`
       display: none;
     }
     .amount-container {
-      width: 1.25em;
-      height: 1.25em;
+      height: 2.5rem;
+      width: 2.5rem;
+      top: -1.4rem;
+      right: -1.4rem;
     }
+
     .login-btn,
     .logout-btn {
-      margin-left: 1.2em;
+      margin-left: 3rem;
       display: inline-block;
     }
 
     p {
-      font-size: 0.8rem;
+      font-size: 1.7rem;
     }
     .nav-links {
       display: flex;
@@ -283,16 +304,7 @@ const Wrapper = styled.nav`
     }
 
     .link-btn {
-      font-size: 0.825rem;
-      text-align: center;
-      height: 100%;
-      background: transparent;
-      border: none;
-      color: var(--clr-light-yellow);
-      text-transform: capitalize;
-      letter-spacing: var(--spacing);
-      margin: 0 0.5em;
-      cursor: pointer;
+      font-size: 1.6rem;
     }
   }
 `

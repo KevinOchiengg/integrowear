@@ -1,4 +1,4 @@
-/* Alert */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 .loading {
   display: block !important;
 }
@@ -12,9 +12,10 @@
 :root {
   --clr-yellow: #ffd741;
   --clr-light-yellow: #fff8de;
-  --clr-blue: #24324a;
+  --clr-blue: #192a56;
   --clr-light-blue: #f4f4f4;
   --clr-white: #fffcf2;
+  --green: #27ae60;
   --clr-red: hsl(360, 71%, 66%);
   --clr-green: hsl(125, 71%, 66%);
   --clr-light-grey: #c0baa4;
@@ -23,7 +24,7 @@
   --transition: all 0.3s linear;
   --spacing: 0.1rem;
   --radius: 0.25rem;
-  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --light-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
   --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   --max-width: 90%;
   --fixed-width: 620px;
@@ -32,16 +33,21 @@
 *,
 ::after,
 ::before {
+  font-family: 'Nunito', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  transition: all 0.2s linear;
 }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--clr-white);
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
+html {
+  font-size: 50%;
+  overflow-x: hidden;
+  scroll-padding-top: 5.5rem;
+  scroll-behavior: smooth;
 }
 
 img {
@@ -75,6 +81,14 @@ p {
   color: var(--clr-red);
 }
 
+label {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+.form {
+  width: 100%;
+  margin: 0 auto;
+}
 p,
 li {
   font-size: 0.8em;
@@ -99,50 +113,49 @@ li {
 .btn {
   display: inline-block;
   background: var(--clr-yellow);
+
   color: var(--clr-blue);
-  padding: 0.5em 1.2em;
+  padding: 0.8rem 3rem;
   margin: 2em 0;
   border-radius: 1.8rem;
   transition: var(--transition);
   cursor: pointer;
   outline: none;
   border: none;
+  font-size: 1.7rem;
 }
 
 button {
-  border-radius: 0.25em;
+  cursor: pointer;
+  border-radius: 0.25rem;
 }
 
 .btn:hover,
 .btn:focus {
-  outline: none;
-  background: var(--clr-hover);
+  background: var(--clr-blue);
+  color: var(--clr-white);
+  letter-spacing: 0.1rem;
 }
 
-.title {
+.sub-heading {
   text-align: center;
-  margin: 0 auto 80px;
-  position: relative;
-  line-height: 60px;
-  color: var(--clr-dark-grey);
+  color: var(--clr-yellow);
+  font-size: 2rem;
+  padding-top: 1rem;
 }
 
-.title::after {
-  content: '';
-  background: var(--clr-yellow);
-  height: 5px;
-  width: 100px;
-  border-radius: 5px;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+.heading {
+  text-align: center;
+  color: var(--clr-blue);
+  font-size: 2.5rem;
+  padding-bottom: 2rem;
+  text-transform: uppercase;
 }
 
 .form > div {
   display: flex;
   flex-direction: column;
-  margin: 1em;
+  margin: 2rem 0;
 }
 
 input:focus,
@@ -152,7 +165,6 @@ input:active {
 
 input,
 select {
-  height: 2.5em;
   border: 1px solid var(--clr-light-grey);
   padding: 0 0 0 0.6em;
   background: none;
@@ -160,6 +172,8 @@ select {
   border-radius: 0.25em;
   letter-spacing: var(--spacing);
   outline: none;
+  height: 5rem;
+  font-size: 1.7rem;
 }
 
 .section-center {
@@ -185,22 +199,22 @@ h5 {
   letter-spacing: var(--spacing);
   text-transform: capitalize;
   line-height: 1.25;
-  margin-bottom: 0.75em;
+  margin-bottom: 0.75rem;
 }
-h1 {
-  font-size: 2rem;
+
+.table {
+  font-size: 1.7rem;
+  width: 100%;
+  border-collapse: collapse;
 }
-h2 {
-  font-size: 1.5rem;
+.table tbody tr:nth-of-type(odd) {
+  background: var(--clr-light-blue);
 }
-h3 {
-  font-size: 1.5rem;
-}
-h4 {
-  font-size: 1.25rem;
-}
-h5 {
-  font-size: 0.875rem;
+td,
+th {
+  text-align: center;
+  border: 0.1rem solid #e4e4e4;
+  padding: 1rem;
 }
 
 th {
@@ -209,34 +223,29 @@ th {
 }
 
 @media screen and (min-width: 800px) {
-  h1 {
-    font-size: 3rem;
-  }
-  h2 {
-    font-size: 2rem;
-  }
-  h3 {
-    font-size: 1.8rem;
-  }
-  h4 {
-    font-size: 1.5rem;
-  }
-  h5 {
-    font-size: 1rem;
-  }
-  body {
-    font-size: 1rem;
-  }
   h1,
   h2,
   h3,
   h4 {
     line-height: 1;
   }
+  .form,
+  table {
+    width: 50%;
+  }
 }
 
-.ben {
-  background: #060500 #1a1400 #2d2400 #413300 #554300 #685200 #7c6200 #8f7100
-    #a38100 #b79000 #caa000 #deaf00 #f2bf00 Shade Color Variation #ffcb06
-    #c0baa4 #fff8de;
+@media (min-width: 991px) {
+  html {
+    font-size: 62.5%;
+  }
+}
+@media (min-width: 450px) {
+  html {
+    font-size: 55%;
+  }
+
+  .heading {
+    font-size: 3rem;
+  }
 }
