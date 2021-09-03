@@ -72,70 +72,74 @@ export default function ProductListPage(props) {
   return (
     <Wrapper>
       <div className='section-center'>
+        <h3 className='sub-heading'>products</h3>
+        <h1 className='heading'>Product list</h1>
         <div className='row'>
-          <h3 className='sub-heading'>products</h3>
-          <h1 className='heading'>Product list</h1>
           <button type='button' className='btn primary' onClick={createHandler}>
             Create Product
           </button>
         </div>
+        <div className='row'>
+          {loadingDelete && <LoadingBox></LoadingBox>}
+          {errorDelete && (
+            <MessageBox variant='danger'>{errorDelete}</MessageBox>
+          )}
 
-        {loadingDelete && <LoadingBox></LoadingBox>}
-        {errorDelete && <MessageBox variant='danger'>{errorDelete}</MessageBox>}
-
-        {loadingCreate && <LoadingBox></LoadingBox>}
-        {errorCreate && <MessageBox variant='danger'>{errorCreate}</MessageBox>}
-        {loading ? (
-          <LoadingBox></LoadingBox>
-        ) : error ? (
-          <MessageBox variant='danger'>{error}</MessageBox>
-        ) : (
-          <>
-            <table className='table'>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>NAME</th>
-                  <th>PRICE</th>
-                  <th>CATEGORY</th>
-                  <th>BRAND</th>
-                  <th>ACTIONS</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((product) => (
-                  <tr key={product._id}>
-                    <td>{product._id}</td>
-                    <td>{product.name}</td>
-                    <td>{product.price}</td>
-                    <td>{product.category}</td>
-                    <td>{product.brand}</td>
-                    <td>
-                      <button
-                        type='button'
-                        className='edit-btn'
-                        onClick={() =>
-                          props.history.push(`/product/${product._id}/edit`)
-                        }
-                      >
-                        Edit
-                      </button>
-                      <button
-                        type='button'
-                        className='delete-btn'
-                        onClick={() => deleteHandler(product)}
-                      >
-                        Delete
-                      </button>
-                    </td>
+          {loadingCreate && <LoadingBox></LoadingBox>}
+          {errorCreate && (
+            <MessageBox variant='danger'>{errorCreate}</MessageBox>
+          )}
+          {loading ? (
+            <LoadingBox />
+          ) : error ? (
+            <MessageBox variant='danger'>{error}</MessageBox>
+          ) : (
+            <>
+              <table className='table'>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>PRICE</th>
+                    <th>CATEGORY</th>
+                    <th>BRAND</th>
+                    <th>ACTIONS</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className='row center pagination'></div>
-            <Pagination />
-          </>
-        )}
+                </thead>
+                <tbody>
+                  {products.map((product) => (
+                    <tr key={product._id}>
+                      <td>{product._id}</td>
+                      <td>{product.name}</td>
+                      <td>{product.price}</td>
+                      <td>{product.category}</td>
+                      <td>{product.brand}</td>
+                      <td>
+                        <button
+                          type='button'
+                          className='edit-btn'
+                          onClick={() =>
+                            props.history.push(`/product/${product._id}/edit`)
+                          }
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type='button'
+                          className='delete-btn'
+                          onClick={() => deleteHandler(product)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
+        </div>
+        <Pagination />
       </div>
     </Wrapper>
   )
@@ -146,10 +150,14 @@ const Wrapper = styled.section`
 
   button {
     padding: 1rem;
-    margin: 0 0.2rem;
+    margin: 0.2rem;
   }
 
   .primary {
     margin-bottom: 2rem;
+  }
+
+  .row {
+    overflow-x: auto;
   }
 `

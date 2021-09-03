@@ -32,8 +32,8 @@ export default function OrderListPage(props) {
   return (
     <Wrapper>
       <div className='section-center'>
-        <h3 class='sub-heading'>Orders</h3>
-        <h1 class='heading'>Your Orders</h1>
+        <h3 className='sub-heading'>Orders</h3>
+        <h1 className='heading'>Your Orders</h1>
         {loadingDelete && <Loading />}
         {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
         {loading ? (
@@ -105,6 +105,10 @@ const Wrapper = styled.section`
 
   button {
     padding: 1rem;
-    margin: 0 0.2rem;
+    margin: 0.2rem;
+  }
+
+  .section-center {
+    overflow-x: auto;
   }
 `

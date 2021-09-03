@@ -52,6 +52,7 @@ export default function Rating(props) {
   )
 }
 const Wrapper = styled.section`
+  color: var(--clr-blue);
   .rating {
     display: flex;
     align-items: center;

@@ -35,58 +35,57 @@ export default function UserListPage(props) {
         <h3 class='sub-heading'>users</h3>
         <h1 class='heading'>user list</h1>
 
-        {loadingDelete && <LoadingBox></LoadingBox>}
-        {errorDelete && <MessageBox variant='danger'>{errorDelete}</MessageBox>}
-        {successDelete && (
-          <MessageBox variant='success'>User Deleted Successfully</MessageBox>
-        )}
-        {loading ? (
-          <LoadingBox></LoadingBox>
-        ) : error ? (
-          <MessageBox variant='danger'>{error}</MessageBox>
-        ) : (
-          <table className='table'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>EMAIL</th>
-                <th>IS SELLER</th>
-                <th>IS ADMIN</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user._id}>
-                  <td>{user._id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.isSeller ? 'YES' : ' NO'}</td>
-                  <td>{user.isAdmin ? 'YES' : 'NO'}</td>
-                  <td>
-                    <button
-                      type='button'
-                      className='edit-btn'
-                      onClick={() =>
-                        props.history.push(`/user/${user._id}/edit`)
-                      }
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type='button'
-                      className='delete-btn'
-                      onClick={() => deleteHandler(user)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+        <div className='row'>
+          {loadingDelete && <LoadingBox></LoadingBox>}
+          {errorDelete && (
+            <MessageBox variant='danger'>{errorDelete}</MessageBox>
+          )}
+          {successDelete && (
+            <MessageBox variant='success'>User Deleted Successfully</MessageBox>
+          )}
+          {loading ? (
+            <LoadingBox></LoadingBox>
+          ) : error ? (
+            <MessageBox variant='danger'>{error}</MessageBox>
+          ) : (
+            <table className='table'>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>NAME</th>
+                  <th>EMAIL</th>
+                  <th>SELLER</th>
+                  <th>ADMIN</th>
+                  <th>ACTIONS</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user._id}>
+                    <td>{user._id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.isSeller ? 'YES' : ' NO'}</td>
+                    <td>{user.isAdmin ? 'YES' : 'NO'}</td>
+                    <td>
+                      <button
+                        type='button'
+                        onClick={() =>
+                          props.history.push(`/user/${user._id}/edit`)
+                        }
+                      >
+                        Edit
+                      </button>
+                      <button type='button' onClick={() => deleteHandler(user)}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     </Wrapper>
   )
@@ -102,6 +101,10 @@ const Wrapper = styled.section`
   }
   .table tbody tr:nth-of-type(odd) {
     background: var(--clr-light-blue);
+  }
+
+  .row {
+    overflow-x: auto;
   }
 
   td,
@@ -121,36 +124,13 @@ const Wrapper = styled.section`
   h3 {
     margin-bottom: 0;
   }
-  .page-btn {
-    margin: 20px auto 80px;
-  }
 
   a {
     color: var(--clr-blue);
   }
 
-  .page-btn span {
-    display: inline-block;
-    border: 1px solid var(--clr-blue);
-    margin: 5px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    cursor: pointer;
-    line-height: 40px;
-    color: var(--clr-blue);
-    transition: var(--transition);
-  }
-
-  .page-btn span:hover {
-    background: var(--clr-hover);
-  }
-  .page-btn .active {
-    background: var(--clr-yellow);
-  }
-
-  .edit-btn,
-  .delete-btn {
-    padding: 0.5em;
+  .table button {
+    margin: 0.2rem;
+    padding: 0.5rem;
   }
 `

@@ -63,8 +63,8 @@ export default function ProfilePage() {
     <Wrapper>
       <div className='section-center'>
         <form className='form' onSubmit={submitHandler}>
-          <h3 class='sub-heading'>profile</h3>
-          <h1 class='heading'>User Profile</h1>
+          <h3 className='sub-heading'>profile</h3>
+          <h1 className='heading'>User Profile</h1>
           {loading ? (
             <Loading />
           ) : error ? (

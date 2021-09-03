@@ -37,6 +37,7 @@ export default function Product({ product }) {
 
 const Wrapper = styled.div`
   margin: 0 auto;
+
   .box {
     background: var(--clr-white);
     border: 0.1rem solid rgba(0, 0, 0, 0.2);
