@@ -15,15 +15,34 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// mongoose.connect(
+//   'mongodb+srv://Kevin:cliveotieno9019$@cluster0.l3ae2.mongodb.net/integrowears?retryWrites=true&w=majority',
+
+//   {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useCreateIndex: true,
+//   }
+// )
+
 mongoose.connect(
-  'mongodb+srv://Kevin:cliveotieno9019$@cluster0.l3ae2.mongodb.net/integrowears?retryWrites=true&w=majority' ||
-    'mongodb://localhost/integrowear',
+  'mongodb+srv://Kevin:cliveotieno9019$@cluster0.l3ae2.mongodb.net/integrowears?retryWrites=true&w=majority',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
+  },
+  (err) => {
+    if (err) throw err
+    console.log('Connected to MongoDB!!!')
   }
 )
+
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error: '))
+db.once('open', function () {
+  console.log('Connected successfully')
+})
+
 app.use('/api/uploads', uploadRouter)
 app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)
