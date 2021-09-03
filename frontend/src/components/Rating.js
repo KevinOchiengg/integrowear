@@ -6,7 +6,7 @@ export default function Rating(props) {
   const { rating, numReviews, caption } = props
   return (
     <Wrapper>
-      <article className='rating'>
+      <div className='rating'>
         {rating >= 1 ? (
           <i>{<BsStarFill />}</i>
         ) : rating >= 0.5 ? (
@@ -47,7 +47,7 @@ export default function Rating(props) {
         ) : (
           <span>({numReviews + ' reviews'})</span>
         )}
-      </article>
+      </div>
     </Wrapper>
   )
 }
