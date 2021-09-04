@@ -183,7 +183,7 @@ const Wrapper = styled.aside`
     border-radius: var(--radius);
     box-shadow: var(--dark-shadow);
     position: relative;
-    padding: 2.5em 2rem;
+    padding: 2.5rem 2rem;
   }
   .sidebar-header {
     display: flex;
@@ -192,14 +192,14 @@ const Wrapper = styled.aside`
   }
 
   .sidebar-header h2 {
-    font-size: 2.7rem;
+    font-size: 3rem;
     color: var(--clr-blue);
   }
   .sidebar-header span {
     color: var(--clr-yellow);
   }
   .close-btn {
-    font-size: 1.8rem;
+    font-size: 3rem;
     background: transparent;
     border-color: transparent;
     color: var(--clr-blue);
@@ -218,7 +218,7 @@ const Wrapper = styled.aside`
     margin: 1rem 0;
   }
   .sidebar-conatainer h4 {
-    font-size: 1.6rem;
+    font-size: 2rem;
     color: var(--clr-blue);
   }
   .sidebar-sublinks a {
@@ -227,11 +227,11 @@ const Wrapper = styled.aside`
     text-transform: capitalize;
     display: flex;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1.7rem;
   }
   .sidebar-sublinks svg {
     color: var(--clr-dark-grey);
-    margin-right: 1em;
+    margin-right: 1rem;
   }
 
   @media screen and (min-width: 800px) {

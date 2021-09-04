@@ -122,13 +122,13 @@ export default function CartPage(props) {
                     className='checkout-btn btn'
                     disabled={cartItems.length === 0}
                   >
-                    Proceed to Checkout &#8594;
+                    Proceed to Checkout
                   </button>
                 </Link>
                 <Link to='/products'>
                   <button
                     type='button'
-                    className='checkout-btn btn'
+                    className='shopping-btn btn'
                     disabled={cartItems.length === 0}
                   >
                     Continue Shopping
@@ -154,7 +154,7 @@ const Wrapper = styled.section`
   }
 
   .btn {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 
   .cart-info {
@@ -202,7 +202,9 @@ const Wrapper = styled.section`
     display: flex;
     width: 100%;
     align-items: center;
-    flex-direction: column;
+    grid-gap: 2rem;
+    flex-wrap: wrap;
+    border: 2px solid red;
   }
 
   td a {
@@ -215,10 +217,12 @@ const Wrapper = styled.section`
   }
 
   td img {
-    margin: 0 auto;
     width: 5rem;
   }
 
+  .shopping-btn {
+    margin: 0;
+  }
   .total-price {
     display: flex;
     flex-direction: column;

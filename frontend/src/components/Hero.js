@@ -11,10 +11,7 @@ const Hero = () => {
             Welcome To <span>Integro</span> <br />
             Wears<span>.</span>
           </h3>
-          <p>
-            Switch Your Swag Mode On
-            <br /> & Dress like you already famous
-          </p>
+          <p>Switch Your Swag Mode On & Dress like you already famous</p>
           <div>
             <Link to='/products' className='btn hero-btn'>
               Explore Now &#8594;
@@ -36,7 +33,7 @@ const Wrapper = styled.section`
   top: 8rem;
   font-family: 'Playfair Display', serif;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   background: linear-gradient(
       0deg,
       rgba(39, 55, 85, 0.7),

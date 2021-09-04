@@ -195,7 +195,7 @@ const Wrapper = styled.footer`
     gap: 1.5rem;
     padding: 2em 0;
     margin: 0 auto;
-    max-width: var(--max-width);
+    text-align: center;
   }
 
   p {
