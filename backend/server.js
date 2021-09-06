@@ -16,7 +16,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 mongoose.connect(
-  'mongodb+srv://Kevin:cliveotieno9019$@cluster0.l3ae2.mongodb.net/integrowears?retryWrites=true&w=majority',
+  'mongodb+srv://Kevin:cliveotieno9019$@cluster0.l3ae2.mongodb.net/integrowear?retryWrites=true&w=majority',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
