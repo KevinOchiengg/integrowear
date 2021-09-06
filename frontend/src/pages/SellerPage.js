@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { listProducts } from '../actions/productActions'
 import { detailsUser } from '../actions/userActions'
+import Loading from '../components/Loading'
 import LoadingBox from '../components/Loading'
+import Message from '../components/Message'
 import MessageBox from '../components/Message'
 import Product from '../components/Product'
 import Rating from '../components/Rating'
@@ -29,9 +31,9 @@ export default function SellerPage(props) {
     <Wrapper>
       <div className='col-1 section-center'>
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <Loading />
         ) : error ? (
-          <MessageBox variant='danger'>{error}</MessageBox>
+          <Message variant='danger' message='error occured' name='hide' />
         ) : (
           <ul className='card card-body'>
             <li>
@@ -63,9 +65,9 @@ export default function SellerPage(props) {
       </div>
       <div className='col-3'>
         {loadingProducts ? (
-          <LoadingBox></LoadingBox>
+          <Loading />
         ) : errorProducts ? (
-          <MessageBox variant='danger'>{errorProducts}</MessageBox>
+          <Message variant='danger' message='error occured' name='hide' />
         ) : (
           <>
             {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
@@ -82,5 +84,8 @@ export default function SellerPage(props) {
 }
 
 const Wrapper = styled.section`
-  margin: 22rem 0;
+  margin: 12rem 0;
+  .btn-hide {
+    display: none;
+  }
 `

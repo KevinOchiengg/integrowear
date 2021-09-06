@@ -5,8 +5,8 @@ import { createOrder } from '../actions/orderActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 import Loading from '../components/Loading'
-import MessageBox from '../components/Message'
 import styled from 'styled-components'
+import Message from '../components/Message'
 
 export default function PlaceOrderPage(props) {
   const cart = useSelector((state) => state.cart)
@@ -137,7 +137,13 @@ export default function PlaceOrderPage(props) {
                   </button>
                 </li>
                 {loading && <Loading />}
-                {error && <MessageBox variant='danger'>{error}</MessageBox>}
+                {error && (
+                  <Message
+                    message='error occured please check our internet connection'
+                    variant='danger'
+                    name='hide'
+                  />
+                )}
               </ul>
             </div>
           </div>
@@ -157,6 +163,10 @@ const Wrapper = styled.section`
   .card-body {
     padding: 1rem;
   }
+  .btn-hide {
+    display: none;
+  }
+
   .card-body > * {
     margin-bottom: 0.5rem;
   }

@@ -7,7 +7,9 @@ import {
   deleteProduct,
   listProducts,
 } from '../actions/productActions'
+import Loading from '../components/Loading'
 import LoadingBox from '../components/Loading'
+import Message from '../components/Message'
 import MessageBox from '../components/Message'
 import Pagination from '../components/Pagination'
 import {
@@ -80,19 +82,19 @@ export default function ProductListPage(props) {
           </button>
         </div>
         <div className='row'>
-          {loadingDelete && <LoadingBox></LoadingBox>}
+          {loadingDelete && <Loading />}
           {errorDelete && (
-            <MessageBox variant='danger'>{errorDelete}</MessageBox>
+            <Message variant='danger' message='Error occured ' name='hide' />
           )}
 
-          {loadingCreate && <LoadingBox></LoadingBox>}
+          {loadingCreate && <Loading />}
           {errorCreate && (
-            <MessageBox variant='danger'>{errorCreate}</MessageBox>
+            <Message variant='danger' message='Error occured ' name='hide' />
           )}
           {loading ? (
-            <LoadingBox />
+            <Loading />
           ) : error ? (
-            <MessageBox variant='danger'>{error}</MessageBox>
+            <Message variant='danger' message='Error occured ' name='hide' />
           ) : (
             <>
               <table className='table'>
@@ -159,5 +161,8 @@ const Wrapper = styled.section`
 
   .row {
     overflow-x: auto;
+  }
+  .btn-hide {
+    display: none;
   }
 `

@@ -2,7 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { deleteUser, listUsers } from '../actions/userActions'
+import Loading from '../components/Loading'
 import LoadingBox from '../components/Loading'
+import Message from '../components/Message'
 import MessageBox from '../components/Message'
 import { USER_DETAILS_RESET } from '../constants/userConstants'
 
@@ -37,16 +39,14 @@ export default function UserListPage(props) {
 
         <div className='row'>
           {loadingDelete && <LoadingBox></LoadingBox>}
-          {errorDelete && (
-            <MessageBox variant='danger'>{errorDelete}</MessageBox>
-          )}
+          {errorDelete && <Message variant='danger' massage='User' />}
           {successDelete && (
-            <MessageBox variant='success'>User Deleted Successfully</MessageBox>
+            <Message variant='success' massage='User Deleted Successfully' />
           )}
           {loading ? (
-            <LoadingBox></LoadingBox>
+            <Loading />
           ) : error ? (
-            <MessageBox variant='danger'>{error}</MessageBox>
+            <Message variant='danger' massage='error' />
           ) : (
             <table className='table'>
               <thead>

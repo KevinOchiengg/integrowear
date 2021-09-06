@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
-import mg from 'mailgun-js';
+import jwt from 'jsonwebtoken'
+import mg from 'mailgun-js'
 
 export const generateToken = (user) => {
   return jwt.sign(
@@ -14,56 +14,56 @@ export const generateToken = (user) => {
     {
       expiresIn: '30d',
     }
-  );
-};
+  )
+}
 
 export const isAuth = (req, res, next) => {
-  const authorization = req.headers.authorization;
+  const authorization = req.headers.authorization
   if (authorization) {
-    const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
+    const token = authorization.slice(7, authorization.length) // Bearer XXXXXX
     jwt.verify(
       token,
       process.env.JWT_SECRET || 'somethingsecret',
       (err, decode) => {
         if (err) {
-          res.status(401).send({ message: 'Invalid Token' });
+          res.status(401).send({ message: 'Invalid Token' })
         } else {
-          req.user = decode;
-          next();
+          req.user = decode
+          next()
         }
       }
-    );
+    )
   } else {
-    res.status(401).send({ message: 'No Token' });
+    res.status(401).send({ message: 'No Token' })
   }
-};
+}
 export const isAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
-    next();
+    next()
   } else {
-    res.status(401).send({ message: 'Invalid Admin Token' });
+    res.status(401).send({ message: 'Invalid Admin Token' })
   }
-};
+}
 export const isSeller = (req, res, next) => {
   if (req.user && req.user.isSeller) {
-    next();
+    next()
   } else {
-    res.status(401).send({ message: 'Invalid Seller Token' });
+    res.status(401).send({ message: 'Invalid Seller Token' })
   }
-};
+}
 export const isSellerOrAdmin = (req, res, next) => {
   if (req.user && (req.user.isSeller || req.user.isAdmin)) {
-    next();
+    next()
   } else {
-    res.status(401).send({ message: 'Invalid Admin/Seller Token' });
+    res.status(401).send({ message: 'Invalid Admin/Seller Token' })
   }
-};
+}
 
 export const mailgun = () =>
   mg({
     apiKey: process.env.MAILGUN_API_KEY,
-    domain: process.env.MAILGUN_DOMIAN,
-  });
+    domain: process.env.MAILGUN_DOMAIN,
+  })
 
 export const payOrderEmailTemplate = (order) => {
   return `<h1>Thanks for shopping with us</h1>
@@ -125,5 +125,5 @@ export const payOrderEmailTemplate = (order) => {
   <p>
   Thanks for shopping with us.
   </p>
-  `;
-};
+  `
+}

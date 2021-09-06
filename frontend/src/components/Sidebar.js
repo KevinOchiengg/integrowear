@@ -149,7 +149,7 @@ const Sidebar = () => {
             </section>
           ) : (
             <section className='sidebar-conatainer'>
-              <Link to='/login' onClick={closeSidebar}>
+              <Link to='/signin' onClick={closeSidebar}>
                 <h4>Login</h4>
               </Link>
             </section>

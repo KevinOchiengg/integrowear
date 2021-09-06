@@ -4,7 +4,9 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { detailsUser, updateUser } from '../actions/userActions'
+import Loading from '../components/Loading'
 import LoadingBox from '../components/Loading'
+import Message from '../components/Message'
 import MessageBox from '../components/Message'
 import { USER_UPDATE_RESET } from '../constants/userConstants'
 
@@ -53,15 +55,15 @@ export default function UserEditPage(props) {
           <div>
             <h3 className='sub-heading'>products</h3>
             <h1 className='heading'>Product list</h1>
-            {loadingUpdate && <LoadingBox></LoadingBox>}
+            {loadingUpdate && <Loading />}
             {errorUpdate && (
-              <MessageBox variant='danger'>{errorUpdate}</MessageBox>
+              <Message variant='danger' message='error occured' name='hide' />
             )}
           </div>
           {loading ? (
-            <LoadingBox />
+            <Loading />
           ) : error ? (
-            <MessageBox variant='danger'>{error}</MessageBox>
+            <Message variant='danger' message='error occured' name='hide' />
           ) : (
             <>
               <div className='field-container'>

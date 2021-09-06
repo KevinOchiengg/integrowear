@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   FaFacebook,
   FaTwitter,
@@ -11,38 +11,38 @@ import {
   FaUser,
 } from 'react-icons/fa'
 import { register } from '../serviceWorker'
-import ErrorMessage from '../components/ErrorMessage'
+
 import Loading from '../components/Loading'
 import styled from 'styled-components'
+import Message from '../components/Message'
 
-const RegisterPage = () => {
+const RegisterPage = (props) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const location = useLocation()
+
+  const redirect = props.location.search
+    ? props.location.search.split('=')[1]
+    : '/'
+
   const userRegister = useSelector((state) => state.userRegister)
-  const { loading, userInfo, error } = userRegister
-  const history = useHistory()
+  const { userInfo, loading, error } = userRegister
+
   const dispatch = useDispatch()
-
-  const redirect = location.search ? location.search.split('=')[1] : '/'
-
   const submitHandler = (e) => {
     e.preventDefault()
+    dispatch(register(name, email, password))
     if (password !== confirmPassword) {
       alert('Password and confirm password are not match')
     } else {
-      dispatch(register(name, email, password))
     }
   }
-
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect)
+      props.history.push(redirect)
     }
-  }, [history, redirect, userInfo])
-
+  }, [props.history, redirect, userInfo])
   return (
     <Wrapper>
       <div className='section-center'>
@@ -51,11 +51,14 @@ const RegisterPage = () => {
             <FaRegUserCircle />
             <h4>Register</h4>
           </div>
+          {loading && <Loading />}
+          {error && <Message variant='danger' message='error' />}
           <form onSubmit={submitHandler} className='form-content'>
             <div className='field-container'>
               <FaUser />
 
               <input
+                id='name'
                 type='text'
                 placeholder='Name'
                 required
@@ -67,33 +70,37 @@ const RegisterPage = () => {
 
               <input
                 type='email'
+                id='email'
                 placeholder='email@domain.com'
-                value={email}
+                required
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
             <div className='field-container'>
-              <FaLock />
+              <label htmlFor='password'>
+                <FaLock />
+              </label>
               <input
                 type='password'
+                id='password'
                 placeholder='password'
-                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className='field-container'>
-              <FaLock />
+              <label htmlFor='confirmPassword'>
+                <FaLock />
+              </label>
               <input
                 type='password'
+                id='confirmPassword'
                 placeholder='Confirm Password'
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
 
-            {loading && <Loading />}
-            {error && <ErrorMessage />}
             <button type='submit' className='btn'>
               Register
             </button>
@@ -107,20 +114,20 @@ const RegisterPage = () => {
           </div>
           <div className='alternate-logins-cotainer'>
             <Link to='/'>
-              <FaFacebook className='facebook' />
+              <FaFacebook />
             </Link>
 
-            <Link to='/' className='twitter'>
+            <Link to='/'>
               <FaTwitter />
             </Link>
             <Link to='/'>
-              <FaGoogle className='google' />
+              <FaGoogle />
             </Link>
           </div>
 
           <div className='register-text-container'>
             <p>Have an account?</p>
-            <Link to='/login'>
+            <Link to={`/signin?redirect=${redirect}`}>
               <h6>Login</h6>
             </Link>
           </div>
@@ -132,39 +139,34 @@ const RegisterPage = () => {
 
 const Wrapper = styled.section`
   margin: 12rem 0;
-  color: var(--clr-light-yellow);
+  color: var(--clr-light-grey);
   .btn {
     width: 50%;
-    border: none;
-    margin: 0.8em auto;
-    outline: none;
-    font-size: 1.6rem;
-    letter-spacing: 2px;
-    color: var(--clr-blue);
   }
 
   .form-content {
     text-align: center;
-    margin: 3em auto 0 auto;
+    margin: 3rem auto 0 auto;
   }
-
+  .btn-hide {
+    display: none;
+  }
   .form {
-    background: var(--clr-blue);
     border-radius: 4px;
     box-shadow: var(--dark-shadow);
-    padding: 0.5em;
+    padding: 0.5rem;
     width: 100%;
     height: auto;
     transition: var(--transition);
-    margin: 2em auto;
+    margin: 2rem auto;
   }
   .field-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 2px solid var(--clr-dark-grey);
-    width: 70%;
-    margin: 1em auto;
+    border-bottom: 1px solid var(--clr-light-grey);
+    width: 90%;
+    margin: 2rem auto;
     font-size: 2rem;
   }
 
@@ -173,11 +175,11 @@ const Wrapper = styled.section`
   }
 
   input[type='email'],
-  input[type='password'] {
-    background: var(--clr-blue);
+  input[type='password'],
+  input[type='text'] {
     border-radius: none;
     border: none;
-    color: var(--clr-white);
+    color: var(--clr-blue);
     font-size: 2rem;
     padding: 6px;
     width: 100%;
@@ -192,25 +194,16 @@ const Wrapper = styled.section`
   }
   .alternate-logins-cotainer svg {
     font-size: 2rem;
-    color: var(--clr-light-yellow);
+    color: var(--clr-blue);
     margin: 0 1rem;
   }
   .forgot-password {
-    margin-top: 2em;
+    margin-top: 2rem;
   }
 
   .forgot-password a {
-    color: var(--clr-light-yellow);
+    color: var(--clr-blue);
     font-size: 2rem;
-  }
-  .twitter:hover {
-    border-bottom: 3px solid #62aadc;
-  }
-  .google:hover {
-    border-bottom: 3px solid #dd4b39;
-  }
-  .facebook:hover {
-    border-bottom: 3px solid #3b5998;
   }
 
   .strike {
@@ -230,6 +223,7 @@ const Wrapper = styled.section`
 
   .header h4 {
     margin-top: 1rem;
+    color: var(--clr-blue);
   }
 
   .header {
@@ -241,14 +235,17 @@ const Wrapper = styled.section`
     margin: 0 auto;
   }
 
+  .header svg {
+    font-size: 4rem;
+  }
   .strike > span:before,
   .strike > span:after {
     content: '';
     position: absolute;
     top: 50%;
     width: 525%;
-    height: 2px;
-    background: var(--clr-dark-grey);
+    height: 1px;
+    background: var(--clr-light-grey);
   }
 
   .strike > span:before {
@@ -274,11 +271,15 @@ const Wrapper = styled.section`
   .register-text-container h6 {
     font-size: 2rem;
     text-decoration: underline;
-    color: var(--clr-light-yellow);
+    color: var(--clr-blue);
   }
   @media only screen and (min-width: 800px) {
     .form {
       width: 40%;
+    }
+
+    .field-container {
+      width: 80%;
     }
   }
 `

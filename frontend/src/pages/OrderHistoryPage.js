@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { listOrderMine } from '../actions/orderActions'
 import Loading from '../components/Loading'
+import Message from '../components/Message'
 import MessageBox from '../components/Message'
 
 export default function OrderHistoryPage(props) {
@@ -19,9 +20,13 @@ export default function OrderHistoryPage(props) {
         <h1 className='heading'>Your Order History </h1>
         <div className='row'>
           {loading ? (
-            <Loading></Loading>
+            <Loading />
           ) : error ? (
-            <MessageBox variant='danger'>{error}</MessageBox>
+            <Message
+              variant='danger'
+              message='error loading order history'
+              name='hide'
+            />
           ) : (
             <table className='table'>
               <thead>
@@ -87,6 +92,9 @@ const Wrapper = styled.section`
   }
   .table button {
     margin: 0 0.2rem;
+  }
+  .btn-hide {
+    display: none;
   }
 
   .primary {

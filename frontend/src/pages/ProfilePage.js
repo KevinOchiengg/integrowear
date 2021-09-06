@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { detailsUser, updateUserProfile } from '../actions/userActions'
 import Loading from '../components/Loading'
+import Message from '../components/Message'
 import MessageBox from '../components/Message'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
@@ -68,17 +69,23 @@ export default function ProfilePage() {
           {loading ? (
             <Loading />
           ) : error ? (
-            <MessageBox variant='danger'>{error}</MessageBox>
+            <Message variant='danger' message='Error occured ' name='hide' />
           ) : (
             <>
               {loadingUpdate && <Loading />}
               {errorUpdate && (
-                <MessageBox variant='danger'>{errorUpdate}</MessageBox>
+                <Message
+                  variant='danger'
+                  message='Error occured '
+                  name='hide'
+                />
               )}
               {successUpdate && (
-                <MessageBox variant='success'>
-                  Profile Updated Successfully
-                </MessageBox>
+                <Message
+                  variant='success'
+                  message='Error occured '
+                  name='hide'
+                />
               )}
               <div>
                 <label htmlFor='name'>Name</label>
@@ -156,12 +163,10 @@ export default function ProfilePage() {
                   </div>
                 </>
               )}
-              <div>
-                <label />
-                <button className=' btn primary' type='submit'>
-                  Update
-                </button>
-              </div>
+
+              <button className=' btn primary' type='submit'>
+                Update
+              </button>
             </>
           )}
         </form>

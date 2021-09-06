@@ -67,7 +67,7 @@ const Filters = () => {
           {loadingCategories ? (
             <Loading />
           ) : errorCategories ? (
-            <Message variant='danger'>{errorCategories}</Message>
+            <Message variant='danger' massage='error' name='hide' />
           ) : (
             <ul>
               <li className='has-sub'>

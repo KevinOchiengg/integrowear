@@ -71,9 +71,7 @@ export default function OrderPage(props) {
   return loading ? (
     <Loading />
   ) : error ? (
-    <Message message='Error ocurred' variant='danger'>
-      {error}
-    </Message>
+    <Message message='Error ocurred' variant='danger' />
   ) : (
     <Wrapper>
       <div className='section-center'>

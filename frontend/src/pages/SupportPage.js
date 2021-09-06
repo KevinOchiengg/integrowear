@@ -3,6 +3,7 @@ import socketIOClient from 'socket.io-client'
 import { useSelector } from 'react-redux'
 import MessageBox from '../components/Message'
 import styled from 'styled-components'
+import Message from '../components/Message'
 
 let allUsers = []
 let allMessages = []
@@ -114,7 +115,7 @@ export default function SupportPage() {
         <div className='row top full-container'>
           <div className='col-1 support-users'>
             {users.filter((x) => x._id !== userInfo._id).length === 0 && (
-              <MessageBox>No Online User Found</MessageBox>
+              <Message variant='danger' message='No Online user' name='hide' />
             )}
             <ul>
               {users
@@ -148,7 +149,11 @@ export default function SupportPage() {
           </div>
           <div className='col-3 support-messages'>
             {!selectedUser._id ? (
-              <MessageBox>Select a user to start chat</MessageBox>
+              <Message
+                variant='danger'
+                message='Select a user to start chat'
+                name='hide'
+              />
             ) : (
               <div>
                 <div className='row'>
@@ -185,5 +190,8 @@ export default function SupportPage() {
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
+  margin: 12rem 0;
+  .btn-hide {
+    display: none;
+  }
 `

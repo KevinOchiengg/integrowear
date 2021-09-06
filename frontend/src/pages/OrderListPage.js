@@ -40,7 +40,7 @@ export default function OrderListPage(props) {
           {loading ? (
             <Loading />
           ) : error ? (
-            <Message variant='danger'>{error}</Message>
+            <Message variant='danger' message='error loading order list' />
           ) : (
             <table className='table'>
               <thead>

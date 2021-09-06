@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { addToCart, removeFromCart } from '../actions/cartActions'
+
 import Message from '../components/Message'
 import Rating from '../components/Rating'
 
@@ -32,7 +33,9 @@ export default function CartPage(props) {
   return (
     <Wrapper>
       <div className='section-center'>
-        {error && <Message variant='danger'>{error}</Message>}
+        {error && (
+          <Message variant='danger' message='Error fetching cart products' />
+        )}
         {cartItems.length === 0 ? (
           <Message
             message='Oops! Your Cart is Empty...'
@@ -67,7 +70,7 @@ export default function CartPage(props) {
                             <p>Price: Ksh {item.price}</p>
                             {/* <Rating /> */}
                             <button
-                              className='btn'
+                              className='btn remove-btn'
                               onClick={() =>
                                 removeFromCartHandler(item.product)
                               }
@@ -121,6 +124,7 @@ export default function CartPage(props) {
                     type='button'
                     className='checkout-btn btn'
                     disabled={cartItems.length === 0}
+                    onClick={checkoutHandler}
                   >
                     Proceed to Checkout
                   </button>
@@ -131,7 +135,7 @@ export default function CartPage(props) {
                     className='shopping-btn btn'
                     disabled={cartItems.length === 0}
                   >
-                    Continue Shopping
+                    Continue to Shopping
                   </button>
                 </Link>
               </div>
@@ -153,10 +157,9 @@ const Wrapper = styled.section`
     font-size: 1.7rem;
   }
 
-  .btn {
-    margin-top: 1rem;
+  .remove-btn {
+    font-size: 1rem;
   }
-
   .cart-info {
     display: flex;
     flex-wrap: wrap;
@@ -189,9 +192,7 @@ const Wrapper = styled.section`
     text-align: center;
     border: none;
   }
-  h3 {
-    margin-bottom: 1.5em;
-  }
+
   select {
     width: 4rem;
     padding: 5px;
@@ -201,10 +202,9 @@ const Wrapper = styled.section`
   .checkout-btn-container {
     display: flex;
     width: 100%;
-    align-items: center;
     grid-gap: 2rem;
     flex-wrap: wrap;
-    border: 2px solid red;
+    flex-direction: column;
   }
 
   td a {
@@ -223,17 +223,18 @@ const Wrapper = styled.section`
   .shopping-btn {
     margin: 0;
   }
+
+  .quantity {
+    width: 7rem;
+  }
   .total-price {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 2rem;
   }
   .total-price td {
-    padding: 0.6em 0;
-  }
-
-  button {
-    font-size: 1rem;
+    padding: 1rem 0;
   }
 
   .total-price table {
@@ -250,7 +251,6 @@ const Wrapper = styled.section`
     }
     .total-price {
       align-items: flex-end;
-      margin: 0 1.5em;
     }
     td img {
       width: 5rem;
@@ -260,10 +260,15 @@ const Wrapper = styled.section`
       font-size: 1.7rem;
     }
 
+    td:nth-child(2) {
+      padding-left: 1.7rem;
+    }
+
     td:first-child {
       display: flex;
     }
-    .checkout-btn {
+    .checkout-btn,
+    .shopping-btn {
       font-size: 2rem;
     }
   } ;

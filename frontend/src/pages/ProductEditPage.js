@@ -6,6 +6,8 @@ import LoadingBox from '../components/Loading'
 import MessageBox from '../components/Message'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 import styled from 'styled-components'
+import Loading from '../components/Loading'
+import Message from '../components/Message'
 
 export default function ProductEditPage(props) {
   const productId = props.match.params.id
@@ -92,14 +94,14 @@ export default function ProductEditPage(props) {
         <form className='form' onSubmit={submitHandler}>
           <h3 className='sub-heading'>product</h3>
           <h1 className='heading'>edit product</h1>
-          {loadingUpdate && <LoadingBox></LoadingBox>}
+          {loadingUpdate && <Loading />}
           {errorUpdate && (
-            <MessageBox variant='danger'>{errorUpdate}</MessageBox>
+            <Message variant='danger' message='error occured' name='hide' />
           )}
           {loading ? (
-            <LoadingBox></LoadingBox>
+            <Loading />
           ) : error ? (
-            <MessageBox variant='danger'>{error}</MessageBox>
+            <Message variant='danger' />
           ) : (
             <>
               <div className='field-container'>
@@ -142,7 +144,11 @@ export default function ProductEditPage(props) {
                 />
                 {loadingUpload && <LoadingBox></LoadingBox>}
                 {errorUpload && (
-                  <MessageBox variant='danger'>{errorUpload}</MessageBox>
+                  <Message
+                    message='error occured please check our internet connection'
+                    variant='danger'
+                    name='hide'
+                  />
                 )}
               </div>
               <div className='field-container'>
@@ -204,5 +210,8 @@ const Wrapper = styled.section`
 
   .primary {
     font-size: 2rem;
+  }
+  .btn-hide {
+    display: none;
   }
 `

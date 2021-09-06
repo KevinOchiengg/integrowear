@@ -4,7 +4,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { signin } from '../actions/userActions'
 import Loading from '../components/Loading'
-import ErrorMessage from '../components/ErrorMessage'
+
 import {
   FaFacebook,
   FaTwitter,
@@ -13,6 +13,7 @@ import {
   FaEnvelope,
   FaRegUserCircle,
 } from 'react-icons/fa'
+import Message from '../components/Message'
 
 const SigninPage = () => {
   const [email, setEmail] = useState()
@@ -35,14 +36,14 @@ const SigninPage = () => {
     }
   }, [history, redirect, userInfo])
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     history.push('/')
-  //   }
-  //   return () => {
-  //     //cleanup
-  //   }
-  // }, [userInfo])
+  useEffect(() => {
+    if (userInfo) {
+      history.push('/')
+    }
+    return () => {
+      //cleanup
+    }
+  }, [userInfo])
 
   return (
     <Wrapper>
@@ -76,12 +77,12 @@ const SigninPage = () => {
               ></input>
             </div>
             <div className='forgot-password'>
-              <Link to='/'>
-                <p>Forgot password</p>
-              </Link>
+              <Link to='/'>Forgot password?</Link>
             </div>
             {loading && <Loading />}
-            {error && <ErrorMessage />}
+            {error && (
+              <Message variant='danger' message='error occured' name='hide' />
+            )}
             <button type='submit' className='btn'>
               Sign In
             </button>
@@ -95,14 +96,14 @@ const SigninPage = () => {
           </div>
           <div className='alternate-logins-cotainer'>
             <Link to='/'>
-              <FaFacebook className='facebook' />
+              <FaFacebook />
             </Link>
 
-            <Link to='/' className='twitter'>
+            <Link to='/'>
               <FaTwitter />
             </Link>
             <Link to='/'>
-              <FaGoogle className='google' />
+              <FaGoogle />
             </Link>
           </div>
 
@@ -117,42 +118,38 @@ const SigninPage = () => {
     </Wrapper>
   )
 }
+export default SigninPage
 
 const Wrapper = styled.section`
   margin: 12rem 0;
-  color: var(--clr-light-yellow);
+  color: var(--clr-light-grey);
   .btn {
     width: 50%;
-    border: none;
-    margin: 0.8em auto;
-    outline: none;
-    font-size: 1.6rem;
-    letter-spacing: 2px;
-    color: var(--clr-blue);
   }
 
   .form-content {
     text-align: center;
-    margin: 3em auto 0 auto;
+    margin: 3rem auto 0 auto;
   }
-
+  .btn-hide {
+    display: none;
+  }
   .form {
-    background: var(--clr-blue);
     border-radius: 4px;
     box-shadow: var(--dark-shadow);
-    padding: 0.5em;
+    padding: 0.5rem;
     width: 100%;
     height: auto;
     transition: var(--transition);
-    margin: 2em auto;
+    margin: 2rem auto;
   }
   .field-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 2px solid var(--clr-dark-grey);
-    width: 70%;
-    margin: 1em auto;
+    border-bottom: 1px solid var(--clr-light-grey);
+    width: 90%;
+    margin: 2rem auto;
     font-size: 2rem;
   }
 
@@ -161,11 +158,11 @@ const Wrapper = styled.section`
   }
 
   input[type='email'],
-  input[type='password'] {
-    background: var(--clr-blue);
+  input[type='password'],
+  input[type='text'] {
     border-radius: none;
     border: none;
-    color: var(--clr-white);
+    color: var(--clr-blue);
     font-size: 2rem;
     padding: 6px;
     width: 100%;
@@ -178,29 +175,15 @@ const Wrapper = styled.section`
     align-items: center;
     justify-content: center;
   }
+
   .alternate-logins-cotainer svg {
     font-size: 2rem;
-    color: var(--clr-light-yellow);
+    color: var(--clr-blue);
     margin: 0 1rem;
   }
   .forgot-password {
-    margin-top: 2em;
+    font-size: 1.7rem;
   }
-
-  .forgot-password a {
-    color: var(--clr-light-yellow);
-    font-size: 2rem;
-  }
-  .twitter:hover {
-    border-bottom: 3px solid #62aadc;
-  }
-  .google:hover {
-    border-bottom: 3px solid #dd4b39;
-  }
-  .facebook:hover {
-    border-bottom: 3px solid #3b5998;
-  }
-
   .strike {
     display: block;
     margin-top: 12px;
@@ -218,6 +201,7 @@ const Wrapper = styled.section`
 
   .header h4 {
     margin-top: 1rem;
+    color: var(--clr-blue);
   }
 
   .header {
@@ -229,14 +213,17 @@ const Wrapper = styled.section`
     margin: 0 auto;
   }
 
+  .header svg {
+    font-size: 4rem;
+  }
   .strike > span:before,
   .strike > span:after {
     content: '';
     position: absolute;
     top: 50%;
     width: 525%;
-    height: 2px;
-    background: var(--clr-dark-grey);
+    height: 1px;
+    background: var(--clr-light-grey);
   }
 
   .strike > span:before {
@@ -262,13 +249,15 @@ const Wrapper = styled.section`
   .register-text-container h6 {
     font-size: 2rem;
     text-decoration: underline;
-    color: var(--clr-light-yellow);
+    color: var(--clr-blue);
   }
   @media only screen and (min-width: 800px) {
     .form {
       width: 40%;
     }
+
+    .field-container {
+      width: 80%;
+    }
   }
 `
-
-export default SigninPage

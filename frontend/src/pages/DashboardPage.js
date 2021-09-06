@@ -24,7 +24,11 @@ export default function DashboardPage() {
           {loading ? (
             <Loading />
           ) : error ? (
-            <Message variant='danger'>{error}</Message>
+            <Message
+              variant='danger'
+              message='Error occured while laoding dashbord'
+              name='hide'
+            />
           ) : (
             <>
               <ul className='row summary'>
@@ -67,7 +71,7 @@ export default function DashboardPage() {
                   <h3 className='sub-heading'>sales</h3>
                   <h1 className='heading'>Your sales</h1>
                   {summary.dailyOrders.length === 0 ? (
-                    <Message message='No Sales'></Message>
+                    <Message message='There is no sales made' name='hide' />
                   ) : (
                     <Chart
                       width='100%'
@@ -88,7 +92,7 @@ export default function DashboardPage() {
                 <h3 className='sub-heading'>categories</h3>
                 <h1 className='heading'>product categories</h1>
                 {summary.productCategories.length === 0 ? (
-                  <Message message='No Category'></Message>
+                  <Message message='No Category' />
                 ) : (
                   <Chart
                     width='100%'
@@ -145,7 +149,9 @@ const Wrapper = styled.section`
     text-align: center;
     color: var(--clr-blue);
   }
-
+  .btn-hide {
+    display: none;
+  }
   @media (min-width: 450px) {
     .summary-body,
     .summary-title {

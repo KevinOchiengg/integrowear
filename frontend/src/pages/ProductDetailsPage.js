@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Rating from '../components/Rating'
+import { FiChevronRight, FiChevronLeft } from 'react-icons/fi'
 import {
   FaInstagram,
   FaFacebookF,
@@ -14,7 +15,6 @@ import { createReview, detailsProduct } from '../actions/productActions'
 import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/productConstants'
 import Message from '../components/Message'
 import Loading from '../components/Loading'
-import ErrorMessage from '../components/ErrorMessage'
 
 const ProductDetailsPage = (props) => {
   const dispatch = useDispatch()
@@ -59,46 +59,43 @@ const ProductDetailsPage = (props) => {
     }
   }
   return (
-    <Wrapper className='product-details-container'>
+    <Wrapper>
       {loading ? (
         <Loading />
       ) : error ? (
-        <Message variant='danger'>{error}</Message>
+        <Message variant='danger' message='Error loading product details' />
       ) : (
-        <>
-          <div className='section-center'>
-            <div className='product-details-row'>
-              <div className='product-details-imgs-container'>
-                <div className='product-details-img'>
-                  <img src={product.image} alt='product' />
-                </div>
-                <div className='product-details-related-imgs'>
-                  <img src={product.image} alt='product' />
-                  <img src={product.image} alt='product' />
-                  <img src={product.image} alt='product' />
-                </div>
+        <div className='section-center'>
+          <h3 className='sub-heading'>product</h3>
+          <h1 className='heading'>product details</h1>
+          <div className='row'>
+            <div>
+              <img src={product.image} alt={product.name} className='image' />
+              <div className='product-details-related-imgs'>
+                <img src={product.image} alt={product.name} />
+                <img src={product.image} alt={product.name} />
+                <img src={product.image} alt={product.name} />
               </div>
+            </div>
 
-              <div className='product-details-info'>
-                <h3>{product.name}</h3>
-                <Rating rating={product.rating} reviews={product.reviews} />
-                <div className='price-box'>
-                  <span className='new-price'>Ksh {product.price}</span>
-                  <span className='old-price'>Ksh. 3500</span>
-                </div>
-                <div className='product-details-description'>
-                  <p>{product.description}</p>
-                </div>
-                <div className='add-to-cart-btn-container'>
-                  <form action='#' className='product-details-form'>
+            <div className='content'>
+              <h3>{product.name}</h3>
+              <Rating rating={product.rating} numReviews={product.numReviews} />
+              <div className='price'>Ksh {product.price}</div>
+              <p>{product.description}</p>
+
+              <div className='icons-container'>
+                <form action='#' className='product-details-form'>
+                  <div className='select-container'>
                     <select>
                       <option>Select Size</option>
-                      <option>XXL</option>
-                      <option>XL</option>
-                      <option>Large</option>
-                      <option>Medium</option>
                       <option>Small</option>
+                      <option>Medium</option>
+                      <option>Large</option>
+                      <option>XL</option>
+                      <option>XXL</option>
                     </select>
+
                     <select
                       className='quantity'
                       type='number'
@@ -113,190 +110,155 @@ const ProductDetailsPage = (props) => {
                         </option>
                       ))}
                     </select>
-                    {product.countInStock > 0 ? (
-                      <button
-                        type='submit'
-                        className='btn add-to-cart '
-                        onClick={addToCartHandler}
-                      >
-                        Add To Cart
-                      </button>
-                    ) : (
-                      <div className='out-of-stock'>Stock: Out Of Stock</div>
-                    )}
-                  </form>
-                </div>
-                <div className='wish-list-btn-container'>
-                  <Link to='wishlist.html' className='add_to_wishlist'>
-                    <FaRegHeart /> Add to Wishlist
-                  </Link>
-                  <Link to='compare.html'>
-                    <BiShuffle /> Compare
-                  </Link>
-                </div>
-                <hr />
-                <div className='category-info-container'>
-                  <ul className='stock-count'>
-                    <li className='product-sku'>
-                      Sku: <span>{product._id}</span>
-                    </li>
-                    <li className='product-stock-status'>
-                      Categories: <Link to='#'>{product.category}</Link>
-                    </li>
-                    <li className='product-stock-status'>
-                      Tag: <Link to='/products'>{product.category}</Link>
-                    </li>
-                  </ul>
-                </div>
-                <div className='share-product-socail-area'>
-                  <p>Share this product</p>
-                  <ul className='single-product-share'>
-                    <li>
-                      <Link to='#'>
-                        <FaPinterestP />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to='#'>
-                        <FaFacebookF />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to='#'>
-                        <FaInstagram />
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='product-description-container'>
-            <div className='section-center'>
-              <div className='product-description-row'>
-                <h4>Description</h4>
+                  </div>
 
-                <div className='product-description'>
-                  <p>{product.description}</p>
-                </div>
+                  {product.countInStock > 0 ? (
+                    <button
+                      type='submit'
+                      className='btn add-to-cart '
+                      onClick={addToCartHandler}
+                    >
+                      Add To Cart
+                    </button>
+                  ) : (
+                    <div className='out-of-stock'>Stock: Out Of Stock</div>
+                  )}
+                </form>
+              </div>
+              <hr />
+              <ul className='stock-count'>
+                <li className='product-sku'>
+                  Sku: <span>{product._id}</span>
+                </li>
+                <li className='product-stock-status'>
+                  Category: <Link to='#'>{product.category}</Link>
+                </li>
+              </ul>
+              <div className='wish-list-container'>
+                <Link to='wishlist.html' className='add_to_wishlist'>
+                  <FaRegHeart /> Add to Wishlist
+                </Link>
+                <Link to='compare.html'>
+                  <BiShuffle /> Compare
+                </Link>
+              </div>
+              <p>Share this product</p>
+              <div className='share-product-socail-area'>
+                <Link to='#'>
+                  <FaPinterestP />
+                </Link>
+
+                <Link to='#'>
+                  <FaFacebookF />
+                </Link>
+
+                <Link to='#'>
+                  <FaInstagram />
+                </Link>
               </div>
             </div>
           </div>
-          <div className='product-reviews-container'>
-            <div className='section-center'>
-              <h4>Reviews</h4>
-              {product.reviews.length === 0 && (
-                <Message message='This Product has no review yet' name='hide' />
-              )}
-              <div className='reviews-product-row'>
-                {product.reviews.map((review) => (
-                  <>
-                    <div className='review-img-container'>
-                      <img
-                        className='primary-image'
-                        src={product.image}
-                        alt=''
-                      />
-                    </div>
-                    <div className='review_details'>
-                      <div className='review_info '>
+          <div className='description-row'>
+            <h3 className='sub-heading'>description</h3>
+            <h1 className='heading'>Product description</h1>
+
+            <p>{product.description}</p>
+          </div>
+          <section className='review' id='review'>
+            <h3 className='sub-heading'>reviews</h3>
+            <h1 className='heading'>product reviews</h1>
+
+            {product.reviews.length === 0 && (
+              <Message message='This Product has no review yet' name='hide' />
+            )}
+
+            <div className='swiper-container review-slider'>
+              {product.reviews.map((review) => (
+                <div className='swiper-wrapper'>
+                  <div className='swiper-slide slide'>
+                    <FiChevronRight className='fa-quote-right' />
+                    <div className='user'>
+                      <img src={product.image} alt={review.name} />
+                      <div className='user-info'>
+                        <h3>
+                          {review.name} -
+                          <span> {review.createdAt.substring(0, 10)}</span>
+                        </h3>
                         <Rating
                           rating={product.rating}
                           numReviews={product.numReviews}
-                        ></Rating>
-                        <h5>
-                          {review.name} -
-                          <span> {review.createdAt.substring(0, 10)}</span>
-                        </h5>
+                        />
                       </div>
-                      <p>{review.comment}</p>
                     </div>
-                  </>
-                ))}
-              </div>
-            </div>
-
-            <div className='product-review-form'>
-              <div className='section-center'>
-                {userInfo ? (
-                  <div className='product-review-form-row'>
-                    <div className='rating_wrap'>
-                      <h4 className='rating-title-1'>Add a review </h4>
-                      <p>
-                        Your email address will not be published. Required
-                        fields are marked *
-                      </p>
-                    </div>
-                    <form
-                      action='#'
-                      className='comment-form-area'
-                      onSubmit={submitHandler}
-                    >
-                      <div className='row'>
-                        <label>
-                          Your Rating <span className='required'>*</span>
-                        </label>
-                        <select
-                          id='rating'
-                          value={rating}
-                          onChange={(e) => setRating(e.target.value)}
-                        >
-                          <option value=''>Select...</option>
-                          <option value='1'>Poor</option>
-                          <option value='2'>Fair</option>
-                          <option value='3'>Good</option>
-                          <option value='4'>Very good</option>
-                          <option value='5'>Excelent</option>
-                        </select>
-                      </div>
-                      <div className='row'>
-                        <label>
-                          Name <span className='required'>*</span>
-                        </label>
-                        <input type='text' required='required' name='Name' />
-                      </div>
-                      <div className='row'>
-                        <label>
-                          Email <span className='required'>*</span>
-                        </label>
-                        <input type='text' required='required' name='email' />
-                      </div>
-
-                      <div className='row'>
-                        <label>Comment</label>
-                        <textarea
-                          id='comment'
-                          value={comment}
-                          onChange={(e) => setComment(e.target.value)}
-                        ></textarea>
-                      </div>
-                      <div className='row'>
-                        <button type='submit' className='btn review-btn'>
-                          Submit
-                        </button>
-                      </div>
-                      <div>
-                        {loadingReviewCreate && <Loading />}
-                        {errorReviewCreate && (
-                          <ErrorMessage
-                            message='Error Creating review'
-                            variant='danger'
-                          />
-                        )}
-                      </div>
-                    </form>
+                    <p>{review.comment}</p>
                   </div>
-                ) : (
-                  <Message
-                    message='Please Login To give A Review'
-                    buttonText='Login'
-                    url='/login'
-                  />
-                )}
-              </div>
+                </div>
+              ))}
             </div>
-          </div>
-        </>
+          </section>
+
+          {userInfo ? (
+            <div className='product-review-form-row'>
+              <div className='rating_wrap'>
+                <h3 className='sub-heading'>review</h3>
+                <h1 className='heading'>Add review</h1>
+              </div>
+              <form className='comment-form-area' onSubmit={submitHandler}>
+                <div className='row'>
+                  <label htmlFor='rating'>Rating</label>
+                  <select
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                  >
+                    <option value=''>Select your rating</option>
+                    <option value='1'>Poor</option>
+                    <option value='2'>Fair</option>
+                    <option value='3'>Good</option>
+                    <option value='4'>Very good</option>
+                    <option value='5'>Excelent</option>
+                  </select>
+                </div>
+                <div className='row'>
+                  <label htmlFor='Name'>Name</label>
+                  <input type='text' required='required' name='Name' />
+                </div>
+                <div className='row'>
+                  <label htmlFor='Email'>Email</label>
+                  <input type='text' required='required' name='email' />
+                </div>
+
+                <div className='row'>
+                  <label htmlFor='comment'>Comment</label>
+                  <textarea
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  ></textarea>
+                </div>
+
+                <button type='submit' className='btn review-btn'>
+                  Submit
+                </button>
+
+                <div>
+                  {loadingReviewCreate && <Loading />}
+                  {errorReviewCreate && (
+                    <Message
+                      variant='danger'
+                      message='error occured'
+                      name='hide'
+                    />
+                  )}
+                </div>
+              </form>
+            </div>
+          ) : (
+            <Message
+              message='Please Login To give A Review'
+              buttonText='Login'
+              url='/signin'
+            />
+          )}
+        </div>
       )}
     </Wrapper>
   )
@@ -305,196 +267,202 @@ const ProductDetailsPage = (props) => {
 export default ProductDetailsPage
 
 const Wrapper = styled.section`
-  margin-top: 4rem;
+  margin: 5rem 0;
   color: var(--clr-dark-grey);
-  padding-top: 4em;
 
-  .section-center {
-    margin: 2em auto;
-    max-width: var(--max-width);
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
   }
-  .rating {
-    font-size: 1.2rem;
-    justify-content: flex-start;
+  .description-row p {
+    text-align: center;
+  }
+  .row .image {
+    flex: 1 1 30rem;
   }
   .btn-hide {
     display: none;
   }
-  .product-details-related-imgs {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin: 1em 0 0.6em 0;
+  .select-container select {
+    width: 20rem;
   }
 
-  .product-details-form select {
-    width: 20%;
-    margin: 1em 0;
+  .image {
+    width: 100%;
   }
-  .product-details-form select:first-child {
-    margin-right: 1em;
+  .product-details-related-imgs {
+    display: flex;
+    margin-top: 1rem;
+    justify-content: space-around;
   }
   .product-details-related-imgs img {
     width: 60px;
   }
-  .out-of-stock {
-    margin: 1em 0;
-  }
-  .price-box {
-    margin: 1em 0;
-  }
-  .wish-list-btn-container {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .wish-list-btn-container a {
-    color: var(--clr-dark-grey);
+
+  .row .content {
+    flex: 1 1 45rem;
   }
 
-  .wish-list-btn-container a:first-child {
-    margin-bottom: 0.8em;
+  .row .content h3 {
+    color: var(--clr-blue);
+    font-size: 3rem;
+    padding: 0.5rem 0;
   }
-  .new-price {
-    background: none;
-    font-size: 1em;
-    text-decoration: none;
-    color: var(--clr-yellow);
-    font-size: 16px;
+
+  .sub-heading {
+    padding-top: 10rem;
+  }
+
+  p {
+    color: var(--clr-dark-grey);
+    font-size: 2rem;
+    padding: 0.5rem 0;
+    line-height: 2;
+  }
+
+  .content .price {
+    font-size: 2.4rem;
+    color: var(--clr-blue);
     font-weight: 500;
+    margin-top: 1.7rem;
   }
-
-  .old-price {
-    color: var(--clr-dark-grey);
-    display: inline-block;
-    font-size: 1rem;
-    font-weight: normal;
-    margin-left: 1em;
-    text-decoration: line-through;
-    filter: alpha(opacity=100);
-    opacity: 1;
-  }
-  .input-text {
-    width: 2.5em;
-    height: 2.5em;
-    margin-right: 1.6em;
-  }
-  p,
-  li {
-    font-size: 0.825em;
-    line-height: 1.6rem;
-    letter-spacing: var(--spacing);
-  }
-
-  .wish-list-btn-container {
-    margin-bottom: 1em;
-  }
-  .wish-list-btn-container svg {
-    margin-right: 1em;
-  }
-  .add_to_wishlist {
-    margin-right: 1.6em;
-  }
-  .category-info-container li {
-    margin: 0.6em 0;
-    letter-spacing: var(--spacing);
-  }
-
-  label {
-    margin-bottom: 0.8em;
-  }
-
-  input,
-  select {
-    border: 1px solid var(--clr-light-grey);
-    height: 3.5em;
-    width: 100%;
-  }
-
   .share-product-socail-area {
+    margin-top: 1rem;
+  }
+  .share-product-socail-area a {
+    font-size: 2.2rem;
+    padding: 1rem;
+    box-shadow: var(--light-shadow);
+    color: var(--clr-blue);
+  }
+
+  .share-product-socail-area a:nth-child(2) {
+    margin: 0 2rem;
+  }
+  .select-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    grid-gap: 2rem;
+  }
+  .row .content .icons-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1rem 0;
+    margin-top: 0.5rem;
+  }
+
+  .row .content .icons-container .icons {
+    background: #eee;
+    border-radius: 0.5rem;
+    border: 0.1rem solid rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex: 1 1 17rem;
+    padding: 1.5rem 1rem;
   }
-  .single-product-share {
+
+  .review .slide {
+    padding: 2rem;
+    box-shadow: var(--light-shadow);
+    border: 0.1rem solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
+    position: relative;
+  }
+
+  .review .slide .fa-quote-right {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 6rem;
+    color: #ccc;
+  }
+
+  .review .slide .user {
     display: flex;
-  }
-  .single-product-share svg {
-    margin: 0.8em;
-  }
-
-  .product-description-nav {
-    display: flex;
-    margin-bottom: 1em;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    padding-bottom: 1.5rem;
   }
 
-  .product-description-nav li:first-child {
-    margin-right: 1.6em;
+  .review .slide .user img {
+    height: 7rem;
+    width: 7rem;
+    border-radius: 50%;
+    object-fit: cover;
   }
 
-  .review-img-container {
-    margin-bottom: 1.4em;
-    max-width: 4em;
+  .review .slide .user h3 {
+    color: var(--clr-blue);
+    font-size: 2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .rating,
+  svg {
+    font-size: 1.7rem;
+  }
+
+  .btn-hide {
+    display: none;
+  }
+
+  .review .slide p {
+    font-size: 1.7rem;
+    line-height: 1.8;
   }
 
   .comment-form-area {
-    margin-top: 2em;
-  }
-
-  .row {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 1.5em 0;
-  }
-
-  .review_info h5 {
-    margin-top: 1em;
-  }
-  .review-btn {
-    margin-top: 0;
-    padding: 0.8em 0;
+    margin: 0 auto;
     width: 100%;
-    letter-spacing: var(--spacing);
+  }
+  .stock-count {
+    margin: 1rem 0;
+    line-height: 1.5;
+  }
+  .stock-count li {
+    font-size: 2rem;
+  }
+  .wish-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 2.2rem;
+  }
+
+  .wish-list-container svg {
+    margin-right: 1.7rem;
+  }
+  .wish-list-container a {
+    display: flex;
+    align-items: center;
     color: var(--clr-blue);
   }
-  h6 {
-    margin-top: 1em;
-  }
-  @media (min-width: 475px) {
-    .reviews-product-row {
-      display: flex;
-    }
-    .review-img-container {
-      margin-right: 1.4em;
-    }
-    .wish-list-btn-container a:first-child {
-      margin-bottom: 0;
-    }
+  .wish-list-container a:first-child {
+    margin-right: 2rem;
   }
   @media (min-width: 800px) {
-    .product-details-row {
-      display: flex;
-      justify-content: space-between;
+    .comment-form-area {
+      margin: 0 auto;
+      width: 50%;
     }
-
-    .review-btn {
-      width: 15%;
+    .review .slide .user {
+      flex-direction: row;
     }
-    .wish-list-btn-container a:first-child {
-      margin-bottom: 0;
+    .review .slide p {
+      font-size: 2rem;
     }
-
-    .product-details-imgs-container {
-      width: 40%;
+    .review .slide .user h3 {
+      font-size: 2.2rem;
     }
-    .product-details-info {
-      width: 57%;
-    }
-    .product-details-info h3 {
-      margin: 10px;
-    }
-    .product-details-related-imgs img {
-      width: 80px;
+    .rating,
+    svg {
+      font-size: 2rem;
     }
   }
 `
