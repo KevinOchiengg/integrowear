@@ -16,7 +16,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 mongoose.connect(
-  process.env.MONGODB_URL || 'mongodb://localhost/integrowear',
+  'mongodb+srv://Kevin:cliveotieno9019$@cluster0.l3ae2.mongodb.net/integrowears?retryWrites=true&w=majority',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
