@@ -1,26 +1,34 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { AiOutlineHeart } from 'react-icons/ai'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
 import Rating from './Rating'
+import Loading from './Loading'
+import Message from './Message'
+import { formatPrice } from '../utils/helpers'
 
 const GridView = () => {
-  const dispatch = useDispatch()
-
-  const productCategoryList = useSelector((state) => state.productCategoryList)
   const productList = useSelector((state) => state.productList)
-  const { products } = productList
-  const {
-    loading: loadingCategories,
-    error: errorCategories,
-    categories,
-  } = productCategoryList
-
+  const { loading, error, products } = productList
+  const dispatch = useDispatch()
   useEffect(() => {
     dispatch(listProducts({}))
   }, [dispatch])
+
+  if (loading) {
+    return <Loading />
+  }
+  if (error) {
+    return (
+      <Message message='Error Loading products' name='hide' variant='danger' />
+    )
+  }
+
+  if (products < 1) {
+    return <Message message='No product match your search...' name='hide' />
+  }
   return (
     <Wrapper>
       {products.map((product) => (
@@ -37,12 +45,11 @@ const GridView = () => {
                 {product.name}
               </Link>
             </h4>
+            <Rating rating={product.rating} numReviews={product.numReviews} />
             <div className='price-box'>
-              <span className='new-price'>Ksh {product.price}</span>
+              <span className='new-price'>{formatPrice(product.price)}</span>
               <span className='old-price'>ksh 2,000</span>
             </div>
-
-            <Rating rating={product.rating} numReviews={product.numReviews} />
 
             <p>{product.description}</p>
           </div>
@@ -80,6 +87,32 @@ const GridView = () => {
   )
 }
 
-const Wrapper = styled.section``
+const Wrapper = styled.section`
+  .product-content-list h4 a {
+    font-size: 2.2rem;
+    color: var(--clr-blue);
+  }
+
+  .new-price {
+    color: var(--clr-blue);
+    font-weight: 400;
+    margin-right: 10px;
+  }
+
+  .price-box {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .old-price {
+    text-decoration: line-through;
+    color: var(--clr-light-grey);
+  }
+  h4 {
+    margin-bottom: 0.4em;
+  }
+  .product-stock-status {
+    margin: 1.7rem 0;
+  }
+`
 
 export default GridView

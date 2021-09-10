@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   createProduct,
@@ -8,10 +8,8 @@ import {
   listProducts,
 } from '../actions/productActions'
 import Loading from '../components/Loading'
-import LoadingBox from '../components/Loading'
 import Message from '../components/Message'
-import MessageBox from '../components/Message'
-import Pagination from '../components/Pagination'
+
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
@@ -22,7 +20,7 @@ export default function ProductListPage(props) {
 
   const sellerMode = props.match.path.indexOf('/seller') >= 0
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products } = productList
+  const { loading, error, products, page, pages } = productList
 
   const productCreate = useSelector((state) => state.productCreate)
   const {
@@ -141,7 +139,14 @@ export default function ProductListPage(props) {
             </>
           )}
         </div>
-        <Pagination />
+        <div className='pagination'>
+          {[...Array(pages).keys()].map((x) => (
+            <Link key={x + 1} to={`/productlist/pageNumber/${x + 1}`}>
+              <span className={x + 1 === page ? 'active' : ''}>{x + 1}</span>
+            </Link>
+          ))}
+          <span>&#8594;</span>
+        </div>
       </div>
     </Wrapper>
   )

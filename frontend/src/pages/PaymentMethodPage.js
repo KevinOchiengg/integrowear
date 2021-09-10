@@ -22,7 +22,8 @@ export default function PaymentMethodPage(props) {
       <div className='section-center'>
         <CheckoutSteps step1 step2 step3></CheckoutSteps>
         <form className='form' onSubmit={submitHandler}>
-          <h3 className='title'>Payment Method</h3>
+          <h3 className='sub-heading'>payment</h3>
+          <h1 className='heading'>payment method</h1>
 
           <div className='payment-method-container'>
             <input
@@ -60,9 +61,10 @@ export default function PaymentMethodPage(props) {
 }
 
 const Wrapper = styled.section`
-  margin: 1rem 0;
-  .form {
-    width: 100%;
+  margin: 12rem 0;
+
+  .sub-heading {
+    margin-top: 4rem;
   }
   .form,
   .primary,
@@ -75,15 +77,11 @@ const Wrapper = styled.section`
     justify-content: center;
     flex-direction: row;
     width: 30%;
-    margin: 1em 0;
+    margin: 2rem auto;
   }
 
   input {
-    height: 1.5em;
-  }
-
-  .title {
-    margin: 2em 0;
+    height: 2.5rem;
   }
 
   .checkbox-container {
@@ -92,15 +90,10 @@ const Wrapper = styled.section`
   }
 
   .primary {
-    color: var(--clr-blue);
-    font-size: 1rem;
+    font-size: 2rem;
   }
 
   @media screen and (min-width: 800px) {
-    .form {
-      width: 60%;
-    }
-
     .checkbox {
       height: 1.5em;
       width: 1.5em;

@@ -3,10 +3,10 @@ import { useGlobalContext } from '../context'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProductCategories } from '../actions/productActions'
-import LoadingBox from './Loading'
-import MessageBox from './Message'
 import { TiShoppingCart } from 'react-icons/ti'
 import styled from 'styled-components'
+import Loading from './Loading'
+import Message from './Message'
 
 const Submenu = () => {
   const {
@@ -55,9 +55,9 @@ const Submenu = () => {
           {links.map((link, index) => {
             const { url, icon, label } = link
 
-            if (loadingCategories) return <LoadingBox />
+            if (loadingCategories) return <Loading />
             else if (errorCategories)
-              return <MessageBox variant='danger'>Error</MessageBox>
+              return <Message variant='danger' message='Error' name='hide' />
             else if (page === 'Category' && categories) {
               return categories.map((c) => (
                 <Link
@@ -89,7 +89,7 @@ const Wrapper = styled.section`
   background: var(--clr-white);
   box-shadow: var(--dark-shadow);
   position: fixed;
-  top: 8rem;
+  margin-top: 0.4rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
@@ -98,24 +98,6 @@ const Wrapper = styled.section`
   border-radius: var(--radius);
   transition: var(--transition);
 
-  .submenu::before {
-    content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid var(--clr-white);
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .submenu-center {
-    display: grid;
-    gap: 0.25rem 2rem;
-  }
   .col-2 {
     grid-template-columns: repeat(2, 1fr);
   }

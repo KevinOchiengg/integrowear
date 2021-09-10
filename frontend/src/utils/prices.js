@@ -5,21 +5,21 @@ export const prices = [
     max: 0,
   },
   {
-    name: `$1 to $10`,
+    name: `ksh 1 to ksh 500`,
     min: 1,
     max: 10,
   },
   {
-    name: `$10 to $100`,
+    name: `ksh 500 to ksh 10,000`,
     min: 10,
     max: 100,
   },
   {
-    name: `$100 to $1000`,
+    name: `ksh 10,000 to ksh 20,000`,
     min: 100,
     max: 1000,
   },
-];
+]
 export const ratings = [
   {
     name: '4stars & up',
@@ -40,4 +40,4 @@ export const ratings = [
     name: '1stars & up',
     rating: 1,
   },
-];
+]

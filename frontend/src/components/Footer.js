@@ -80,16 +80,16 @@ const Footer = () => {
               </li>
               {userInfo && userInfo.isAdmin && (
                 <li>
-                  <Link to='/signout'>Admin</Link>
+                  <Link to='/dashboard'>Admin</Link>
                 </li>
               )}
               {userInfo && userInfo.isSeller && (
                 <>
                   <li>
-                    <Link to='/signout'>Seller</Link>
+                    <Link to='/userlist'>users</Link>
                   </li>
                   <li>
-                    <Link to='/signout'>Account</Link>
+                    <Link to='/profile'>Account</Link>
                   </li>
                 </>
               )}
@@ -101,7 +101,7 @@ const Footer = () => {
                 </li>
               ) : (
                 <li>
-                  <Link to='/login'>Login</Link>
+                  <Link to='/signin'>Login</Link>
                 </li>
               )}
             </ul>

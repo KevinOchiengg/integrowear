@@ -4,10 +4,8 @@ import styled from 'styled-components'
 
 export default function Loading() {
   return (
-    <Wrapper>
-      <div className='loading-container'>
-        <VscLoading />
-      </div>
+    <Wrapper className='loading-container'>
+      <VscLoading />
     </Wrapper>
   )
 }
@@ -16,13 +14,16 @@ const Wrapper = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
-  .loading-container {
+
+  svg {
+    color: var(--clr-blue);
+    font-size: 6rem;
     animation: spinner 1s linear infinite;
   }
 
-  .loading-container svg {
-    color: var(--clr-dark-grey);
-    font-size: 3rem;
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
   }
 `

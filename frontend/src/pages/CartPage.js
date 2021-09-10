@@ -6,6 +6,7 @@ import { addToCart, removeFromCart } from '../actions/cartActions'
 
 import Message from '../components/Message'
 import Rating from '../components/Rating'
+import { formatPrice } from '../utils/helpers'
 
 export default function CartPage(props) {
   const productId = props.match.params.id
@@ -34,7 +35,12 @@ export default function CartPage(props) {
     <Wrapper>
       <div className='section-center'>
         {error && (
-          <Message variant='danger' message='Error fetching cart products' />
+          <Message
+            variant='danger'
+            message='Error fetching cart products...'
+            url='/'
+            buttonText='Back Home'
+          />
         )}
         {cartItems.length === 0 ? (
           <Message
@@ -67,7 +73,7 @@ export default function CartPage(props) {
                               <h5>{item.name}</h5>
                             </Link>
 
-                            <p>Price: Ksh {item.price}</p>
+                            <p>Price: {formatPrice(item.price)}</p>
                             {/* <Rating /> */}
                             <button
                               className='btn remove-btn'
@@ -97,7 +103,7 @@ export default function CartPage(props) {
                           ))}
                         </select>
                       </td>
-                      <td>Ksh {item.price}</td>
+                      <td>{formatPrice(item.price)}</td>
                     </tr>
                   )
                 })}
@@ -193,6 +199,14 @@ const Wrapper = styled.section`
     border: none;
   }
 
+  .message-container {
+    height: 60vh;
+  }
+  .alert {
+    text-align: center;
+    font-size: 2.7rem;
+  }
+
   select {
     width: 4rem;
     padding: 5px;
@@ -251,6 +265,9 @@ const Wrapper = styled.section`
     }
     .total-price {
       align-items: flex-end;
+    }
+    .alert {
+      font-size: 3.5rem;
     }
     td img {
       width: 5rem;

@@ -1,44 +1,129 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import Message from '../components/Message'
+
+import { FaTh, FaThList } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
 import { useState } from 'react'
-import Loading from '../components/Loading'
 import Filters from '../components/Filters'
-import Sort from '../components/Sort'
 import GridView from '../components/GridView'
 import ListView from '../components/ListView'
-import Pagination from '../components/Pagination'
-import ProductList from '../components/ProductList'
+import { Link } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 const ProductsPage = (props) => {
   const dispatch = useDispatch()
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products } = productList
+  const { products, page, pages } = productList
   const productCategoryList = useSelector((state) => state.productCategoryList)
+  const [viewproducts, setViewProduct] = useState(true)
+  useEffect(() => {
+    dispatch(listProducts({}))
+  }, [dispatch])
+
+  const {
+    name = 'all',
+    category = 'all',
+    min = 0,
+    max = 0,
+    rating = 0,
+    order = 'newest',
+    pageNumber = 1,
+  } = useParams()
+
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    categories,
+  } = productCategoryList
+  useEffect(() => {
+    dispatch(
+      listProducts({
+        pageNumber,
+        name: name !== 'all' ? name : '',
+        category: category !== 'all' ? category : '',
+        min,
+        max,
+        rating,
+        order,
+      })
+    )
+  }, [category, dispatch, max, min, name, order, rating, pageNumber])
+
+  const getFilterUrl = (filter) => {
+    const filterPage = filter.page || pageNumber
+    const filterCategory = filter.category || category
+    const filterName = filter.name || name
+    const filterRating = filter.rating || rating
+    const sortOrder = filter.order || order
+    const filterMin = filter.min ? filter.min : filter.min === 0 ? 0 : min
+    const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max
+    return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}/pageNumber/${filterPage}`
+  }
 
   useEffect(() => {
     dispatch(listProducts({}))
   }, [dispatch])
 
-  // const productSectionView = () => {
-  //   if (loading) return <Loading />
-  //   else if (error)
-  //     return <Message variant='danger'>Oops! Error fetching Products</Message>
-  //   else if (products.length === 0) return <Message>No Product Found</Message>
-  //   else if (viewproducts) return
-  //   else return
-  // }
-
   return (
-    <Wrapper className='section'>
+    <Wrapper>
       <div className='section-center'>
         <div className='products-category-container'>
           <div className='products-list-section'>
-            <Sort />
+            <div className='products-list-header'>
+              <ul className='nav shop-item-filter-list'>
+                <li
+                  className={`${
+                    viewproducts ? 'active grid-view' : 'grid-view'
+                  }`}
+                >
+                  <FaTh
+                    onClick={(e) => {
+                      setViewProduct(true)
+                    }}
+                  />
+                </li>
+                <li
+                  className={`${
+                    !viewproducts ? 'active grid-view' : 'grid-view'
+                  }`}
+                >
+                  <FaThList
+                    onClick={(e) => {
+                      setViewProduct(false)
+                    }}
+                  />
+                </li>
+              </ul>
 
-            <Pagination />
+              <div className='product-relevance'>
+                <p className='sort-by'>Sort By :</p>
+                <select
+                  className='nice-select'
+                  value={order}
+                  onChange={(e) => {
+                    props.history.push(getFilterUrl({ order: e.target.value }))
+                  }}
+                >
+                  <option value='newest'>Newest Arrivals</option>
+                  <option value='lowest'>Price: Low to High</option>
+                  <option value='highest'>Price: High to Low</option>
+                  <option value='toprated'>Avg. Customer Reviews</option>
+                </select>
+              </div>
+            </div>
+            {viewproducts ? <ListView /> : <GridView />}
+
+            <div className='pagination'>
+              {[...Array(pages).keys()].map((x) => (
+                <Link key={x + 1} to={getFilterUrl({ page: x + 1 })}>
+                  <span className={x + 1 === page ? 'active' : ''}>
+                    {x + 1}
+                  </span>
+                </Link>
+              ))}
+              <span>&#8594;</span>
+            </div>
           </div>
           <Filters />
         </div>
@@ -50,13 +135,15 @@ const ProductsPage = (props) => {
 export default ProductsPage
 
 const Wrapper = styled.section`
-  margin-top: 4em;
-  padding: 4em 0;
+  margin: 8rem 0;
+  padding: 4rem 0;
+  font-size: 2rem;
   color: var(--clr-dark-grey);
 
   a {
     color: var(--clr-dark-grey);
   }
+
   .has-sub {
     margin: 1em 0;
   }
@@ -68,47 +155,24 @@ const Wrapper = styled.section`
     display: none;
   }
 
+  .nav svg {
+    cursor: pointer;
+  }
   .sidebar-tag li {
     padding: 5px;
     border: 1px solid var(--clr-light-grey);
     border-radius: 2px;
   }
 
-  .active {
+  .nav .active {
     transition: var(--transition);
     color: var(--clr-yellow);
   }
 
-  .product-rating,
-  .product-stock-status,
-  .add-to-cart-btn {
-    margin: 1em 0;
-  }
   .products-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     gap: 1.5rem;
-  }
-
-  .page-btn {
-    margin-top: 6em;
-  }
-
-  .page-btn span {
-    display: inline-block;
-    border: 1px solid var(--clr-blue);
-    margin: 5px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    cursor: pointer;
-    line-height: 40px;
-    color: var(--clr-blue);
-    transition: var(--transition);
-  }
-
-  .page-btn span:hover {
-    background: var(--clr-hover);
   }
 
   .product-name {
@@ -129,12 +193,12 @@ const Wrapper = styled.section`
   .product-relevance {
     display: flex;
     align-items: center;
-    grid-gap: 1em;
-    margin: 0 1em;
+    grid-gap: 1rem;
+    margin: 0 1rem;
   }
 
   .product-layout-list .rating {
-    margin: 1em 0;
+    margin: 1rem 0;
     justify-content: flex-start;
   }
 
@@ -149,30 +213,29 @@ const Wrapper = styled.section`
   }
 
   .products-category-nav {
-    padding: 1em;
+    padding: 1rem;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   }
-  .sidebar-tag {
-    display: flex;
-    grid-gap: 1em;
-    flex-wrap: wrap;
-  }
+
   select {
     font-size: 10px;
     color: var(--clr-dark-grey);
   }
 
+  .loading-container {
+    margin-top: 10rem;
+  }
   .product-layout-list {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 2em 0;
-    padding: 0.6em;
+    margin: 2rem 0;
+    padding: 0.6rem;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   }
 
   .product-content-list {
-    margin: 1em 0;
+    margin: 1rem 0;
   }
 
   .product-action-area {
@@ -182,9 +245,6 @@ const Wrapper = styled.section`
     margin-top: 0.5em;
   }
 
-  .product-content-list h4 a {
-    font-size: 1rem;
-  }
   @media (min-width: 800px) {
     .product-layout-list {
       flex-direction: row;
@@ -199,28 +259,8 @@ const Wrapper = styled.section`
       height: 180px;
     }
 
-    .product-layout-list .price-box {
-      font-size: 1rem;
-    }
-
-    .new-price {
-      color: var(--clr-yellow);
-      font-weight: 400;
-      margin-right: 10px;
-    }
-    .old-price {
-      text-decoration: line-through;
-      color: var(--clr-light-grey);
-    }
-    h4 {
-      margin-bottom: 0.4em;
-    }
-    .product-content-list h4 a {
-      font-size: 1.2rem;
-    }
     .product-action-area {
       width: 23%;
-      height: 180px;
     }
   }
 
@@ -236,10 +276,7 @@ const Wrapper = styled.section`
       justify-content: space-between;
     }
     .products-list-section {
-      width: 72%;
-    }
-    .products-category-nav {
-      width: 25%;
+      width: 78%;
     }
 
     select {
@@ -249,13 +286,6 @@ const Wrapper = styled.section`
     .sort-by {
       width: 50%;
       display: block;
-    }
-
-    .product-category-title {
-      font-size: 1rem;
-      border-bottom: 1px solid var(--clr-light-grey);
-      margin-bottom: 2em;
-      padding-bottom: 1em;
     }
   }
 `

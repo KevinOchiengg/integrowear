@@ -4,8 +4,8 @@ import styled from 'styled-components'
 
 const ErrorPage = () => {
   return (
-    <Wrapper className='page'>
-      <div className='content'>
+    <Wrapper>
+      <div className='section-center content'>
         <h1>404</h1>
         <h3>Sorry, the page you tried cannot be found</h3>
         <Link to='/' className='btn'>
@@ -17,53 +17,44 @@ const ErrorPage = () => {
 }
 
 const Wrapper = styled.section`
-  width: 100%;
-  height: 94vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  top: 12rem;
-  position: relative;
-  padding: 0 20px;
-  left: 0;
-  right: 0;
+  height: 70vh;
+  margin: 12rem 0;
+
   .content {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: 25px;
+    height: 100%;
+    width: 100%;
   }
 
   .content h1 {
-    font-size: 12rem;
-    color: rgba(39, 55, 85);
+    font-size: 5rem;
+    color: var(--clr-blue);
   }
 
   .content h3 {
-    color: rgba(39, 55, 85);
-    font-size: 2rem;
+    color: var(--clr-blue);
+    font-size: 1.7rem;
+    text-align: center;
   }
 
   .content .btn {
-    color: rgba(39, 55, 85);
-    font-size: 1.6rem;
+    color: var(--clr-blue);
+    font-size: 2rem;
   }
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (min-width: 800px) {
     .content h3 {
-      font-size: 1rem;
+      font-size: 3rem;
     }
     .content h1 {
-      font-size: 5rem;
+      font-size: 10rem;
     }
     .content .btn {
-      font-size: 1rem;
-    }
-    .page {
-      top: 5rem;
-      height: 95vh;
+      font-size: 2.2rem;
     }
   }
 `

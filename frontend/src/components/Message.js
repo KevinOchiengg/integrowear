@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 export default function Message(props) {
   return (
-    <Wrapper>
+    <Wrapper className='message-container'>
       <h3 className={`alert alert-${props.variant || 'info'}`}>
         {props.message}
       </h3>
@@ -17,13 +17,9 @@ export default function Message(props) {
 
 const Wrapper = styled.section`
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: column;
 
-  .alert {
-    text-align: center;
-  }
   a {
     color: var(--clr-blue);
   }
@@ -32,9 +28,23 @@ const Wrapper = styled.section`
     margin: 0 auto;
   }
 
+  .btn-hide {
+    display: none;
+  }
+
+  .alert-danger {
+    color: var(--clr-red);
+  }
+  .success {
+    color: var(--green);
+  }
+  .danger {
+    color: var(--clr-red);
+  }
+
   h3 {
-    margin: 6rem 0;
-    font-size: 2.2rem;
+    margin: 2rem 0;
+    font-size: 1.7rem;
     color: var(--clr-blue);
   }
   @media only screen and (min-width: 800px) {

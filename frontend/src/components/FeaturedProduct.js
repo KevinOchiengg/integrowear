@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import Product from './Product'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from './Loading'
-import MessageBox from './Message'
 import styled from 'styled-components'
 import { listProducts } from '../actions/productActions'
+import Error from './Error'
 
 function FeaturedProducts() {
   const productList = useSelector((state) => state.productList)
@@ -18,7 +18,7 @@ function FeaturedProducts() {
     return <Loading />
   }
   if (error) {
-    return <MessageBox />
+    return <Error />
   }
   return (
     <Wrapper className='section'>

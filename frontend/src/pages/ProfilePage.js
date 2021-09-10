@@ -178,27 +178,12 @@ export default function ProfilePage() {
 const Wrapper = styled.section`
   margin: 12rem 0;
   color: var(--clr-dark-grey);
-  form {
-    margin: 0 auto;
-  }
-  h3 {
-    margin-bottom: 0;
-  }
-  .form {
-    width: 60%;
-  }
-  input {
-    height: 3.5em;
-  }
 
   .primary {
     width: 40%;
     font-size: 2rem;
   }
-  .seller-title {
-    margin: 1em 0;
-  }
-  label {
-    margin-bottom: 0.6em;
+
+  @media screen and (min-width: 800px) {
   }
 `

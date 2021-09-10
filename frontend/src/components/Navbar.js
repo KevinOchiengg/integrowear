@@ -125,9 +125,9 @@ const Navbar = (props) => {
             </div>
           </div>
           {userInfo ? (
-            <Link to={'/signout'} onClick={signoutHandler}>
-              <button className='btn login-btn'>Logout</button>
-            </Link>
+            <button onClick={signoutHandler} className='btn login-btn'>
+              Logout
+            </button>
           ) : (
             <Link to={'/signin'}>
               <button className='btn logout-btn'>Login</button>
@@ -175,15 +175,18 @@ const Wrapper = styled.nav`
   }
 
   .link-btn {
-    padding: 0.5rem 1.5rem;
+    padding: 1rem 1.7rem;
     text-align: center;
-    height: 100%;
+    height: 8rem;
     background: transparent;
     border: none;
     color: var(--clr-light-yellow);
     text-transform: capitalize;
     letter-spacing: var(--spacing);
     cursor: pointer;
+    &:hover {
+      color: var(--clr-yellow);
+    }
   }
 
   .search-field button {
@@ -299,7 +302,7 @@ const Wrapper = styled.nav`
     .nav-links {
       display: flex;
       text-align: center;
-      height: 100%;
+      height: 8rem;
       justify-content: center;
     }
 

@@ -7,6 +7,7 @@ import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 import Loading from '../components/Loading'
 import styled from 'styled-components'
 import Message from '../components/Message'
+import { formatPrice } from '../utils/helpers'
 
 export default function PlaceOrderPage(props) {
   const cart = useSelector((state) => state.cart)
@@ -81,7 +82,7 @@ export default function PlaceOrderPage(props) {
                           </div>
 
                           <div>
-                            {item.qty} x ${item.price} = $
+                            {item.qty} x {formatPrice(item.price)} =
                             {item.qty * item.price}
                           </div>
                         </div>
@@ -101,19 +102,19 @@ export default function PlaceOrderPage(props) {
                 <li>
                   <div className='row'>
                     <div>Items</div>
-                    <div>${cart.itemsPrice.toFixed(2)}</div>
+                    <div>{formatPrice(cart.itemsPrice.toFixed(2))}</div>
                   </div>
                 </li>
                 <li>
                   <div className='row'>
                     <div>Shipping</div>
-                    <div>${cart.shippingPrice.toFixed(2)}</div>
+                    <div>{formatPrice(cart.shippingPrice.toFixed(2))}</div>
                   </div>
                 </li>
                 <li>
                   <div className='row'>
                     <div>Tax</div>
-                    <div>${cart.taxPrice.toFixed(2)}</div>
+                    <div>{formatPrice(cart.taxPrice.toFixed(2))}</div>
                   </div>
                 </li>
                 <li>
@@ -122,7 +123,7 @@ export default function PlaceOrderPage(props) {
                       <strong> Order Total</strong>
                     </div>
                     <div>
-                      <strong>${cart.totalPrice.toFixed(2)}</strong>
+                      <strong>{formatPrice(cart.totalPrice.toFixed(2))}</strong>
                     </div>
                   </div>
                 </li>
@@ -154,25 +155,30 @@ export default function PlaceOrderPage(props) {
 }
 const Wrapper = styled.section`
   margin: 12rem 0;
+  font-size: 2.2rem;
+  color: var(--clr-blue);
+
   .card {
     border: 0.1rem #c0c0c0 solid;
     background-color: #f8f8f8;
     border-radius: 0.5rem;
     margin: 1rem;
+    box-shadow: var(--light-shadow);
   }
   .card-body {
-    padding: 1rem;
+    padding: 2rem;
   }
   .btn-hide {
     display: none;
   }
 
   .card-body > * {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.7rem;
   }
-  .price {
-    font-size: 2rem;
+  .card-body ul li {
+    margin: 2rem auto;
   }
+
   .row {
     display: flex;
     flex-wrap: wrap;
@@ -184,6 +190,7 @@ const Wrapper = styled.section`
   }
   .row.top {
     align-items: flex-start;
+    margin-top: 5rem;
   }
   .row.start {
     justify-content: flex-start;

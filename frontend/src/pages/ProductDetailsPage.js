@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Rating from '../components/Rating'
-import { FiChevronRight, FiChevronLeft } from 'react-icons/fi'
+import { FiChevronRight } from 'react-icons/fi'
+import { formatPrice } from '../utils/helpers'
 import {
   FaInstagram,
   FaFacebookF,
@@ -48,6 +49,7 @@ const ProductDetailsPage = (props) => {
   const addToCartHandler = () => {
     props.history.push(`/cart/${productId}?qty=${qty}`)
   }
+
   const submitHandler = (e) => {
     e.preventDefault()
     if (comment && rating) {
@@ -81,7 +83,7 @@ const ProductDetailsPage = (props) => {
             <div className='content'>
               <h3>{product.name}</h3>
               <Rating rating={product.rating} numReviews={product.numReviews} />
-              <div className='price'>Ksh {product.price}</div>
+              <div className='price'>{formatPrice(product.price)}</div>
               <p>{product.description}</p>
 
               <div className='icons-container'>
@@ -169,7 +171,10 @@ const ProductDetailsPage = (props) => {
             <h1 className='heading'>product reviews</h1>
 
             {product.reviews.length === 0 && (
-              <Message message='This Product has no review yet' name='hide' />
+              <Message
+                message='This Product has no reviews yet...'
+                name='hide'
+              />
             )}
 
             <div className='swiper-container review-slider'>
@@ -281,6 +286,10 @@ const Wrapper = styled.section`
   }
   .row .image {
     flex: 1 1 30rem;
+  }
+
+  .alert {
+    text-align: center;
   }
   .btn-hide {
     display: none;

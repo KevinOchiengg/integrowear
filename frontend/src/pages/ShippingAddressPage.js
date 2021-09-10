@@ -147,19 +147,6 @@ const Wrapper = styled.section`
   margin: 10rem 0;
   color: var(--clr-grey);
 
-  .form {
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  label {
-    margin-bottom: 0.5rem;
-  }
-  input {
-    border: 1px solid var(--clr-light-grey);
-    height: 3.5em;
-  }
-
   .sub-heading {
     margin-top: 3rem;
   }
@@ -170,15 +157,10 @@ const Wrapper = styled.section`
   }
 
   .primary {
-    color: var(--clr-blue);
     font-size: 2rem;
   }
 
   @media screen and (min-width: 800px) {
-    .form {
-      width: 60%;
-    }
-
     .checkbox {
       height: 1.5em;
       width: 1.5em;

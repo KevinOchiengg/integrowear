@@ -5,6 +5,7 @@ import { listOrderMine } from '../actions/orderActions'
 import Loading from '../components/Loading'
 import Message from '../components/Message'
 import MessageBox from '../components/Message'
+import { formatPrice } from '../utils/helpers'
 
 export default function OrderHistoryPage(props) {
   const orderMineList = useSelector((state) => state.orderMineList)
@@ -44,7 +45,7 @@ export default function OrderHistoryPage(props) {
                   <tr key={order._id}>
                     <td>{order._id}</td>
                     <td>{order.createdAt.substring(0, 10)}</td>
-                    <td>{order.totalPrice.toFixed(2)}</td>
+                    <td>{formatPrice(order.totalPrice)}</td>
                     <td>
                       {order.isPaid ? order.paidAt.substring(0, 10) : 'No'}
                     </td>

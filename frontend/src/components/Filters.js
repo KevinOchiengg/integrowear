@@ -6,11 +6,10 @@ import { listProducts } from '../actions/productActions'
 import Loading from '../components/Loading'
 import Message from '../components/Message'
 import Rating from '../components/Rating'
-import { prices, ratings } from '../utils'
+import { prices, ratings } from '../utils/prices'
 
 const Filters = () => {
   const dispatch = useDispatch()
-  const productList = useSelector((state) => state.productList)
 
   const {
     name = 'all',
@@ -21,8 +20,6 @@ const Filters = () => {
     order = 'newest',
     pageNumber = 1,
   } = useParams()
-
-  const { loading, error, products, page, pages } = productList
 
   const productCategoryList = useSelector((state) => state.productCategoryList)
   const {
@@ -59,130 +56,101 @@ const Filters = () => {
     dispatch(listProducts({}))
   }, [dispatch])
   return (
-    <Wrapper>
-      <div className='products-category-nav'>
-        <h4 className='product-category-title'>Product categories</h4>
+    <Wrapper className='products-category-nav'>
+      <h4>Product categories</h4>
 
-        <div className='category-sub-menu'>
-          {loadingCategories ? (
-            <Loading />
-          ) : errorCategories ? (
-            <Message variant='danger' massage='error' name='hide' />
-          ) : (
-            <ul>
-              <li className='has-sub'>
-                <Link
-                  className={'all' === category ? 'active has-sub' : ''}
-                  to={getFilterUrl({ category: 'all' })}
-                >
-                  Any
-                </Link>
-              </li>
-              {categories.map((c) => (
-                <li key={c} className='has-sub'>
-                  <Link
-                    className={c === category ? 'active' : ''}
-                    to={getFilterUrl({ category: c })}
-                  >
-                    {c}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        <div className='shop-sidebar'>
-          <h4 className='product-category-title'>Filter By Price</h4>
-
-          <div className='filter-price-content'>
-            <form action='#' method='post'>
-              <div id='price-slider' className='price-slider'></div>
-              <div className='filter-price-wrapper'>
-                <span>FILTER</span>
-
-                <div className='filter-price-cont'>
-                  <span>Price:</span>
-                  <ul>
-                    {prices.map((p) => (
-                      <li key={p.name}>
-                        <Link
-                          to={getFilterUrl({ min: p.min, max: p.max })}
-                          className={
-                            `${p.min}-${p.max}` === `${min}-${max}`
-                              ? 'active'
-                              : ''
-                          }
-                        >
-                          {p.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <span>Avg. Customer Review</span>
-                  <ul>
-                    {ratings.map((r) => (
-                      <li key={r.name}>
-                        <Link
-                          to={getFilterUrl({ rating: r.rating })}
-                          className={
-                            `${r.rating}` === `${rating}` ? 'active' : ''
-                          }
-                        >
-                          <Rating caption={' & up'} rating={r.rating}></Rating>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div className='shop-sidebar'>
-          <h4 className='product-category-title'>Product tags</h4>
-
+      <div className='category-sub-menu'>
+        {loadingCategories ? (
+          <Loading />
+        ) : errorCategories ? (
+          <Message variant='danger' massage='error' name='hide' />
+        ) : (
           <ul className='sidebar-tag'>
             <li>
-              <Link to='#'>accesories</Link>
+              <Link
+                className={'all' === category ? 'active has-sub' : ''}
+                to={getFilterUrl({ category: 'all' })}
+              >
+                Any
+              </Link>
             </li>
-
-            <li>
-              <Link to='#'>blouse</Link>
-            </li>
-            <li>
-              <Link to='#'>clothes</Link>
-            </li>
-            <li>
-              <Link to='#'>desktop</Link>
-            </li>
-            <li>
-              <Link to='#'>digital</Link>
-            </li>
-            <li>
-              <Link to='#'>fashion</Link>
-            </li>
-            <li>
-              <Link to='#'>women</Link>
-            </li>
-            <li>
-              <Link to='#'>men</Link>
-            </li>
-            <li>
-              <Link to='#'>laptop</Link>
-            </li>
-            <li>
-              <Link to='#'>handbag</Link>
-            </li>
+            {categories.map((c) => (
+              <li key={c}>
+                <Link
+                  className={c === category ? 'active' : ''}
+                  to={getFilterUrl({ category: c })}
+                >
+                  {c}
+                </Link>
+              </li>
+            ))}
           </ul>
-        </div>
+        )}
+      </div>
+      <div className='filter-by-price-container'>
+        <h4>Filter by price</h4>
+
+        <ul>
+          {prices.map((p) => (
+            <li key={p.name}>
+              <Link
+                to={getFilterUrl({ min: p.min, max: p.max })}
+                className={
+                  `${p.min}-${p.max}` === `${min}-${max}` ? 'active' : ''
+                }
+              >
+                {p.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className='filter-by-review-container'>
+        <h4>Customer review</h4>
+        <ul>
+          {ratings.map((r) => (
+            <li key={r.name}>
+              <Link
+                to={getFilterUrl({ rating: r.rating })}
+                className={`${r.rating}` === `${rating}` ? 'active' : ''}
+              >
+                <Rating caption={' & up'} rating={r.rating} />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </Wrapper>
   )
 }
 
-const Wrapper = styled.section``
+const Wrapper = styled.section`
+  .filter-by-price-container,
+  .sidebar-tag {
+    margin: 3rem 0;
+  }
+  .product-tags-container {
+    margin-top: 2.5rem;
+  }
+
+  .sidebar-tag li {
+    padding: 5px;
+    border: 1px solid var(--clr-light-grey);
+    border-radius: 2px;
+  }
+  @media (min-width: 769px) {
+    width: 20%;
+  }
+  .filter-by-review-container li,
+  .filter-by-price-container li {
+    margin: 1.5rem 0;
+  }
+  .sidebar-tag {
+    display: flex;
+    grid-gap: 1rem;
+    flex-wrap: wrap;
+  }
+`
 
 export default Filters

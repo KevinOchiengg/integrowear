@@ -71,7 +71,11 @@ export default function DashboardPage() {
                   <h3 className='sub-heading'>sales</h3>
                   <h1 className='heading'>Your sales</h1>
                   {summary.dailyOrders.length === 0 ? (
-                    <Message message='There is no sales made' name='hide' />
+                    <Message
+                      message='There is no sales made'
+                      name='hide'
+                      variant='danger'
+                    />
                   ) : (
                     <Chart
                       width='100%'
@@ -92,7 +96,11 @@ export default function DashboardPage() {
                 <h3 className='sub-heading'>categories</h3>
                 <h1 className='heading'>product categories</h1>
                 {summary.productCategories.length === 0 ? (
-                  <Message message='No Category' />
+                  <Message
+                    message='No Category found in the chart'
+                    name='hide'
+                    variant='danger'
+                  />
                 ) : (
                   <Chart
                     width='100%'
@@ -149,9 +157,7 @@ const Wrapper = styled.section`
     text-align: center;
     color: var(--clr-blue);
   }
-  .btn-hide {
-    display: none;
-  }
+
   @media (min-width: 450px) {
     .summary-body,
     .summary-title {

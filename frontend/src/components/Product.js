@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Rating from './Rating'
 import styled from 'styled-components'
@@ -23,7 +23,7 @@ export default function Product({ product }) {
             <Rating rating={product.rating} numReviews={product.numReviews} />
           </div>
           <Link to={`/product/${product._id}`}>
-            <h3>{product.name.substring(0, 22)}</h3>
+            <h3>{product.name.substring(0, 25)}</h3>
           </Link>
 
           <p>{product.description.substring(0, 50)}...</p>
@@ -42,7 +42,7 @@ const Wrapper = styled.div`
     background: var(--clr-white);
     border: 0.1rem solid rgba(0, 0, 0, 0.2);
     border-radius: 0.5rem;
-    box-shadow: var(--dark-shadow);
+    box-shadow: var(--light-shadow);
     margin: 0 auto;
   }
 
@@ -103,6 +103,6 @@ const Wrapper = styled.div`
   .box .content .price {
     color: var(--clr-blue);
     margin-left: 1rem;
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 `

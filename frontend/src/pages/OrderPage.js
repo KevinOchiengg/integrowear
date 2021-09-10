@@ -11,6 +11,7 @@ import {
   ORDER_PAY_RESET,
 } from '../constants/orderConstants'
 import styled from 'styled-components'
+import { formatPrice } from '../utils/helpers'
 
 export default function OrderPage(props) {
   const orderId = props.match.params.id
@@ -71,7 +72,12 @@ export default function OrderPage(props) {
   return loading ? (
     <Loading />
   ) : error ? (
-    <Message message='Error ocurred' variant='danger' />
+    <Message
+      message='Error ocurred'
+      variant='danger'
+      buttonText='Back Home'
+      url='/'
+    />
   ) : (
     <Wrapper>
       <div className='section-center'>
@@ -95,7 +101,13 @@ export default function OrderPage(props) {
                       Delivered at {order.deliveredAt}
                     </Message>
                   ) : (
-                    <Message variant='danger'>Not Delivered</Message>
+                    <Message
+                      message='Not delivered'
+                      variant='danger'
+                      name='hide'
+                    >
+                      Not Delivered
+                    </Message>
                   )}
                 </div>
               </li>
@@ -108,7 +120,9 @@ export default function OrderPage(props) {
                   {order.isPaid ? (
                     <Message variant='success'>Paid at {order.paidAt}</Message>
                   ) : (
-                    <Message variant='danger'>Not Paid</Message>
+                    <Message message='Not paid' variant='danger' name='hide'>
+                      Not Paid
+                    </Message>
                   )}
                 </div>
               </li>
@@ -133,8 +147,7 @@ export default function OrderPage(props) {
                           </div>
 
                           <div>
-                            {item.qty} x ${item.price} = $
-                            {item.qty * item.price}
+                            {item.qty} x {item.price} = {item.qty * item.price}
                           </div>
                         </div>
                       </li>
@@ -153,19 +166,19 @@ export default function OrderPage(props) {
                 <li>
                   <div className='row'>
                     <div>Items</div>
-                    <div>${order.itemsPrice.toFixed(2)}</div>
+                    <div>{formatPrice(order.itemsPrice)}</div>
                   </div>
                 </li>
                 <li>
                   <div className='row'>
                     <div>Shipping</div>
-                    <div>${order.shippingPrice.toFixed(2)}</div>
+                    <div>{formatPrice(order.shippingPrice)}</div>
                   </div>
                 </li>
                 <li>
                   <div className='row'>
                     <div>Tax</div>
-                    <div>${order.taxPrice.toFixed(2)}</div>
+                    <div>{formatPrice(order.taxPrice)}</div>
                   </div>
                 </li>
                 <li>
@@ -174,7 +187,7 @@ export default function OrderPage(props) {
                       <strong> Order Total</strong>
                     </div>
                     <div>
-                      <strong>${order.totalPrice.toFixed(2)}</strong>
+                      <strong>{formatPrice(order.totalPrice)}</strong>
                     </div>
                   </div>
                 </li>
@@ -190,7 +203,7 @@ export default function OrderPage(props) {
                         {loadingPay && <Loading />}
 
                         <PayPalButton
-                          amount={order.totalPrice}
+                          amount={formatPrice(order.totalPrice)}
                           onSuccess={successPaymentHandler}
                         />
                       </>
@@ -222,21 +235,27 @@ export default function OrderPage(props) {
 }
 
 const Wrapper = styled.section`
-  margin: 6em 0;
+  margin: 12rem 0;
+  font-size: 2.2rem;
+  color: var(--clr-blue);
   .card {
-    border: 0.1rem #c0c0c0 solid;
-    background-color: #f8f8f8;
+    background-color: var(--clr-light-blue);
+    border: 0.1rem solid rgba(0, 0, 0, 0.2);
     border-radius: 0.5rem;
-    margin: 1rem;
+    margin: 2rem;
+    box-shadow: var(--light-shadow);
   }
   .card-body {
-    padding: 1rem;
+    padding: 2rem;
   }
   .card-body > * {
     margin-bottom: 0.5rem;
   }
   .price {
     font-size: 2rem;
+  }
+  .card-body ul li {
+    margin: 2rem auto;
   }
   .row {
     display: flex;

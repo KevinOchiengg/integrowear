@@ -10,7 +10,7 @@ const productRouter = express.Router()
 productRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
-    const pageSize = 3
+    const pageSize = 8
     const page = Number(req.query.pageNumber) || 1
     const name = req.query.name || ''
     const category = req.query.category || ''
@@ -79,6 +79,7 @@ productRouter.get(
         seller: seller._id,
       }))
       const createdProducts = await Product.insertMany(products)
+      console.log(createdProducts)
       res.send({ createdProducts })
     } else {
       res
@@ -109,7 +110,7 @@ productRouter.post(
   isSellerOrAdmin,
   expressAsyncHandler(async (req, res) => {
     const product = new Product({
-      image: '/images/nike.png',
+      image: '/images/logo.png',
       name: 'Dope Orinal Sneaker',
       description: 'Fashion Casual Sneakers Man Flats Breathable Shoes Fashion',
       rating: 4,

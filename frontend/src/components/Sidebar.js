@@ -6,13 +6,13 @@ import { MdDashboard } from 'react-icons/md'
 import { BiSupport } from 'react-icons/bi'
 import { useGlobalContext } from '../context'
 import { Link } from 'react-router-dom'
-import LoadingBox from './Loading'
-import MessageBox from './Message'
 import { FaBook } from 'react-icons/fa'
 import { listProductCategories } from '../actions/productActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { signout } from '../actions/userActions'
 import styled from 'styled-components'
+import Loading from './Loading'
+import Message from './Message'
 
 const Sidebar = () => {
   const { isSidebarOpen, closeSidebar } = useGlobalContext()
@@ -85,9 +85,12 @@ const Sidebar = () => {
             <h4>Categories</h4>
             <div className='sidebar-sublinks'>
               {loadingCategories ? (
-                <LoadingBox></LoadingBox>
+                <Loading />
               ) : errorCategories ? (
-                <MessageBox variant='danger'>{errorCategories}</MessageBox>
+                <Message
+                  variant='danger'
+                  message='error loading product category'
+                />
               ) : (
                 categories.map((c) => (
                   <Link

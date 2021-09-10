@@ -5,6 +5,7 @@ import { deleteOrder, listOrders } from '../actions/orderActions'
 import Loading from '../components/Loading'
 import Message from '../components/Message'
 import { ORDER_DELETE_RESET } from '../constants/orderConstants'
+import { formatPrice } from '../utils/helpers'
 
 export default function OrderListPage(props) {
   const sellerMode = props.match.path.indexOf('/seller') >= 0
@@ -60,7 +61,7 @@ export default function OrderListPage(props) {
                     <td>{order._id}</td>
                     <td>{order.user.name}</td>
                     <td>{order.createdAt.substring(0, 10)}</td>
-                    <td>{order.totalPrice.toFixed(2)}</td>
+                    <td>{formatPrice(order.totalPrice)}</td>
                     <td>
                       {order.isPaid ? order.paidAt.substring(0, 10) : 'No'}
                     </td>

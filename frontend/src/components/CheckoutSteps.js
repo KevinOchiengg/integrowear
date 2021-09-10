@@ -17,15 +17,23 @@ export default function CheckoutSteps(props) {
 const Wrapper = styled.section`
   .row {
     display: flex;
+    margin: 0 auto;
   }
   .checkout-steps > div {
     border-top: 0.2em var(--clr-light-grey) solid;
     color: var(--clr-light-grey);
     flex: 1;
-    padding: 0.6em;
+    padding: 0.5rem;
+    font-size: 1rem;
   }
   .checkout-steps > div.active {
     border-top-color: var(--clr-yellow);
     color: var(--clr-yellow);
+  }
+
+  @media screen and (min-width: 800px) {
+    .checkout-steps > div {
+      font-size: 1.7rem;
+    }
   }
 `
