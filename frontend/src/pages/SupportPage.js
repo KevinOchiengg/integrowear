@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import { useSelector } from 'react-redux'
-import MessageBox from '../components/Message'
 import styled from 'styled-components'
 import Message from '../components/Message'
 
@@ -75,7 +74,7 @@ export default function SupportPage() {
         setMessages(allMessages)
       })
     }
-  }, [messages, socket, users])
+  }, [userInfo._id, userInfo.name, userInfo.isAdmin, messages, socket, users])
 
   const selectUser = (user) => {
     allSelectedUser = user

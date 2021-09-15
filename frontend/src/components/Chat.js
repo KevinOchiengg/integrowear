@@ -1,20 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import styled from 'styled-components'
+import { FaTimes, FaInstagram } from 'react-icons/fa'
 
 const ENDPOINT =
   window.location.host.indexOf('localhost') >= 0
     ? 'http://127.0.0.1:5000'
     : window.location.host
 
-const ChatBox = (props) => {
+const Chat = (props) => {
   const { userInfo } = props
   const [socket, setSocket] = useState(null)
   const uiMessagesRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
   const [messageBody, setMessageBody] = useState('')
   const [messages, setMessages] = useState([
-    { name: 'Admin', body: 'Hello there, Please ask your question.' },
+    { name: 'Integro', body: 'Hello there, Please ask your question.' },
   ])
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const ChatBox = (props) => {
         setMessages([...messages, { body: data.body, name: data.name }])
       })
     }
-  }, [messages, isOpen, socket])
+  }, [userInfo._id, userInfo.name, messages, userInfo.isAdmin, isOpen, socket])
 
   const supportHandler = () => {
     setIsOpen(true)
@@ -46,7 +47,7 @@ const ChatBox = (props) => {
   const submitHandler = (e) => {
     e.preventDefault()
     if (!messageBody.trim()) {
-      alert('Error. Please type message.')
+      alert('Please type message.')
     } else {
       setMessages([...messages, { body: messageBody, name: userInfo.name }])
       setMessageBody('')
@@ -66,15 +67,15 @@ const ChatBox = (props) => {
   return (
     <Wrapper>
       {!isOpen ? (
-        <button type='button' onClick={supportHandler}>
-          <i className='fa fa-support' />
+        <button type='button' className='message-icon' onClick={supportHandler}>
+          <FaInstagram />
         </button>
       ) : (
         <div className='card card-body'>
           <div className='row'>
             <strong>Support </strong>
-            <button type='button' onClick={closeHandler}>
-              <i className='fa fa-close' />
+            <button type='button' className='close-btn' onClick={closeHandler}>
+              <FaTimes />
             </button>
           </div>
           <ul ref={uiMessagesRef}>
@@ -90,9 +91,11 @@ const ChatBox = (props) => {
                 value={messageBody}
                 onChange={(e) => setMessageBody(e.target.value)}
                 type='text'
-                placeholder='type message'
+                placeholder='type message...'
               />
-              <button type='submit'>Send</button>
+              <button type='submit' className='btn'>
+                Send
+              </button>
             </form>
           </div>
         </div>
@@ -101,78 +104,72 @@ const ChatBox = (props) => {
   )
 }
 
-export default ChatBox
+export default Chat
 
 const Wrapper = styled.section`
-  color: #000000;
+  color: var(--clr-blue);
   position: fixed;
   right: 1rem;
-  bottom: 1rem;
+  bottom: 2rem;
+  font-size: 2rem;
+  padding: 2rem;
   .chatbox ul {
     overflow: scroll;
     max-height: 20rem;
+  }
+
+  .card-body {
+    background: var(--clr-white);
+    box-shadow: var(--dark-shadow);
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    left: 2rem;
+    font-size: 2rem;
+    padding: 2rem;
+  }
+  .close-btn {
+    background: none;
+    color: var(--clr-blue);
+  }
+  .message-icon {
+    background: none;
+    font-size: 4rem;
+    color: var(--green);
+  }
+  .card-body ul {
+    margin: 2rem 0;
+    line-height: 1.5;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  form.row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
   }
   .chatbox li {
     margin-bottom: 1rem;
   }
   .chatbox input {
     width: calc(100% - 9rem);
+    height: 9rem;
   }
 
-  .support-users {
-    background: #f0f0f0;
-    height: 100%;
-  }
-  .support-users li {
-    background-color: #f8f8f8;
-  }
-  .support-users button {
-    background-color: transparent;
-    border: none;
-    text-align: left;
-  }
-  .support-users li {
-    margin: 0;
-    background-color: #f0f0f0;
-    border-bottom: 0.1rem #c0c0c0 solid;
-  }
-
-  .support-users li:hover {
-    background-color: #f0f0f0;
-  }
-  .support-users li.selected {
-    background-color: #c0c0c0;
-  }
-  .support-messages {
-    padding: 1rem;
-  }
-  .support-messages input {
-    width: calc(100% - 9rem);
-  }
-  .support-messages ul {
-    height: calc(100vh - 18rem);
-    max-height: calc(100vh - 18rem);
-    overflow: scroll;
-  }
-  .support-messages li {
-    margin-bottom: 1rem;
-  }
-
-  .support-users span {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    position: absolute;
-    margin-left: -25px;
-    margin-top: 10px;
-  }
-  .support-users .offline {
-    background-color: #808080;
-  }
-  .support-users .online {
-    background-color: #20a020;
-  }
-  .support-users .unread {
-    background-color: #f02020;
+  @media (min-width: 800px) {
+    .card-body {
+      right: 30%;
+      bottom: 2rem;
+      left: 30%;
+      font-size: 2rem;
+      padding: 2rem;
+    }
   }
 `

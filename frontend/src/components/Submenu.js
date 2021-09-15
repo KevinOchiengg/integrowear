@@ -58,7 +58,7 @@ const Submenu = () => {
             if (loadingCategories) return <Loading />
             else if (errorCategories)
               return <Message variant='danger' message='Error' name='hide' />
-            else if (page === 'Category' && categories) {
+            else if (page === 'CATEGORY' && categories) {
               return categories.map((c) => (
                 <Link
                   key={c}

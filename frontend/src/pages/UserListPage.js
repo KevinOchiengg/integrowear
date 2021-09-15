@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { deleteUser, listUsers } from '../actions/userActions'
 import Loading from '../components/Loading'
-import LoadingBox from '../components/Loading'
 import Message from '../components/Message'
-import MessageBox from '../components/Message'
 import { USER_DETAILS_RESET } from '../constants/userConstants'
 
 export default function UserListPage(props) {
@@ -38,15 +36,29 @@ export default function UserListPage(props) {
         <h1 class='heading'>user list</h1>
 
         <div className='row'>
-          {loadingDelete && <LoadingBox></LoadingBox>}
-          {errorDelete && <Message variant='danger' massage='User' />}
+          {loadingDelete && <Loading />}
+          {errorDelete && (
+            <Message
+              variant='danger'
+              message='Unable to delete User'
+              name='hide'
+            />
+          )}
           {successDelete && (
-            <Message variant='success' massage='User Deleted Successfully' />
+            <Message
+              variant='success'
+              message='User Deleted Successfully'
+              name='hide'
+            />
           )}
           {loading ? (
             <Loading />
           ) : error ? (
-            <Message variant='danger' massage='error' />
+            <Message
+              variant='danger'
+              message='error loading users'
+              name='hide'
+            />
           ) : (
             <table className='table'>
               <thead>
@@ -105,6 +117,10 @@ const Wrapper = styled.section`
 
   .row {
     overflow-x: auto;
+  }
+
+  .alert {
+    text-align: center;
   }
 
   td,

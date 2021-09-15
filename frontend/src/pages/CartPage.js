@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { addToCart, removeFromCart } from '../actions/cartActions'
-
 import Message from '../components/Message'
-import Rating from '../components/Rating'
 import { formatPrice } from '../utils/helpers'
 
 export default function CartPage(props) {
@@ -119,12 +117,15 @@ export default function CartPage(props) {
                   <tr>
                     <td>Total Price</td>
                     <td>
-                      Ksh {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                      {cartItems.reduce(
+                        (a, c) => formatPrice(a + c.price * c.qty),
+                        0
+                      )}
                     </td>
                   </tr>
                 </tbody>
               </table>
-              <div className='checkout-btn-container'>
+              <form className='checkout-btn-container'>
                 <Link to='/shipping'>
                   <button
                     type='button'
@@ -144,7 +145,7 @@ export default function CartPage(props) {
                     Continue to Shopping
                   </button>
                 </Link>
-              </div>
+              </form>
             </div>
           </>
         )}

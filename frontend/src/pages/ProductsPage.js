@@ -14,8 +14,8 @@ import { useParams } from 'react-router'
 const ProductsPage = (props) => {
   const dispatch = useDispatch()
   const productList = useSelector((state) => state.productList)
-  const { products, page, pages } = productList
-  const productCategoryList = useSelector((state) => state.productCategoryList)
+  const { page, pages } = productList
+
   const [viewproducts, setViewProduct] = useState(true)
   useEffect(() => {
     dispatch(listProducts({}))
@@ -31,11 +31,6 @@ const ProductsPage = (props) => {
     pageNumber = 1,
   } = useParams()
 
-  const {
-    loading: loadingCategories,
-    error: errorCategories,
-    categories,
-  } = productCategoryList
   useEffect(() => {
     dispatch(
       listProducts({
@@ -122,7 +117,6 @@ const ProductsPage = (props) => {
                   </span>
                 </Link>
               ))}
-              <span>&#8594;</span>
             </div>
           </div>
           <Filters />
@@ -171,7 +165,7 @@ const Wrapper = styled.section`
 
   .products-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 1.5rem;
   }
 

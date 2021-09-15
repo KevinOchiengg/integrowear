@@ -10,14 +10,14 @@ export default function Loading() {
   )
 }
 
-const Wrapper = styled.section`
+const Wrapper = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
 
   svg {
     color: var(--clr-blue);
-    font-size: 6rem;
+    font-size: 5rem;
     animation: spinner 1s linear infinite;
   }
 

@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { detailsUser, updateUserProfile } from '../actions/userActions'
 import Loading from '../components/Loading'
 import Message from '../components/Message'
-import MessageBox from '../components/Message'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 export default function ProfilePage() {
@@ -69,14 +68,18 @@ export default function ProfilePage() {
           {loading ? (
             <Loading />
           ) : error ? (
-            <Message variant='danger' message='Error occured ' name='hide' />
+            <Message
+              variant='danger'
+              message='Error occured Loading profile page'
+              name='hide'
+            />
           ) : (
             <>
               {loadingUpdate && <Loading />}
               {errorUpdate && (
                 <Message
                   variant='danger'
-                  message='Error occured '
+                  message='Error Loading updates '
                   name='hide'
                 />
               )}
@@ -182,6 +185,10 @@ const Wrapper = styled.section`
   .primary {
     width: 40%;
     font-size: 2rem;
+  }
+
+  .alert {
+    text-align: center;
   }
 
   @media screen and (min-width: 800px) {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loading from './Loading'
 import styled from 'styled-components'
 import { listProducts } from '../actions/productActions'
-import Error from './Error'
+import Message from './Message'
 
 function FeaturedProducts() {
   const productList = useSelector((state) => state.productList)
@@ -18,10 +18,16 @@ function FeaturedProducts() {
     return <Loading />
   }
   if (error) {
-    return <Error />
+    return (
+      <Message
+        message='Error laoding products...'
+        name='hide'
+        variant='danger'
+      />
+    )
   }
   return (
-    <Wrapper className='section'>
+    <Wrapper>
       <div className='section-center'>
         <h3 className='sub-heading'>our products</h3>
         <h1 className='heading'>featured products</h1>
@@ -37,9 +43,10 @@ function FeaturedProducts() {
 
 const Wrapper = styled.section`
   margin: 15rem 0 10rem 0;
+
   .featured {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
     gap: 1.5rem;
   }
 `

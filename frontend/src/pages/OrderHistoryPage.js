@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { listOrderMine } from '../actions/orderActions'
 import Loading from '../components/Loading'
 import Message from '../components/Message'
-import MessageBox from '../components/Message'
 import { formatPrice } from '../utils/helpers'
 
 export default function OrderHistoryPage(props) {
@@ -96,6 +95,10 @@ const Wrapper = styled.section`
   }
   .btn-hide {
     display: none;
+  }
+
+  .alert {
+    text-align: center;
   }
 
   .primary {

@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { detailsUser, updateUser } from '../actions/userActions'
 import Loading from '../components/Loading'
-import LoadingBox from '../components/Loading'
 import Message from '../components/Message'
-import MessageBox from '../components/Message'
 import { USER_UPDATE_RESET } from '../constants/userConstants'
 
 export default function UserEditPage(props) {
@@ -127,7 +125,7 @@ const Wrapper = styled.section`
   }
 
   .checkbox {
-    margin-top: 0.5rem;
+    margin-top: 1.02rem;
     height: 1rem;
     width: 1rem;
     margin-right: 1.5rem;

@@ -17,9 +17,9 @@ import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/productConstants'
 import Message from '../components/Message'
 import Loading from '../components/Loading'
 
-const ProductDetailsPage = (props) => {
+const ProductDetailsPage = ({ match, history }) => {
   const dispatch = useDispatch()
-  const productId = props.match.params.id
+  const productId = match.params.id
   const [qty, setQty] = useState(1)
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
@@ -47,7 +47,7 @@ const ProductDetailsPage = (props) => {
   }, [dispatch, productId, successReviewCreate])
 
   const addToCartHandler = () => {
-    props.history.push(`/cart/${productId}?qty=${qty}`)
+    history.push(`/cart/${productId}?qty=${qty}`)
   }
 
   const submitHandler = (e) => {
@@ -60,211 +60,209 @@ const ProductDetailsPage = (props) => {
       alert('Please enter comment and rating')
     }
   }
+
+  if (loading) {
+    return <Loading />
+  }
+  if (error) {
+    return <Message variant='danger' message='Error loading product details' />
+  }
   return (
     <Wrapper>
-      {loading ? (
-        <Loading />
-      ) : error ? (
-        <Message variant='danger' message='Error loading product details' />
-      ) : (
-        <div className='section-center'>
-          <h3 className='sub-heading'>product</h3>
-          <h1 className='heading'>product details</h1>
-          <div className='row'>
-            <div>
-              <img src={product.image} alt={product.name} className='image' />
-              <div className='product-details-related-imgs'>
-                <img src={product.image} alt={product.name} />
-                <img src={product.image} alt={product.name} />
-                <img src={product.image} alt={product.name} />
-              </div>
-            </div>
-
-            <div className='content'>
-              <h3>{product.name}</h3>
-              <Rating rating={product.rating} numReviews={product.numReviews} />
-              <div className='price'>{formatPrice(product.price)}</div>
-              <p>{product.description}</p>
-
-              <div className='icons-container'>
-                <form action='#' className='product-details-form'>
-                  <div className='select-container'>
-                    <select>
-                      <option>Select Size</option>
-                      <option>Small</option>
-                      <option>Medium</option>
-                      <option>Large</option>
-                      <option>XL</option>
-                      <option>XXL</option>
-                    </select>
-
-                    <select
-                      className='quantity'
-                      type='number'
-                      value={qty}
-                      onChange={(e) => {
-                        setQty(e.target.value)
-                      }}
-                    >
-                      {[...Array(product.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {product.countInStock > 0 ? (
-                    <button
-                      type='submit'
-                      className='btn add-to-cart '
-                      onClick={addToCartHandler}
-                    >
-                      Add To Cart
-                    </button>
-                  ) : (
-                    <div className='out-of-stock'>Stock: Out Of Stock</div>
-                  )}
-                </form>
-              </div>
-              <hr />
-              <ul className='stock-count'>
-                <li className='product-sku'>
-                  Sku: <span>{product._id}</span>
-                </li>
-                <li className='product-stock-status'>
-                  Category: <Link to='#'>{product.category}</Link>
-                </li>
-              </ul>
-              <div className='wish-list-container'>
-                <Link to='wishlist.html' className='add_to_wishlist'>
-                  <FaRegHeart /> Add to Wishlist
-                </Link>
-                <Link to='compare.html'>
-                  <BiShuffle /> Compare
-                </Link>
-              </div>
-              <p>Share this product</p>
-              <div className='share-product-socail-area'>
-                <Link to='#'>
-                  <FaPinterestP />
-                </Link>
-
-                <Link to='#'>
-                  <FaFacebookF />
-                </Link>
-
-                <Link to='#'>
-                  <FaInstagram />
-                </Link>
-              </div>
+      <div className='section-center'>
+        <h3 className='sub-heading'>product</h3>
+        <h1 className='heading'>product details</h1>
+        <div className='product-detail-row row'>
+          <div>
+            <img src={product.image} alt={product.name} className='image' />
+            <div className='product-details-related-imgs'>
+              <img src={product.image} alt={product.name} />
+              <img src={product.image} alt={product.name} />
+              <img src={product.image} alt={product.name} />
             </div>
           </div>
-          <div className='description-row'>
-            <h3 className='sub-heading'>description</h3>
-            <h1 className='heading'>Product description</h1>
 
+          <div className='content'>
+            <h3>{product.name}</h3>
+            <Rating rating={product.rating} numReviews={product.numReviews} />
+            <div className='price'>{formatPrice(product.price)}</div>
             <p>{product.description}</p>
-          </div>
-          <section className='review' id='review'>
-            <h3 className='sub-heading'>reviews</h3>
-            <h1 className='heading'>product reviews</h1>
 
-            {product.reviews.length === 0 && (
-              <Message
-                message='This Product has no reviews yet...'
-                name='hide'
-              />
-            )}
+            <div className='icons-container'>
+              <form action='#' className='product-details-form'>
+                <div className='select-container'>
+                  <select>
+                    <option>Select Size</option>
+                    <option>Small</option>
+                    <option>Medium</option>
+                    <option>Large</option>
+                    <option>XL</option>
+                    <option>XXL</option>
+                  </select>
 
-            <div className='swiper-container review-slider'>
-              {product.reviews.map((review) => (
-                <div className='swiper-wrapper'>
-                  <div className='swiper-slide slide'>
-                    <FiChevronRight className='fa-quote-right' />
-                    <div className='user'>
-                      <img src={product.image} alt={review.name} />
-                      <div className='user-info'>
-                        <h3>
-                          {review.name} -
-                          <span> {review.createdAt.substring(0, 10)}</span>
-                        </h3>
-                        <Rating
-                          rating={product.rating}
-                          numReviews={product.numReviews}
-                        />
-                      </div>
-                    </div>
-                    <p>{review.comment}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {userInfo ? (
-            <div className='product-review-form-row'>
-              <div className='rating_wrap'>
-                <h3 className='sub-heading'>review</h3>
-                <h1 className='heading'>Add review</h1>
-              </div>
-              <form className='comment-form-area' onSubmit={submitHandler}>
-                <div className='row'>
-                  <label htmlFor='rating'>Rating</label>
                   <select
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
+                    className='quantity'
+                    type='number'
+                    value={qty}
+                    onChange={(e) => {
+                      setQty(e.target.value)
+                    }}
                   >
-                    <option value=''>Select your rating</option>
-                    <option value='1'>Poor</option>
-                    <option value='2'>Fair</option>
-                    <option value='3'>Good</option>
-                    <option value='4'>Very good</option>
-                    <option value='5'>Excelent</option>
+                    {[...Array(product.countInStock).keys()].map((x) => (
+                      <option key={x + 1} value={x + 1}>
+                        {x + 1}
+                      </option>
+                    ))}
                   </select>
                 </div>
-                <div className='row'>
-                  <label htmlFor='Name'>Name</label>
-                  <input type='text' required='required' name='Name' />
-                </div>
-                <div className='row'>
-                  <label htmlFor='Email'>Email</label>
-                  <input type='text' required='required' name='email' />
-                </div>
 
-                <div className='row'>
-                  <label htmlFor='comment'>Comment</label>
-                  <textarea
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                  ></textarea>
-                </div>
-
-                <button type='submit' className='btn review-btn'>
-                  Submit
-                </button>
-
-                <div>
-                  {loadingReviewCreate && <Loading />}
-                  {errorReviewCreate && (
-                    <Message
-                      variant='danger'
-                      message='error occured'
-                      name='hide'
-                    />
-                  )}
-                </div>
+                {product.countInStock > 0 ? (
+                  <button
+                    type='submit'
+                    className='btn add-to-cart '
+                    onClick={addToCartHandler}
+                  >
+                    Add To Cart
+                  </button>
+                ) : (
+                  <div className='out-of-stock'>Stock: Out Of Stock</div>
+                )}
               </form>
             </div>
-          ) : (
-            <Message
-              message='Please Login To give A Review'
-              buttonText='Login'
-              url='/signin'
-            />
-          )}
+            <hr />
+            <ul className='stock-count'>
+              <li className='product-sku'>
+                Sku: <span>{product._id}</span>
+              </li>
+              <li className='product-stock-status'>
+                Category: <Link to='#'>{product.category}</Link>
+              </li>
+            </ul>
+            <div className='wish-list-container'>
+              <Link to='wishlist.html' className='add_to_wishlist'>
+                <FaRegHeart /> Add to Wishlist
+              </Link>
+              <Link to='compare.html'>
+                <BiShuffle /> Compare
+              </Link>
+            </div>
+            <p>Share this product</p>
+            <div className='share-product-socail-area'>
+              <Link to='#'>
+                <FaPinterestP />
+              </Link>
+
+              <Link to='#'>
+                <FaFacebookF />
+              </Link>
+
+              <Link to='#'>
+                <FaInstagram />
+              </Link>
+            </div>
+          </div>
         </div>
-      )}
+        <div className='description-row'>
+          <h3 className='sub-heading'>description</h3>
+          <h1 className='heading'>Product description</h1>
+
+          <p>{product.description}</p>
+        </div>
+        <section className='review' id='review'>
+          <h3 className='sub-heading'>reviews</h3>
+          <h1 className='heading'>product reviews</h1>
+
+          {product.reviews.length === 0 && (
+            <Message message='This Product has no reviews yet...' name='hide' />
+          )}
+
+          <div className='swiper-container review-slider'>
+            {product.reviews.map((review) => (
+              <div key={review._id} className='swiper-wrapper'>
+                <div className='swiper-slide slide'>
+                  <FiChevronRight className='fa-quote-right' />
+                  <div className='user'>
+                    <img src={product.image} alt={review.name} />
+                    <div className='user-info'>
+                      <h3>
+                        {review.name} -
+                        <span> {review.createdAt.substring(0, 10)}</span>
+                      </h3>
+                      <Rating
+                        rating={product.rating}
+                        numReviews={product.numReviews}
+                      />
+                    </div>
+                  </div>
+                  <p>{review.comment}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {userInfo ? (
+          <div className='product-review-form-row'>
+            <div className='rating_wrap'>
+              <h3 className='sub-heading'>review</h3>
+              <h1 className='heading'>Add review</h1>
+            </div>
+            <form className='comment-form-area' onSubmit={submitHandler}>
+              <div className='row'>
+                <label htmlFor='rating'>Rating</label>
+                <select
+                  value={rating}
+                  onChange={(e) => setRating(e.target.value)}
+                >
+                  <option value=''>Select your rating</option>
+                  <option value='1'>Poor</option>
+                  <option value='2'>Fair</option>
+                  <option value='3'>Good</option>
+                  <option value='4'>Very good</option>
+                  <option value='5'>Excelent</option>
+                </select>
+              </div>
+              <div className='row'>
+                <label htmlFor='Name'>Name</label>
+                <input type='text' required='required' name='Name' />
+              </div>
+              <div className='row'>
+                <label htmlFor='Email'>Email</label>
+                <input type='text' required='required' name='email' />
+              </div>
+
+              <div className='row'>
+                <label htmlFor='comment'>Comment</label>
+                <textarea
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                ></textarea>
+              </div>
+
+              <button type='submit' className='btn review-btn'>
+                Submit
+              </button>
+
+              <div>
+                {loadingReviewCreate && <Loading />}
+                {errorReviewCreate && (
+                  <Message
+                    variant='danger'
+                    message='error occured'
+                    name='hide'
+                  />
+                )}
+              </div>
+            </form>
+          </div>
+        ) : (
+          <Message
+            message='Please Login To give A Review'
+            buttonText='Login'
+            url='/signin'
+          />
+        )}
+      </div>
     </Wrapper>
   )
 }
@@ -281,11 +279,16 @@ const Wrapper = styled.section`
     gap: 1.5rem;
     align-items: center;
   }
+
+  .product-detail-row {
+    align-items: flex-start;
+  }
+
   .description-row p {
     text-align: center;
   }
   .row .image {
-    flex: 1 1 30rem;
+    flex: 1 1 20rem;
   }
 
   .alert {

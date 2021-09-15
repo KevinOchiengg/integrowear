@@ -16,7 +16,7 @@ export default function PlaceOrderPage(props) {
   }
   const orderCreate = useSelector((state) => state.orderCreate)
   const { loading, success, error, order } = orderCreate
-  const toPrice = (num) => Number(num.toFixed(2)) // 5.123 => "5.12" => 5.12
+  const toPrice = (num) => Number(num) // 5.123 => "5.12" => 5.12
   cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
   )
@@ -82,8 +82,8 @@ export default function PlaceOrderPage(props) {
                           </div>
 
                           <div>
-                            {item.qty} x {formatPrice(item.price)} =
-                            {item.qty * item.price}
+                            {item.qty} x {formatPrice(item.price)} ={' '}
+                            {formatPrice(item.qty * item.price)}
                           </div>
                         </div>
                       </li>
@@ -102,19 +102,19 @@ export default function PlaceOrderPage(props) {
                 <li>
                   <div className='row'>
                     <div>Items</div>
-                    <div>{formatPrice(cart.itemsPrice.toFixed(2))}</div>
+                    <div>{formatPrice(cart.itemsPrice)}</div>
                   </div>
                 </li>
                 <li>
                   <div className='row'>
                     <div>Shipping</div>
-                    <div>{formatPrice(cart.shippingPrice.toFixed(2))}</div>
+                    <div>{formatPrice(cart.shippingPrice)}</div>
                   </div>
                 </li>
                 <li>
                   <div className='row'>
                     <div>Tax</div>
-                    <div>{formatPrice(cart.taxPrice.toFixed(2))}</div>
+                    <div>{formatPrice(cart.taxPrice)}</div>
                   </div>
                 </li>
                 <li>
@@ -123,7 +123,7 @@ export default function PlaceOrderPage(props) {
                       <strong> Order Total</strong>
                     </div>
                     <div>
-                      <strong>{formatPrice(cart.totalPrice.toFixed(2))}</strong>
+                      <strong>{formatPrice(cart.totalPrice)}</strong>
                     </div>
                   </div>
                 </li>

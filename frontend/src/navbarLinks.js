@@ -1,8 +1,8 @@
-import { FaCreditCard, FaBriefcase } from 'react-icons/fa';
-import { CgProfile } from 'react-icons/cg';
-import { MdDashboard } from 'react-icons/md';
-import { BiSupport } from 'react-icons/bi';
-import React from 'react';
+import { FaCreditCard, FaBriefcase } from 'react-icons/fa'
+import { CgProfile } from 'react-icons/cg'
+import { MdDashboard } from 'react-icons/md'
+import { BiSupport } from 'react-icons/bi'
+import React from 'react'
 
 const sublinks = [
   {
@@ -34,10 +34,10 @@ const sublinks = [
   {
     page: 'CATEGORY',
     links: [
-      { label: 'Pants', icon: <FaBriefcase />, url: '/products' },
-      { label: 'T-shirts', icon: <FaBriefcase />, url: '/products' },
-      { label: 'Hoods', icon: <FaBriefcase />, url: '/products' },
-      { label: 'Sneakers', icon: <FaBriefcase />, url: '/products' },
+      { label: 'Pants', icon: <FaBriefcase /> },
+      { label: 'T-shirts', icon: <FaBriefcase /> },
+      { label: 'Hoods', icon: <FaBriefcase /> },
+      { label: 'Sneakers', icon: <FaBriefcase /> },
     ],
   },
   {
@@ -47,6 +47,6 @@ const sublinks = [
       { label: 'Order History', icon: <FaBriefcase />, url: '/orderhistory' },
     ],
   },
-];
+]
 
-export default sublinks;
+export default sublinks

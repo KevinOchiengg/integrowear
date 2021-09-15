@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import Rating from './Rating'
 import styled from 'styled-components'
@@ -13,17 +13,18 @@ export default function Product({ product }) {
           <Link to={`/product/${product._id}`}>
             <img src={product.image} alt={product.name} />
           </Link>
-
-          <Link to='/' className='heart'>
-            <AiOutlineHeart />
-          </Link>
+          <div className='heart-container'>
+            <Link to='/' className='heart'>
+              <AiOutlineHeart />
+            </Link>
+          </div>
         </div>
         <div className='content'>
           <div className='stars'>
             <Rating rating={product.rating} numReviews={product.numReviews} />
           </div>
           <Link to={`/product/${product._id}`}>
-            <h3>{product.name.substring(0, 25)}</h3>
+            <h3>{product.name.substring(0, 20)}</h3>
           </Link>
 
           <p>{product.description.substring(0, 50)}...</p>
@@ -47,7 +48,7 @@ const Wrapper = styled.div`
   }
 
   .box .image {
-    height: 25rem;
+    height: 30rem;
     width: 100%;
     padding: 1.5rem;
     overflow: hidden;
@@ -60,47 +61,57 @@ const Wrapper = styled.div`
     border-radius: 0.5rem;
     object-fit: cover;
   }
-
-  .box .image .heart {
+  .heart-container a {
+    border-radius: 50%;
+    line-height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .heart-container {
     position: absolute;
     top: 2.5rem;
     right: 2.5rem;
     height: 5rem;
     width: 5rem;
-    line-height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     font-size: 2rem;
     background: var(--clr-white);
     border-radius: 50%;
+    box-shadow: var(--light-shadow);
     color: var(--clr-blue);
+    &:hover {
+      background-color: var(--clr-blue);
+      a {
+        color: var(--clr-white);
+      }
+    }
   }
 
-  .box .image .heart:hover {
-    background-color: var(--clr-blue);
-    color: var(--clr-white);
-  }
-
-  .box .content {
+  .content {
     padding: 2rem;
     padding-top: 0;
   }
 
-  .box .content .stars {
+  .stars {
     padding-bottom: 1rem;
   }
 
-  .box .content h3 {
+  .content h3 {
     color: var(--clr-blue);
     font-size: 2.5rem;
   }
 
-  .box .content p {
+  .content p {
     color: var(--clr-dark-grey);
     font-size: 1.6rem;
     line-height: 1.5;
   }
 
-  .box .content .price {
+  .content .price {
     color: var(--clr-blue);
     margin-left: 1rem;
     font-size: 2rem;

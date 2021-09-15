@@ -117,10 +117,6 @@ p {
   display: block;
 }
 
-.loading {
-  display: block !important;
-}
-
 label {
   font-size: 2.2rem;
   margin: 0.5rem 0;

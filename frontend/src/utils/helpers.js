@@ -1,6 +1,6 @@
 export const formatPrice = (number) => {
-  return new Intl.NumberFormat('kenya', {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'ksh',
-  }).format(number)
+    currency: 'USD',
+  }).format(number / 100)
 }

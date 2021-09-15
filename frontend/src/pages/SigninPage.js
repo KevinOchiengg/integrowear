@@ -43,7 +43,7 @@ const SigninPage = () => {
     return () => {
       //cleanup
     }
-  }, [userInfo])
+  }, [history, userInfo])
 
   return (
     <Wrapper>

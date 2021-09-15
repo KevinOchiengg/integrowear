@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fa'
 import logo from '../images/logo.png'
 import { useDispatch, useSelector } from 'react-redux'
-import ChatBox from './ChatBox'
+import Chat from './Chat'
 import styled from 'styled-components'
 import { signout } from '../actions/userActions'
 
@@ -21,160 +21,160 @@ const Footer = () => {
     dispatch(signout())
   }
   return (
-    <Wrapper className='footer-section'>
-      {userInfo && !userInfo.isAdmin && <ChatBox userInfo={userInfo} />}
-      <footer className='footer-top'>
-        <div className='section-center'>
-          <div className='footer-col'>
-            <div className='footer_logo'>
-              <h3>INTEGRO</h3>
-              <Link to='/'>
-                <img src={logo} alt='logo' />
-              </Link>
+    <>
+      {userInfo && !userInfo.isAdmin && <Chat userInfo={userInfo} />}
+      <Wrapper className='footer-section'>
+        <footer className='footer-top'>
+          <div className='section-center'>
+            <div className='footer-col'>
+              <div className='footer_logo'>
+                <h3>INTEGRO</h3>
+                <Link to='/'>
+                  <img src={logo} alt='logo' />
+                </Link>
+              </div>
+
+              <p>
+                Our purpose Is To Sustainably Make Your Swag Stand Out from The
+                Crowd
+              </p>
+            </div>
+            <div className='footer-col'>
+              <h3>NEWSLETTER</h3>
+              <p>We Love To Share New Offers And Exclusive Promotions</p>
+              <form className='footer-form'>
+                <input type='text' placeholder='Enter Your E-mail' />
+                <button type='submit'>
+                  <FaPaperPlane />
+                </button>
+              </form>
             </div>
 
-            <p>
-              Our purpose Is To Sustainably Make Your Swag Stand Out from The
-              Crowd
+            <div className='footer-col'>
+              <h3>CONTACT INFO</h3>
+              <ul>
+                <li>
+                  <a href='tel:'>+254758231661</a>
+                </li>
+                <li>
+                  <a href='tel:'>+254758231661</a>
+                </li>
+                <li>
+                  <a href='tel:'>mosesjuma@gmail.com</a>
+                </li>
+                <li>
+                  <a href='tel:'>shoppers, kenya - 400104</a>
+                </li>
+              </ul>
+            </div>
+            <div className='footer-col'>
+              <h3>QUICK LINKS</h3>
+              <ul>
+                <li>
+                  <Link to='/'>Home</Link>
+                </li>
+                <li>
+                  <Link to='/'>Career</Link>
+                </li>
+                <li>
+                  <Link to='/products'>Products</Link>
+                </li>
+                {userInfo && userInfo.isAdmin && (
+                  <li>
+                    <Link to='/dashboard'>Admin</Link>
+                  </li>
+                )}
+                {userInfo && userInfo.isSeller && (
+                  <>
+                    <li>
+                      <Link to='/userlist'>users</Link>
+                    </li>
+                    <li>
+                      <Link to='/profile'>Account</Link>
+                    </li>
+                  </>
+                )}
+                {userInfo ? (
+                  <li>
+                    <Link to='/signout' onClick={signoutHandler}>
+                      Logout
+                    </Link>
+                  </li>
+                ) : (
+                  <li>
+                    <Link to='/signin'>Login</Link>
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+        <footer className='footer-bottom'>
+          <div className='footer-bottom-container section-center'>
+            <p className='copyright'>
+              Copyright &copy; {new Date().getFullYear()} - Powered by
+              <Link
+                className='developer'
+                to={{
+                  pathname: 'https://ko-technologies.netlify.com',
+                }}
+                target='_blank'
+              >
+                K&O Technologies
+              </Link>
             </p>
-          </div>
-          <div className='footer-col'>
-            <h3>NEWSLETTER</h3>
-            <p>We Love To Share New Offers And Exclusive Promotions</p>
-            <form className='footer-form'>
-              <input type='text' placeholder='Enter Your E-mail' />
-              <button type='submit'>
-                <FaPaperPlane />
-              </button>
-            </form>
-          </div>
 
-          <div className='footer-col'>
-            <h3>CONTACT INFO</h3>
-            <ul>
+            <ul className='social-icons'>
               <li>
-                <a href='tel:'>+254758231661</a>
+                <Link
+                  to={{
+                    pathname:
+                      'https://www.facebook.com/Swag-Mode-100392718038597',
+                  }}
+                  target='_blank'
+                >
+                  <FaFacebook />
+                </Link>
               </li>
               <li>
-                <a href='tel:'>+254758231661</a>
+                <Link
+                  to={{
+                    pathname:
+                      'https://www.facebook.com/Swag-Mode-100392718038597',
+                  }}
+                  target='_blank'
+                >
+                  <FaInstagram />
+                </Link>
               </li>
               <li>
-                <a href='tel:'>mosesjuma@gmail.com</a>
+                <Link
+                  to={{
+                    pathname:
+                      'https://www.facebook.com/Swag-Mode-100392718038597',
+                  }}
+                  target='_blank'
+                >
+                  <FaPinterest />
+                </Link>
               </li>
               <li>
-                <a href='#'>shoppers, kenya - 400104</a>
+                <Link
+                  to={{
+                    pathname:
+                      'https://www.facebook.com/Swag-Mode-100392718038597',
+                  }}
+                  target='_blank'
+                >
+                  <FaTwitter />
+                </Link>
               </li>
             </ul>
           </div>
-          <div className='footer-col'>
-            <h3>QUICK LINKS</h3>
-            <ul>
-              <li>
-                <Link to='/'>Home</Link>
-              </li>
-              <li>
-                <Link to='/'>Career</Link>
-              </li>
-              <li>
-                <Link to='/products'>Products</Link>
-              </li>
-              {userInfo && userInfo.isAdmin && (
-                <li>
-                  <Link to='/dashboard'>Admin</Link>
-                </li>
-              )}
-              {userInfo && userInfo.isSeller && (
-                <>
-                  <li>
-                    <Link to='/userlist'>users</Link>
-                  </li>
-                  <li>
-                    <Link to='/profile'>Account</Link>
-                  </li>
-                </>
-              )}
-              {userInfo ? (
-                <li>
-                  <Link to='/signout' onClick={signoutHandler}>
-                    Logout
-                  </Link>
-                </li>
-              ) : (
-                <li>
-                  <Link to='/signin'>Login</Link>
-                </li>
-              )}
-            </ul>
-          </div>
-        </div>
-      </footer>
-
-      <hr />
-      <footer className='footer-bottom'>
-        {userInfo && !userInfo.isAdmin && <ChatBox userInfo={userInfo} />}
-        <div className='footer-bottom-container section-center'>
-          <p className='copyright'>
-            Copyright &copy; {new Date().getFullYear()} - Powered by
-            <Link
-              className='developer'
-              to={{
-                pathname: 'https://ko-technologies.netlify.com',
-              }}
-              target='_blank'
-            >
-              K&O Technologies
-            </Link>
-          </p>
-
-          <ul className='social-icons'>
-            <li>
-              <Link
-                to={{
-                  pathname:
-                    'https://www.facebook.com/Swag-Mode-100392718038597',
-                }}
-                target='_blank'
-              >
-                <FaFacebook />
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={{
-                  pathname:
-                    'https://www.facebook.com/Swag-Mode-100392718038597',
-                }}
-                target='_blank'
-              >
-                <FaInstagram />
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={{
-                  pathname:
-                    'https://www.facebook.com/Swag-Mode-100392718038597',
-                }}
-                target='_blank'
-              >
-                <FaPinterest />
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={{
-                  pathname:
-                    'https://www.facebook.com/Swag-Mode-100392718038597',
-                }}
-                target='_blank'
-              >
-                <FaTwitter />
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </footer>
-    </Wrapper>
+        </footer>
+      </Wrapper>
+    </>
   )
 }
 

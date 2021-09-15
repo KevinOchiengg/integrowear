@@ -41,7 +41,11 @@ export default function OrderListPage(props) {
           {loading ? (
             <Loading />
           ) : error ? (
-            <Message variant='danger' message='error loading order list' />
+            <Message
+              variant='danger'
+              message='error loading order list'
+              name='hide'
+            />
           ) : (
             <table className='table'>
               <thead>
@@ -106,6 +110,10 @@ const Wrapper = styled.section`
   .primary {
     color: var(--clr-blue);
     font-size: 1rem;
+  }
+
+  .alert {
+    text-align: center;
   }
 
   button {

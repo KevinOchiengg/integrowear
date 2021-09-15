@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import styled from 'styled-components'
 import { IoIosBasket } from 'react-icons/io'
 import { FaUsers, FaMoneyBillAlt } from 'react-icons/fa'
+import { formatPrice } from '../utils/helpers'
 
 export default function DashboardPage() {
   const orderSummary = useSelector((state) => state.orderSummary)
@@ -59,9 +60,8 @@ export default function DashboardPage() {
                     </span>
                   </div>
                   <div className='summary-body'>
-                    Ksh
                     {summary.orders[0]
-                      ? summary.orders[0].totalSales.toFixed(2)
+                      ? formatPrice(summary.orders[0].totalSales)
                       : 0}
                   </div>
                 </li>

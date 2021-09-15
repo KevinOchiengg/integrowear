@@ -5,17 +5,17 @@ export const prices = [
     max: 0,
   },
   {
-    name: `ksh 1 to ksh 500`,
+    name: `$1 to $10`,
     min: 1,
     max: 10,
   },
   {
-    name: `ksh 500 to ksh 10,000`,
+    name: `$10 to $100`,
     min: 10,
     max: 100,
   },
   {
-    name: `ksh 10,000 to ksh 20,000`,
+    name: `$100 to $1000`,
     min: 100,
     max: 1000,
   },

@@ -10,21 +10,19 @@ import {
   FaRegUserCircle,
   FaUser,
 } from 'react-icons/fa'
-import { register } from '../serviceWorker'
+import { register } from '../actions/userActions'
 
 import Loading from '../components/Loading'
 import styled from 'styled-components'
 import Message from '../components/Message'
 
-const RegisterPage = (props) => {
+const RegisterPage = ({ location, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const redirect = props.location.search
-    ? props.location.search.split('=')[1]
-    : '/'
+  const redirect = location.search ? location.search.split('=')[1] : '/'
 
   const userRegister = useSelector((state) => state.userRegister)
   const { userInfo, loading, error } = userRegister
@@ -32,17 +30,18 @@ const RegisterPage = (props) => {
   const dispatch = useDispatch()
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(register(name, email, password))
     if (password !== confirmPassword) {
       alert('Password and confirm password are not match')
     } else {
+      dispatch(register(name, email, password))
     }
   }
   useEffect(() => {
     if (userInfo) {
-      props.history.push(redirect)
+      history.push(redirect)
     }
-  }, [props.history, redirect, userInfo])
+  }, [history, redirect, userInfo])
+
   return (
     <Wrapper>
       <div className='section-center'>
@@ -55,8 +54,9 @@ const RegisterPage = (props) => {
           {error && <Message variant='danger' message='error' />}
           <form onSubmit={submitHandler} className='form-content'>
             <div className='field-container'>
-              <FaUser />
-
+              <label htmlFor='name'>
+                <FaUser />
+              </label>
               <input
                 id='name'
                 type='text'
@@ -66,8 +66,9 @@ const RegisterPage = (props) => {
               />
             </div>
             <div className='field-container'>
-              <FaEnvelope />
-
+              <label htmlFor='email'>
+                <FaEnvelope />
+              </label>
               <input
                 type='email'
                 id='email'

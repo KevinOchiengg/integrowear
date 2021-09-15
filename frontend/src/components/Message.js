@@ -35,7 +35,7 @@ const Wrapper = styled.section`
   .alert-danger {
     color: var(--clr-red);
   }
-  .success {
+  .alert-success {
     color: var(--green);
   }
   .danger {

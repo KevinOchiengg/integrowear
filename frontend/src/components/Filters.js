@@ -63,7 +63,11 @@ const Filters = () => {
         {loadingCategories ? (
           <Loading />
         ) : errorCategories ? (
-          <Message variant='danger' massage='error' name='hide' />
+          <Message
+            variant='danger'
+            massage='Error loading product categories'
+            name='hide'
+          />
         ) : (
           <ul className='sidebar-tag'>
             <li>
@@ -129,6 +133,9 @@ const Wrapper = styled.section`
   .filter-by-price-container,
   .sidebar-tag {
     margin: 3rem 0;
+  }
+  .active {
+    color: var(--clr-yellow);
   }
   .product-tags-container {
     margin-top: 2.5rem;

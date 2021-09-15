@@ -14,6 +14,7 @@ import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
 } from '../constants/productConstants'
+import { formatPrice } from '../utils/helpers'
 
 export default function ProductListPage(props) {
   const { pageNumber = 1 } = useParams()
@@ -111,7 +112,7 @@ export default function ProductListPage(props) {
                     <tr key={product._id}>
                       <td>{product._id}</td>
                       <td>{product.name}</td>
-                      <td>{product.price}</td>
+                      <td>{formatPrice(product.price)}</td>
                       <td>{product.category}</td>
                       <td>{product.brand}</td>
                       <td>
