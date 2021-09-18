@@ -59,6 +59,10 @@ const Wrapper = styled.section`
     font-size: 1.7rem;
   }
 
+  i:not(:first-child) {
+    margin: 0 0.1rem;
+  }
+
   svg {
     color: var(--clr-yellow);
   }

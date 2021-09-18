@@ -37,15 +37,17 @@ export default function OrderListPage(props) {
         <h1 className='heading'>Your Orders</h1>
         <div className='row'>
           {loadingDelete && <Loading />}
-          {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+          {errorDelete && (
+            <Message
+              variant='danger'
+              message='Could not delete Order'
+              name='hide'
+            />
+          )}
           {loading ? (
             <Loading />
           ) : error ? (
-            <Message
-              variant='danger'
-              message='error loading order list'
-              name='hide'
-            />
+            <Message variant='danger' message={error} name='hide' />
           ) : (
             <table className='table'>
               <thead>

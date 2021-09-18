@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-
 import { FaTh, FaThList } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
@@ -266,7 +265,7 @@ const Wrapper = styled.section`
   @media (min-width: 769px) {
     .products-category-container {
       display: flex;
-      flex-direction: row-reverse;
+
       justify-content: space-between;
     }
     .products-list-section {

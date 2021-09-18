@@ -44,10 +44,10 @@ export default function PlaceOrderPage(props) {
                 <div className='card card-body'>
                   <h3>Shipping</h3>
                   <p>
-                    <strong>Name:</strong> {cart.shippingAddress.fullName}{' '}
+                    <strong>Name:</strong> {cart.shippingAddress.fullName}
                     <br />
                     <strong>Address: </strong> {cart.shippingAddress.address},
-                    {cart.shippingAddress.city},{' '}
+                    {cart.shippingAddress.city},
                     {cart.shippingAddress.postalCode},
                     {cart.shippingAddress.country}
                   </p>
@@ -140,7 +140,7 @@ export default function PlaceOrderPage(props) {
                 {loading && <Loading />}
                 {error && (
                   <Message
-                    message='error occured please check our internet connection'
+                    message='error occured please check Your internet connection'
                     variant='danger'
                     name='hide'
                   />

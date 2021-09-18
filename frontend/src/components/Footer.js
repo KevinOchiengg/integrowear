@@ -7,7 +7,7 @@ import {
   FaTwitter,
   FaPaperPlane,
 } from 'react-icons/fa'
-import logo from '../images/logo.png'
+
 import { useDispatch, useSelector } from 'react-redux'
 import Chat from './Chat'
 import styled from 'styled-components'
@@ -30,7 +30,7 @@ const Footer = () => {
               <div className='footer_logo'>
                 <h3>INTEGRO</h3>
                 <Link to='/'>
-                  <img src={logo} alt='logo' />
+                  <img src='logo.png' alt='Integrowear' />
                 </Link>
               </div>
 

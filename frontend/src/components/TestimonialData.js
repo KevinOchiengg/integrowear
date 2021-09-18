@@ -1,13 +1,7 @@
-import userOne from '../images/customer-1.jpg'
-import userTwo from '../images/customer-2.jpg'
-import userThree from '../images/customer-3.jpg'
-import userFour from '../images/customer-4.jpg'
-import userFive from '../images/customer-7.jpg'
-
 const people = [
   {
     id: 1,
-    image: userOne,
+    image: 'images/customers/customer-1.jpg',
     name: 'Bowling',
     title: 'Customer',
     quote:
@@ -15,7 +9,7 @@ const people = [
   },
   {
     id: 2,
-    image: userTwo,
+    image: 'images/customers/customer-2.jpg',
     name: 'I dont Mind',
     title: 'Customer',
     quote:
@@ -23,7 +17,7 @@ const people = [
   },
   {
     id: 3,
-    image: userThree,
+    image: 'images/customers/customer-3.jpg',
     name: 'Look At Me',
     title: 'Designer',
     quote:
@@ -31,7 +25,7 @@ const people = [
   },
   {
     id: 4,
-    image: userFour,
+    image: 'images/customers/customer-4.jpg',
     name: 'The Boss',
     title: 'Fashionist',
     quote:
@@ -39,7 +33,7 @@ const people = [
   },
   {
     id: 5,
-    image: userFive,
+    image: 'images/customers/customer-7.jpg',
     name: 'Jalango',
     title: 'Presenter',
     quote:

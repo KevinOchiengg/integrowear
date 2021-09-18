@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import styled from 'styled-components'
-import { FaTimes, FaInstagram } from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
+import { BiMessageRounded } from 'react-icons/bi'
 
 const ENDPOINT =
   window.location.host.indexOf('localhost') >= 0
@@ -68,7 +69,7 @@ const Chat = (props) => {
     <Wrapper>
       {!isOpen ? (
         <button type='button' className='message-icon' onClick={supportHandler}>
-          <FaInstagram />
+          <BiMessageRounded />
         </button>
       ) : (
         <div className='card card-body'>

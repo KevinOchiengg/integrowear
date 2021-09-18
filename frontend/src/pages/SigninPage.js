@@ -81,7 +81,11 @@ const SigninPage = () => {
             </div>
             {loading && <Loading />}
             {error && (
-              <Message variant='danger' message='error occured' name='hide' />
+              <Message
+                variant='danger'
+                message='Invalid email or password '
+                name='hide'
+              />
             )}
             <button type='submit' className='btn'>
               Sign In

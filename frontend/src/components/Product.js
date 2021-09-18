@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Rating from './Rating'
 import styled from 'styled-components'
@@ -6,6 +6,8 @@ import { AiOutlineHeart } from 'react-icons/ai'
 import { formatPrice } from '../utils/helpers'
 
 export default function Product({ product }) {
+  const [qty] = useState(1)
+
   return (
     <Wrapper>
       <article className='box'>
@@ -14,7 +16,7 @@ export default function Product({ product }) {
             <img src={product.image} alt={product.name} />
           </Link>
           <div className='heart-container'>
-            <Link to='/' className='heart'>
+            <Link to={`/wishlist/${product._id}`} className='heart'>
               <AiOutlineHeart />
             </Link>
           </div>
@@ -28,7 +30,11 @@ export default function Product({ product }) {
           </Link>
 
           <p>{product.description.substring(0, 50)}...</p>
-          <button className='btn'>add to cart</button>
+
+          <Link className='btn' to={`/cart/${product._id}?qty=${qty}`}>
+            add to cart
+          </Link>
+
           <span className='price'>{formatPrice(product.price)}</span>
         </div>
       </article>
@@ -55,6 +61,10 @@ const Wrapper = styled.div`
     position: relative;
   }
 
+  .heart-container svg {
+    color: var(--clr-blue);
+  }
+
   .box .image img {
     height: 100%;
     width: 100%;
@@ -68,6 +78,7 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
   }
+
   .heart-container {
     position: absolute;
     top: 2.5rem;
@@ -82,10 +93,10 @@ const Wrapper = styled.div`
     background: var(--clr-white);
     border-radius: 50%;
     box-shadow: var(--light-shadow);
-    color: var(--clr-blue);
+    transition: var(--transition);
     &:hover {
       background-color: var(--clr-blue);
-      a {
+      svg {
         color: var(--clr-white);
       }
     }
@@ -102,7 +113,7 @@ const Wrapper = styled.div`
 
   .content h3 {
     color: var(--clr-blue);
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .content p {

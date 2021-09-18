@@ -62,10 +62,26 @@ const ProductDetailsPage = ({ match, history }) => {
   }
 
   if (loading) {
-    return <Loading />
+    return (
+      <Wrapper>
+        <div className='section-center'>
+          <h3 className='sub-heading'>product</h3>
+          <h1 className='heading'>product details</h1>
+          <Loading />
+        </div>
+      </Wrapper>
+    )
   }
   if (error) {
-    return <Message variant='danger' message='Error loading product details' />
+    return (
+      <Wrapper>
+        <div className='section-center'>
+          <h3 className='sub-heading'>product</h3>
+          <h1 className='heading'>product details</h1>
+          <Message variant='danger' message='Error loading product details' />
+        </div>
+      </Wrapper>
+    )
   }
   return (
     <Wrapper>
@@ -86,7 +102,7 @@ const ProductDetailsPage = ({ match, history }) => {
             <h3>{product.name}</h3>
             <Rating rating={product.rating} numReviews={product.numReviews} />
             <div className='price'>{formatPrice(product.price)}</div>
-            <p>{product.description}</p>
+            <p>{product.description.substring(0, 150)}...</p>
 
             <div className='icons-container'>
               <form action='#' className='product-details-form'>
@@ -139,10 +155,10 @@ const ProductDetailsPage = ({ match, history }) => {
               </li>
             </ul>
             <div className='wish-list-container'>
-              <Link to='wishlist.html' className='add_to_wishlist'>
+              <Link to={`wishlist/${product._id}`} className='add_to_wishlist'>
                 <FaRegHeart /> Add to Wishlist
               </Link>
-              <Link to='compare.html'>
+              <Link to='#'>
                 <BiShuffle /> Compare
               </Link>
             </div>
@@ -276,7 +292,7 @@ const Wrapper = styled.section`
   .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 3rem;
     align-items: center;
   }
 
@@ -286,9 +302,6 @@ const Wrapper = styled.section`
 
   .description-row p {
     text-align: center;
-  }
-  .row .image {
-    flex: 1 1 20rem;
   }
 
   .alert {
@@ -334,6 +347,9 @@ const Wrapper = styled.section`
     line-height: 2;
   }
 
+  .loading-container svg {
+    font-size: 5rem;
+  }
   .content .price {
     font-size: 2.4rem;
     color: var(--clr-blue);

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import logo from '../images/logo.png'
 import { FaAlignRight } from 'react-icons/fa'
+import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri'
 import { IoIosBasket } from 'react-icons/io'
+import { AiOutlineHeart } from 'react-icons/ai'
 import { ImSearch } from 'react-icons/im'
 import { Link } from 'react-router-dom'
 import { useGlobalContext } from '../context'
@@ -36,10 +37,14 @@ const Navbar = (props) => {
     }
   }
   const cart = useSelector((state) => state.cart)
+
   const { cartItems } = cart
   const userSignin = useSelector((state) => state.userSignin)
   const { userInfo } = userSignin
+  const wishList = useSelector((state) => state.wishList)
+  const { wishListItems } = wishList
   const dispatch = useDispatch()
+
   const signoutHandler = () => {
     dispatch(signout())
   }
@@ -49,7 +54,7 @@ const Navbar = (props) => {
       <div className='nav-center'>
         <div className='logo-container'>
           <Link to='/'>
-            <img src={logo} className='nav-logo' alt='Integrowears' />
+            <img src='logo.png' className='nav-logo' alt='Integrowears' />
           </Link>
         </div>
 
@@ -71,6 +76,7 @@ const Navbar = (props) => {
               <button className='link-btn' onMouseOver={displaySubmenu}>
                 ADMIN
               </button>
+              <RiArrowDropDownLine />
             </li>
           )}
 
@@ -93,6 +99,7 @@ const Navbar = (props) => {
             <button className='link-btn' onMouseOver={displaySubmenu}>
               CATEGORY
             </button>
+            <RiArrowDropDownLine />
           </li>
         </ul>
         <form
@@ -122,6 +129,14 @@ const Navbar = (props) => {
             </Link>
             <div className='amount-container'>
               {cartItems.length >= 0 && <p>{cartItems.length}</p>}
+            </div>
+          </div>
+          <div className='heart-container'>
+            <Link to='/wishlist'>
+              <AiOutlineHeart className='heart' />
+            </Link>
+            <div className='heart-items-container'>
+              {wishListItems.length >= 0 && <p>{wishListItems.length}</p>}
             </div>
           </div>
           {userInfo ? (
@@ -219,13 +234,15 @@ const Wrapper = styled.nav`
     height: 4em;
     justify-content: center;
   }
-  .cart-container {
+  .cart-container,
+  .heart-container {
     display: flex;
     position: relative;
     margin-right: 0.2em;
   }
 
-  .amount-container {
+  .amount-container,
+  .heart-items-container {
     position: absolute;
     top: -1rem;
     right: -1rem;
@@ -236,6 +253,20 @@ const Wrapper = styled.nav`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .cart,
+  .search-icon,
+  .heart {
+    cursor: pointer;
+    margin-left: 0.5rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    text-align: center;
+    color: var(--clr-light-yellow);
+  }
+
+  .heart {
+    margin-left: 2rem;
   }
   p {
     color: var(--clr-blue);
@@ -256,15 +287,7 @@ const Wrapper = styled.nav`
     color: var(--clr-blue);
     display: none;
   }
-  .cart,
-  .search-icon {
-    cursor: pointer;
-    margin-left: 0.5rem;
-    height: 2.5rem;
-    width: 2.5rem;
-    text-align: center;
-    color: var(--clr-light-yellow);
-  }
+
   .toggle-btn {
     height: 2rem;
     width: 2rem;
@@ -283,7 +306,8 @@ const Wrapper = styled.nav`
     .toggle-btn {
       display: none;
     }
-    .amount-container {
+    .amount-container,
+    .heart-items-container {
       height: 2.5rem;
       width: 2.5rem;
       top: -1.4rem;

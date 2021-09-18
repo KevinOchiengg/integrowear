@@ -1,6 +1,6 @@
-import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
-import { cartReducer } from './reducers/cartReducers';
+import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
+import thunk from 'redux-thunk'
+import { cartReducer } from './reducers/cartReducers'
 import {
   orderCreateReducer,
   orderDeleteReducer,
@@ -10,7 +10,7 @@ import {
   orderMineListReducer,
   orderPayReducer,
   orderSummaryReducer,
-} from './reducers/orderReducers';
+} from './reducers/orderReducers'
 import {
   productCategoryListReducer,
   productCreateReducer,
@@ -19,7 +19,7 @@ import {
   productListReducer,
   productReviewCreateReducer,
   productUpdateReducer,
-} from './reducers/productReducers';
+} from './reducers/productReducers'
 import {
   userAddressMapReducer,
   userDeleteReducer,
@@ -30,7 +30,8 @@ import {
   userTopSellerListReducer,
   userUpdateProfileReducer,
   userUpdateReducer,
-} from './reducers/userReducers';
+} from './reducers/userReducers'
+import { WishListReducer } from './reducers/WishListReducer'
 
 const initialState = {
   userSignin: {
@@ -47,10 +48,11 @@ const initialState = {
       : {},
     paymentMethod: 'PayPal',
   },
-};
+}
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  wishList: WishListReducer,
   cart: cartReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
@@ -74,12 +76,12 @@ const reducer = combineReducers({
   productReviewCreate: productReviewCreateReducer,
   userAddressMap: userAddressMapReducer,
   orderSummary: orderSummaryReducer,
-});
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+})
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
   reducer,
   initialState,
   composeEnhancer(applyMiddleware(thunk))
-);
+)
 
-export default store;
+export default store

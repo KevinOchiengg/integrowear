@@ -1,6 +1,4 @@
-# INTEGROWEAR - An E-COMMERCE WEBSITE
-
-![GitHub repo size](https://github.com/KevinOchiengg/integrowear)
+# [INTEGROWEAR - An E-COMMERCE WEBSITE ](https://integrowears.herokuapp.com/)
 
 An e-commerce site template built with ReactJs, NodeJS, Express, MongoDB, Styled-Component.
 

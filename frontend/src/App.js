@@ -28,6 +28,7 @@ import OrderPage from './pages/OrderPage'
 import OrderHistoryPage from './pages/OrderHistoryPage'
 import SigninPage from './pages/SigninPage'
 import ErrorPage from './pages/ErrorPage'
+import WishListPage from './pages/WishListPage'
 
 function App() {
   return (
@@ -54,11 +55,13 @@ function App() {
           <Route path='/placeorder' component={PlaceOrderPage}></Route>
           <Route path='/order/:id' component={OrderPage}></Route>
           <Route path='/orderhistory' component={OrderHistoryPage}></Route>
+          <Route path='/wishlist/:id?' component={WishListPage}></Route>
           <Route
             path='/search/name/:name?'
             component={ProductsPage}
             exact
           ></Route>
+
           <Route
             path='/search/category/:category'
             component={ProductsPage}

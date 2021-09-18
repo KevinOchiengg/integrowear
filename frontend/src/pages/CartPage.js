@@ -8,7 +8,6 @@ import { formatPrice } from '../utils/helpers'
 
 export default function CartPage(props) {
   const productId = props.match.params.id
-
   const qty = props.location.search
     ? Number(props.location.search.split('=')[1])
     : 1
@@ -29,126 +28,133 @@ export default function CartPage(props) {
   const checkoutHandler = () => {
     props.history.push('/signin?redirect=shipping')
   }
-  return (
-    <Wrapper>
-      <div className='section-center'>
-        {error && (
+  if (error) {
+    return (
+      <Wrapper>
+        <div className='section-center'>
+          <h3 className='sub-heading'>Shopping</h3>
+          <h1 className='heading'>Your Shopping</h1>
           <Message
             variant='danger'
             message='Error fetching cart products...'
             url='/'
             buttonText='Back Home'
           />
-        )}
-        {cartItems.length === 0 ? (
+        </div>
+      </Wrapper>
+    )
+  }
+
+  if (cartItems.length === 0) {
+    return (
+      <Wrapper>
+        <div className='section-center'>
+          <h3 className='sub-heading'>Shopping</h3>
+          <h1 className='heading'>Your Shopping</h1>
           <Message
             message='Oops! Your Cart is Empty...'
             buttonText='Go Shopping'
             url='/products'
           />
-        ) : (
-          <>
-            <h3 className='sub-heading'>Shopping</h3>
-            <h1 className='heading'>Your Shopping</h1>
-            <table>
-              <thead>
-                <tr>
-                  <th>PRODUCT</th>
-                  <th>QUANTITY</th>
-                  <th>SUBTOTAL</th>
-                </tr>
-              </thead>
+        </div>
+      </Wrapper>
+    )
+  }
+  return (
+    <Wrapper>
+      <div className='section-center'>
+        <h3 className='sub-heading'>Shopping</h3>
+        <h1 className='heading'>Your Shopping</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>PRODUCT</th>
+              <th>QUANTITY</th>
+              <th>SUBTOTAL</th>
+            </tr>
+          </thead>
 
-              <tbody>
-                {cartItems.map((item) => {
-                  return (
-                    <tr key={item.name}>
-                      <td>
-                        <div className='cart-info'>
-                          <img src={item.image} alt='' />
-                          <div className='checkout-items'>
-                            <Link to={'/product/' + item.product}>
-                              <h5>{item.name}</h5>
-                            </Link>
+          <tbody>
+            {cartItems.map((item) => {
+              return (
+                <tr key={item.name}>
+                  <td>
+                    <div className='cart-info'>
+                      <img src={item.image} alt='' />
+                      <div className='checkout-items'>
+                        <Link to={'/product/' + item.product}>
+                          <h5>{item.name}</h5>
+                        </Link>
 
-                            <p>Price: {formatPrice(item.price)}</p>
-                            {/* <Rating /> */}
-                            <button
-                              className='btn remove-btn'
-                              onClick={() =>
-                                removeFromCartHandler(item.product)
-                              }
-                            >
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <select
-                          className='quantity'
-                          value={item.quantity}
-                          onChange={(e) =>
-                            dispatch(
-                              addToCart(item.product, Number(e.target.value))
-                            )
-                          }
+                        <p>Price: {formatPrice(item.price)}</p>
+                        {/* <Rating /> */}
+                        <button
+                          className='btn remove-btn'
+                          onClick={() => removeFromCartHandler(item.product)}
                         >
-                          {[...Array(item.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </select>
-                      </td>
-                      <td>{formatPrice(item.price)}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-            <div className='total-price'>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Total Items</td>
-                    <td>{cartItems.reduce((a, c) => a + c.qty, 0)} item</td>
-                  </tr>
-                  <tr>
-                    <td>Total Price</td>
-                    <td>
-                      {cartItems.reduce(
-                        (a, c) => formatPrice(a + c.price * c.qty),
-                        0
-                      )}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <form className='checkout-btn-container'>
-                <Link to='/shipping'>
-                  <button
-                    type='button'
-                    className='checkout-btn btn'
-                    disabled={cartItems.length === 0}
-                    onClick={checkoutHandler}
-                  >
-                    Proceed to Checkout
-                  </button>
-                </Link>
-                <Link to='/products'>
-                  <button
-                    type='button'
-                    className='shopping-btn btn'
-                    disabled={cartItems.length === 0}
-                  >
-                    Continue to Shopping
-                  </button>
-                </Link>
-              </form>
-            </div>
-          </>
-        )}
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <select
+                      className='quantity'
+                      value={item.qty}
+                      onChange={(e) =>
+                        dispatch(
+                          addToCart(item.product, Number(e.target.value))
+                        )
+                      }
+                    >
+                      {[...Array(item.countInStock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td>{formatPrice(item.price)}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+        <div className='total-price'>
+          <table>
+            <tbody>
+              <tr>
+                <td>Total Items</td>
+                <td>{cartItems.reduce((a, c) => a + c.qty, 0)} item</td>
+              </tr>
+              <tr>
+                <td>Total Price</td>
+                <td>${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}</td>
+              </tr>
+            </tbody>
+          </table>
+          <form className='checkout-btn-container'>
+            <Link to='/shipping'>
+              <button
+                type='button'
+                className='checkout-btn btn'
+                disabled={cartItems.length === 0}
+                onClick={checkoutHandler}
+              >
+                Proceed to Checkout
+              </button>
+            </Link>
+            <Link to='/products'>
+              <button
+                type='button'
+                className='shopping-btn btn'
+                disabled={cartItems.length === 0}
+              >
+                Continue to Shopping
+              </button>
+            </Link>
+          </form>
+        </div>
       </div>
     </Wrapper>
   )

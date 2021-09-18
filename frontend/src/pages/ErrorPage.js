@@ -42,7 +42,6 @@ const Wrapper = styled.section`
   }
 
   .content .btn {
-    color: var(--clr-blue);
     font-size: 2rem;
   }
 

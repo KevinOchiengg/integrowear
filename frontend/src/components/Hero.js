@@ -11,7 +11,10 @@ const Hero = () => {
             Welcome To <span>Integro</span> <br />
             Wears<span>.</span>
           </h3>
-          <p>Switch Your Swag Mode On & Dress like you already famous</p>
+          <p>
+            Switch Your Swag Mode On & Dress like you <br />
+            already famous
+          </p>
           <div>
             <Link to='/products' className='btn hero-btn'>
               Explore Now &#8594;
@@ -51,7 +54,9 @@ const Wrapper = styled.section`
     height: 100%;
     width: 100%;
   }
-
+  br {
+    display: none;
+  }
   .container {
     max-width: var(--max-width);
     margin: auto;
@@ -98,6 +103,9 @@ const Wrapper = styled.section`
     p {
       line-height: 1.5em;
       color: var(--clr-light-yellow);
+    }
+    br {
+      display: block;
     }
   }
 `

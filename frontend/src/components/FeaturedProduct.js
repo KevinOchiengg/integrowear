@@ -14,13 +14,10 @@ function FeaturedProducts() {
     dispatch(listProducts({}))
   }, [dispatch])
 
-  if (loading) {
-    return <Loading />
-  }
   if (error) {
     return (
       <Message
-        message='Error laoding products...'
+        message='Error laoding featured products...'
         name='hide'
         variant='danger'
       />
@@ -31,11 +28,15 @@ function FeaturedProducts() {
       <div className='section-center'>
         <h3 className='sub-heading'>our products</h3>
         <h1 className='heading'>featured products</h1>
-        <div className='featured'>
-          {products.slice(0, 6).map((product) => {
-            return <Product key={product._id} product={product} />
-          })}
-        </div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className='featured'>
+            {products.slice(0, 8).map((product) => {
+              return <Product key={product._id} product={product} />
+            })}
+          </div>
+        )}
       </div>
     </Wrapper>
   )
@@ -46,8 +47,12 @@ const Wrapper = styled.section`
 
   .featured {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 1.5rem;
+  }
+
+  .loading-container {
+    margin-top: 10rem;
   }
 `
 
