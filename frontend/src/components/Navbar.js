@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaAlignRight } from 'react-icons/fa'
-import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri'
+// import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri'
 import { IoIosBasket } from 'react-icons/io'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { ImSearch } from 'react-icons/im'
@@ -76,7 +76,6 @@ const Navbar = (props) => {
               <button className='link-btn' onMouseOver={displaySubmenu}>
                 ADMIN
               </button>
-              <RiArrowDropDownLine />
             </li>
           )}
 
@@ -99,7 +98,6 @@ const Navbar = (props) => {
             <button className='link-btn' onMouseOver={displaySubmenu}>
               CATEGORY
             </button>
-            <RiArrowDropDownLine />
           </li>
         </ul>
         <form

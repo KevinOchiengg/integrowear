@@ -16,8 +16,8 @@ const Hero = () => {
             already famous
           </p>
           <div>
-            <Link to='/products' className='btn hero-btn'>
-              Explore Now &#8594;
+            <Link to='/products' className='btn'>
+              Shop Now &#8594;
             </Link>
           </div>
         </div>
@@ -63,6 +63,11 @@ const Wrapper = styled.section`
     padding: 0 1.4em;
   }
 
+  .btn {
+    padding: 1rem 3.5rem;
+    margin-top: 2rem;
+    font-size: 2rem;
+  }
   .hero__container {
     display: flex;
     justify-content: center;

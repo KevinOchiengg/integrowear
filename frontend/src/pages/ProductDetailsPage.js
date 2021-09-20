@@ -3,13 +3,7 @@ import styled from 'styled-components'
 import Rating from '../components/Rating'
 import { FiChevronRight } from 'react-icons/fi'
 import { formatPrice } from '../utils/helpers'
-import {
-  FaInstagram,
-  FaFacebookF,
-  FaPinterestP,
-  FaRegHeart,
-} from 'react-icons/fa'
-import { BiShuffle } from 'react-icons/bi'
+import { FaInstagram, FaFacebookF, FaPinterestP } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { createReview, detailsProduct } from '../actions/productActions'
@@ -48,6 +42,10 @@ const ProductDetailsPage = ({ match, history }) => {
 
   const addToCartHandler = () => {
     history.push(`/cart/${productId}?qty=${qty}`)
+  }
+
+  const addToWishListHandler = () => {
+    history.push(`/wishlist/${productId}?qty=${qty}`)
   }
 
   const submitHandler = (e) => {
@@ -105,7 +103,7 @@ const ProductDetailsPage = ({ match, history }) => {
             <p>{product.description.substring(0, 150)}...</p>
 
             <div className='icons-container'>
-              <form action='#' className='product-details-form'>
+              <form className='product-details-form'>
                 <div className='select-container'>
                   <select>
                     <option>Select Size</option>
@@ -131,18 +129,26 @@ const ProductDetailsPage = ({ match, history }) => {
                     ))}
                   </select>
                 </div>
-
-                {product.countInStock > 0 ? (
+                <div className='btn-container'>
+                  {product.countInStock > 0 ? (
+                    <button
+                      type='submit'
+                      className='btn add-to-cart '
+                      onClick={addToCartHandler}
+                    >
+                      Add To Cart
+                    </button>
+                  ) : (
+                    <div className='out-of-stock'>Stock: Out Of Stock</div>
+                  )}
                   <button
                     type='submit'
-                    className='btn add-to-cart '
-                    onClick={addToCartHandler}
+                    className='btn add-to-wishlist '
+                    onClick={addToWishListHandler}
                   >
-                    Add To Cart
+                    Add to Wishlist
                   </button>
-                ) : (
-                  <div className='out-of-stock'>Stock: Out Of Stock</div>
-                )}
+                </div>
               </form>
             </div>
             <hr />
@@ -154,14 +160,7 @@ const ProductDetailsPage = ({ match, history }) => {
                 Category: <Link to='#'>{product.category}</Link>
               </li>
             </ul>
-            <div className='wish-list-container'>
-              <Link to={`wishlist/${product._id}`} className='add_to_wishlist'>
-                <FaRegHeart /> Add to Wishlist
-              </Link>
-              <Link to='#'>
-                <BiShuffle /> Compare
-              </Link>
-            </div>
+
             <p>Share this product</p>
             <div className='share-product-socail-area'>
               <Link to='#'>
@@ -339,7 +338,11 @@ const Wrapper = styled.section`
   .sub-heading {
     padding-top: 10rem;
   }
-
+  .add-to-cart.btn {
+    padding-left: 4.3rem;
+    padding-right: 4.3rem;
+    margin-right: 2.7rem;
+  }
   p {
     color: var(--clr-dark-grey);
     font-size: 2rem;
@@ -358,12 +361,25 @@ const Wrapper = styled.section`
   }
   .share-product-socail-area {
     margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
   }
   .share-product-socail-area a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
     font-size: 2.2rem;
     padding: 1rem;
     box-shadow: var(--light-shadow);
     color: var(--clr-blue);
+    border-radius: 50%;
+
+    &:hover {
+      color: var(--clr-yellow);
+      transform: var(--transition);
+    }
   }
 
   .share-product-socail-area a:nth-child(2) {
@@ -411,6 +427,12 @@ const Wrapper = styled.section`
     color: #ccc;
   }
 
+  .btn-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
   .review .slide .user {
     display: flex;
     flex-direction: column;

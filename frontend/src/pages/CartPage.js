@@ -150,7 +150,7 @@ export default function CartPage(props) {
                 className='shopping-btn btn'
                 disabled={cartItems.length === 0}
               >
-                Continue to Shopping
+                Continue Shopping
               </button>
             </Link>
           </form>
@@ -242,6 +242,8 @@ const Wrapper = styled.section`
   }
 
   .shopping-btn {
+    padding-left: 3.6rem;
+    padding-right: 3.6rem;
     margin: 0;
   }
 

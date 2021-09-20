@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
@@ -10,6 +10,7 @@ import Message from './Message'
 import { formatPrice } from '../utils/helpers'
 
 const GridView = () => {
+  const [qty, setQty] = useState(1)
   const productList = useSelector((state) => state.productList)
   const { loading, error, products } = productList
   const dispatch = useDispatch()
@@ -71,13 +72,21 @@ const GridView = () => {
             <div className='product-button'>
               <ul className='actions'>
                 <li className='add-to-wishlist'>
-                  <Link to='/' className='add_to_wishlist'>
+                  <Link
+                    to={`/wishlist/${product._id}?qty=${qty}`}
+                    className='add_to_wishlist'
+                  >
                     <AiOutlineHeart /> Add to Wishlist
                   </Link>
                 </li>
               </ul>
               <div className='add-to-cart-btn-container'>
-                <button className='btn add-to-cart-btn'>Add to cart</button>
+                <Link
+                  to={`/cart/${product._id}?qty=${qty}`}
+                  className='btn add_to_wishlist'
+                >
+                  Add to cart
+                </Link>
               </div>
             </div>
           </div>
