@@ -100,7 +100,11 @@ export default function ProductEditPage(props) {
           {loading ? (
             <Loading />
           ) : error ? (
-            <Message variant='danger' />
+            <Message
+              variant='danger'
+              message='Could not edit the product'
+              name='hide'
+            />
           ) : (
             <>
               <div className='field-container'>
@@ -141,7 +145,7 @@ export default function ProductEditPage(props) {
                   label='Choose Image'
                   onChange={uploadFileHandler}
                 />
-                {loadingUpload && <LoadingBox></LoadingBox>}
+                {loadingUpload && <LoadingBox />}
                 {errorUpload && (
                   <Message
                     message='error occured please check our internet connection'

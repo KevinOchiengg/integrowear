@@ -114,7 +114,7 @@ export default function SupportPage() {
         <div className='row top full-container'>
           <div className='col-1 support-users'>
             {users.filter((x) => x._id !== userInfo._id).length === 0 && (
-              <Message variant='danger' message='No Online user' name='hide' />
+              <Message message='No Online user' name='hide' />
             )}
             <ul>
               {users
@@ -148,11 +148,7 @@ export default function SupportPage() {
           </div>
           <div className='col-3 support-messages'>
             {!selectedUser._id ? (
-              <Message
-                variant='danger'
-                message='Select a user to start chat'
-                name='hide'
-              />
+              <Message message='Select a user to start chat' name='hide' />
             ) : (
               <div>
                 <div className='row'>
@@ -190,7 +186,7 @@ export default function SupportPage() {
 
 const Wrapper = styled.section`
   margin: 12rem 0;
-  .btn-hide {
-    display: none;
+  .alert {
+    align-items: center;
   }
 `

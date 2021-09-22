@@ -130,8 +130,6 @@ export default function ProfilePage() {
               </div>
               {user.isSeller && (
                 <>
-                  <h3 class='sub-heading'>seller</h3>
-                  <h1 class='heading'>seller info</h1>
                   <div>
                     <label htmlFor='sellerName'>Seller Name</label>
                     <input

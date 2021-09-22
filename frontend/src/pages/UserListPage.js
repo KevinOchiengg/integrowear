@@ -32,8 +32,8 @@ export default function UserListPage(props) {
   return (
     <Wrapper>
       <div className='section-center'>
-        <h3 class='sub-heading'>users</h3>
-        <h1 class='heading'>user list</h1>
+        <h3 className='sub-heading'>users</h3>
+        <h1 className='heading'>user list</h1>
 
         <div className='row'>
           {loadingDelete && <Loading />}

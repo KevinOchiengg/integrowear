@@ -1,6 +1,4 @@
-# INTEGROWEAR - An E-COMMERCE WEBSITE
-
-![GitHub repo size](https://github.com/KevinOchiengg/integrowear)
+# [INTEGROWEAR](https://www.upwork.com/freelancers/~01c404581bb31bf21d/ 'INTEGROWEAR ')- An E-COMMERCE WEBSITE
 
 An e-commerce site template built with ReactJs, NodeJS, Express, MongoDB, Styled-Component.
 
@@ -49,7 +47,6 @@ npm start
 
 Press `CTRL + C` to stop the process.
 
-```
 ## Bugs or improvements
 
 Every project needs improvements, Feel free to report any bugs or improvements. Pull requests are always welcomed.
@@ -57,7 +54,6 @@ Every project needs improvements, Feel free to report any bugs or improvements. 
 ## License
 
 This project is open-sourced software licensed under the MIT License. See the LICENSE file for more information.
-```
 
 ## Let's Work Together
 
@@ -67,8 +63,7 @@ This project is open-sourced software licensed under the MIT License. See the LI
 ## Support & Feedbacks
 
 - [LinkedIN](https://www.linkedin.com/in/kevin-ochiengg/ 'Linkedin') - kevin Ochieng
-- [Twitter](https://www.twitter.com/itsaadarsh_ 'Twitter') - Kevin OChieng\_
-- [Github](https://github.com/KevinOchiengg 'Github') - KevinOchieng\_
+- [Twitter](https://www.twitter.com/itsaadarsh_ 'Twitter') - Kevin OChieng
+- [Github](https://github.com/KevinOchiengg 'Github') - KevinOchieng
 - [Facebook](https://www.facebook.com/KandOTechnologies 'Facebook') - KandOTechnologies
 - ko-technologies.netlify.com
-

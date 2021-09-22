@@ -76,7 +76,7 @@ export default function ProductListPage(props) {
         <h3 className='sub-heading'>products</h3>
         <h1 className='heading'>Product list</h1>
         <div className='row'>
-          <button type='button' className='btn primary' onClick={createHandler}>
+          <button type='button' className='btn' onClick={createHandler}>
             Create Product
           </button>
         </div>
@@ -161,8 +161,9 @@ const Wrapper = styled.section`
     margin: 0.2rem;
   }
 
-  .primary {
+  .btn {
     margin-bottom: 2rem;
+    padding: 0.8rem 3rem;
   }
 
   .row {

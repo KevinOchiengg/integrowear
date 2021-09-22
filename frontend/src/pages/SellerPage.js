@@ -5,7 +5,6 @@ import { listProducts } from '../actions/productActions'
 import { detailsUser } from '../actions/userActions'
 import Loading from '../components/Loading'
 import Message from '../components/Message'
-import MessageBox from '../components/Message'
 import Product from '../components/Product'
 import Rating from '../components/Rating'
 
@@ -53,7 +52,7 @@ export default function SellerPage(props) {
               <Rating
                 rating={user.seller.rating}
                 numReviews={user.seller.numReviews}
-              ></Rating>
+              />
             </li>
             <li>
               <a href={`mailto:${user.email}`}>Contact Seller</a>
@@ -69,7 +68,9 @@ export default function SellerPage(props) {
           <Message variant='danger' message='error occured' name='hide' />
         ) : (
           <>
-            {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
+            {products.length === 0 && (
+              <Message message='No Product Found' name='hide' />
+            )}
             <div className='row center'>
               {products.map((product) => (
                 <Product key={product._id} product={product}></Product>

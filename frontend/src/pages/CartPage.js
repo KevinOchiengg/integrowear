@@ -206,12 +206,9 @@ const Wrapper = styled.section`
     border: none;
   }
 
-  .message-container {
-    height: 60vh;
-  }
   .alert {
     text-align: center;
-    font-size: 2.7rem;
+    font-size: 2rem;
   }
 
   select {
@@ -261,7 +258,7 @@ const Wrapper = styled.section`
   }
 
   .total-price table {
-    border-top: 3px solid var(--clr-yellow);
+    border-top: 1px solid var(--clr-yellow);
     width: 100%;
   }
 
@@ -276,7 +273,7 @@ const Wrapper = styled.section`
       align-items: flex-end;
     }
     .alert {
-      font-size: 3.5rem;
+      font-size: 2.7rem;
     }
     td img {
       width: 5rem;

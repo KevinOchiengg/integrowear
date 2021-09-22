@@ -64,41 +64,41 @@ const WishListPage = (props) => {
       <div className='row section-center'>
         <h3 className='sub-heading'>wishlist</h3>
         <h1 className='heading'>your wishlist</h1>
-        <form className='cart-table'>
+        <div className='table-container'>
           <table className='table'>
             <thead>
               <tr>
-                <th className='plantmore-product-thumbnail'>Images</th>
-                <th className='cart-product-name'>Product</th>
-                <th className='plantmore-product-price'>Unit Price</th>
-                <th className='plantmore-product-stock-status'>Stock Status</th>
-                <th className='plantmore-product-add-cart'>add to cart</th>
-                <th className='plantmore-product-remove'>Remove</th>
+                <th>Images</th>
+                <th>Product</th>
+                <th>Unit Price</th>
+                <th>Stock Status</th>
+                <th>add to cart</th>
+                <th>Remove</th>
               </tr>
             </thead>
             <tbody>
               {wishListItems.map((item) => {
                 return (
                   <tr key={item.name}>
-                    <td className='plantmore-product-thumbnail'>
+                    <td>
                       <Link to='#'>
                         <img src={item.image} alt={item.name} />
                       </Link>
                     </td>
-                    <td className='plantmore-product-name'>
+                    <td>
                       <Link to='#'>{item.name}</Link>
                     </td>
-                    <td className='plantmore-product-price'>
+                    <td>
                       <span className='amount'>{formatPrice(item.price)}</span>
                     </td>
-                    <td className='plantmore-product-stock-status'>
+                    <td>
                       {item.countInStock > 0 ? (
                         <span className='out-stock'>in stock</span>
                       ) : (
                         <span className='out-stock'>out stock</span>
                       )}
                     </td>
-                    <td className='plantmore-product-add-cart'>
+                    <td>
                       <Link
                         className='btn'
                         to={`/cart/${productId}?qty=${qty}`}
@@ -106,7 +106,7 @@ const WishListPage = (props) => {
                         add to cart
                       </Link>
                     </td>
-                    <td className='plantmore-product-remove'>
+                    <td>
                       <button
                         type='submit'
                         className='remove-btn'
@@ -120,7 +120,7 @@ const WishListPage = (props) => {
               })}
             </tbody>
           </table>
-        </form>
+        </div>
       </div>
     </Wrapper>
   )
@@ -128,7 +128,7 @@ const WishListPage = (props) => {
 
 const Wrapper = styled.section`
   margin: 12rem auto;
-  .cart-table {
+  .table-container {
     overflow-x: auto;
   }
   img {
@@ -139,6 +139,10 @@ const Wrapper = styled.section`
   }
   .alert {
     text-align: center;
+  }
+
+  .btn {
+    word-wrap: none;
   }
 `
 

@@ -10,7 +10,7 @@ import Message from './Message'
 import { formatPrice } from '../utils/helpers'
 
 const GridView = () => {
-  const [qty, setQty] = useState(1)
+  const [qty] = useState(1)
   const productList = useSelector((state) => state.productList)
   const { loading, error, products } = productList
   const dispatch = useDispatch()
@@ -33,7 +33,7 @@ const GridView = () => {
   return (
     <Wrapper>
       {products.map((product) => (
-        <div className='product-layout-list'>
+        <div key={product._id} className='product-layout-list'>
           <div className='product-image'>
             <Link to={`/product/${product._id}`}>
               <img src={product.image} alt={product.name} />
@@ -49,7 +49,7 @@ const GridView = () => {
             <Rating rating={product.rating} numReviews={product.numReviews} />
             <div className='price-box'>
               <span className='new-price'>{formatPrice(product.price)}</span>
-              <span className='old-price'>ksh 2,000</span>
+              <span className='old-price'>{formatPrice(2000)}</span>
             </div>
 
             <p>{product.description}</p>
@@ -71,7 +71,7 @@ const GridView = () => {
             </ul>
             <div className='product-button'>
               <ul className='actions'>
-                <li className='add-to-wishlist'>
+                <li>
                   <Link
                     to={`/wishlist/${product._id}?qty=${qty}`}
                     className='add_to_wishlist'
@@ -81,10 +81,7 @@ const GridView = () => {
                 </li>
               </ul>
               <div className='add-to-cart-btn-container'>
-                <Link
-                  to={`/cart/${product._id}?qty=${qty}`}
-                  className='btn add_to_wishlist'
-                >
+                <Link to={`/cart/${product._id}?qty=${qty}`} className='btn'>
                   Add to cart
                 </Link>
               </div>
@@ -108,6 +105,15 @@ const Wrapper = styled.section`
     margin-right: 10px;
   }
 
+  .add_to_wishlist {
+    display: flex;
+    align-items: center;
+  }
+
+  .add_to_wishlist svg {
+    font-size: 3rem;
+    margin-right: 1rem;
+  }
   .price-box {
     font-size: 2rem;
     margin-bottom: 1rem;

@@ -50,7 +50,7 @@ export default function PaymentMethodPage(props) {
             <label htmlFor='stripe'>Stripe</label>
           </div>
           <div>
-            <button type='submit' className='btn primary'>
+            <button type='submit' className='btn'>
               Continue
             </button>
           </div>
@@ -67,30 +67,28 @@ const Wrapper = styled.section`
     margin-top: 4rem;
   }
   .form,
-  .primary,
+  .btn,
   .payment-method-container {
     margin: 0 auto;
   }
   .payment-method-container {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: row;
     width: 30%;
     margin: 2rem auto;
   }
 
   input {
-    height: 2.5rem;
+    height: 2.2rem;
   }
 
-  .checkbox-container {
-    align-items: center;
-    flex-direction: row;
-  }
-
-  .primary {
+  .btn {
     font-size: 2rem;
+  }
+
+  #stripe {
+    margin-right: 1.2rem;
   }
 
   @media screen and (min-width: 800px) {

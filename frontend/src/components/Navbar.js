@@ -110,7 +110,7 @@ const Navbar = (props) => {
             type='search'
             name='q'
             id='q'
-            placeholder='Search for products'
+            placeholder='Search for products...'
             onChange={(e) => setName(e.target.value)}
           />
           <button type='submit'>
@@ -177,14 +177,14 @@ const Wrapper = styled.nav`
     display: flex;
     position: absolute;
     top: 8rem;
-    margin: 0 auto;
     width: 90%;
     box-shadow: var(--dark-shadow);
     visibility: hidden;
   }
 
   .search-field svg {
-    width: 3rem;
+    width: 5rem;
+    font-size: 2rem;
   }
 
   .link-btn {
@@ -298,7 +298,7 @@ const Wrapper = styled.nav`
     }
 
     .search-field {
-      margin-left: 16em;
+      left: 30%;
       width: 40%;
     }
     .toggle-btn {
