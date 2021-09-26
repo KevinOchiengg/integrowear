@@ -1,6 +1,8 @@
 export const formatPrice = (number) => {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-kenya', {
     style: 'currency',
-    currency: 'USD',
-  }).format(number / 100)
+    currency: 'Ksh',
+  })
+    .format(number)
+    .replace(/\D00(?=\D*$)/, '')
 }
