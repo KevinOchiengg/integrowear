@@ -51,7 +51,7 @@ const data = {
       image4: '/images/denim-pant-jeans.jpg',
       price: 2000,
       countInStock: 20,
-      brand: 'fashion',
+      brand: 'Fashion',
       rating: 4.5,
       numReviews: 10,
       description:
