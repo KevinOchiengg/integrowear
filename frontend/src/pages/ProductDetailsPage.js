@@ -90,9 +90,10 @@ const ProductDetailsPage = ({ match, history }) => {
           <div>
             <img src={product.image} alt={product.name} className='image' />
             <div className='product-details-related-imgs'>
-              <img src={product.image} alt={product.name} />
-              <img src={product.image} alt={product.name} />
-              <img src={product.image} alt={product.name} />
+              <img src={product.image1} alt={product.name} />
+              <img src={product.image2} alt={product.name} />
+              <img src={product.image3} alt={product.name} />
+              <img src={product.image4} alt={product.name} />
             </div>
           </div>
 
