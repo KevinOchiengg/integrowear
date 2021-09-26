@@ -4,28 +4,20 @@ import styled from 'styled-components'
 
 const BrandSection = () => {
   return (
-    <Wrapper className='our-brand-area section-pb'>
+    <Wrapper>
       <div className='row section-center'>
         <div className='brand-single-item'>
-          <Link to='#'>
-            <img src='images/brands/dior.png' alt='' />
-          </Link>
+          <img src='images/brands/dior.png' alt='dior' />
         </div>
         <div className='brand-single-item'>
-          <Link to='#'>
-            <img src='images/brands/lui.png' alt='' />
-          </Link>
+          <img src='images/brands/lui.png' alt='lui' />
         </div>
         <div className='brand-single-item'>
-          <Link to='#'>
-            <img src='images/brands/gucci.png' alt='' />
-          </Link>
+          <img src='images/brands/gucci.png' alt='gucci' />
         </div>
 
         <div className='brand-single-item'>
-          <Link to='#'>
-            <img src='images/brands/nike.png' alt='' />
-          </Link>
+          <img src='images/brands/nike.png' alt='nike' />
         </div>
       </div>
     </Wrapper>
@@ -44,12 +36,13 @@ const Wrapper = styled.section`
   }
 
   img {
-    width: 10rem;
+    filter: grayscale(100%);
+    width: 8rem;
   }
 
   @media only screen and (min-width: 800px) {
     img {
-      width: 18rem;
+      width: 12rem;
     }
 
     .row {

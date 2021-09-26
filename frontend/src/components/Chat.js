@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import styled from 'styled-components'
-import { FaTimes } from 'react-icons/fa'
+import {
+  FaTimes,
+  FaPaperPlane,
+  FaMicrophone,
+  FaLaughBeam,
+} from 'react-icons/fa'
 import { BiMessageRounded } from 'react-icons/bi'
 
 const ENDPOINT =
@@ -72,33 +77,43 @@ const Chat = (props) => {
           <BiMessageRounded />
         </button>
       ) : (
-        <div className='card card-body'>
-          <div className='row'>
-            <strong>Support </strong>
-            <button type='button' className='close-btn' onClick={closeHandler}>
-              <FaTimes />
+        <div className='chat'>
+          <div className='contact bar'>
+            <div className='name'>
+              <h3>Integrowears</h3>
+              <p className='seen'>Online</p>
+            </div>
+            <FaTimes onClick={closeHandler} />
+          </div>
+          <div className='messages' id='chat'>
+            <div className='time'>Today at {new Date().getTime()}</div>
+
+            <ul ref={uiMessagesRef}>
+              {messages.map((msg, index) => (
+                <li className='message' key={index}>
+                  {msg.body}
+                </li>
+              ))}
+            </ul>
+
+            <div className='message stark'>
+              <div className='typing typing-1'></div>
+              <div className='typing typing-2'></div>
+              <div className='typing typing-3'></div>
+            </div>
+          </div>
+          <form onSubmit={submitHandler} className='input'>
+            <input
+              value={messageBody}
+              onChange={(e) => setMessageBody(e.target.value)}
+              type='text'
+              placeholder='Type your message here!'
+            />
+
+            <button type='submit'>
+              <FaPaperPlane />
             </button>
-          </div>
-          <ul ref={uiMessagesRef}>
-            {messages.map((msg, index) => (
-              <li key={index}>
-                <strong>{`${msg.name}: `}</strong> {msg.body}
-              </li>
-            ))}
-          </ul>
-          <div>
-            <form onSubmit={submitHandler} className='row'>
-              <input
-                value={messageBody}
-                onChange={(e) => setMessageBody(e.target.value)}
-                type='text'
-                placeholder='type message...'
-              />
-              <button type='submit' className='btn'>
-                Send
-              </button>
-            </form>
-          </div>
+          </form>
         </div>
       )}
     </Wrapper>
@@ -114,63 +129,191 @@ const Wrapper = styled.section`
   bottom: 2rem;
   font-size: 2rem;
   padding: 2rem;
-  .chatbox ul {
-    overflow: scroll;
-    max-height: 20rem;
-  }
 
-  .card-body {
-    background: var(--clr-white);
-    box-shadow: var(--dark-shadow);
-    position: fixed;
-    right: 2rem;
-    bottom: 2rem;
-    left: 2rem;
-    font-size: 2rem;
-    padding: 2rem;
-  }
-  .close-btn {
-    background: none;
-    color: var(--clr-blue);
-  }
   .message-icon {
     background: none;
     font-size: 4rem;
     color: var(--green);
   }
-  .card-body ul {
-    margin: 2rem 0;
-    line-height: 1.5;
-  }
 
-  .row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  form.row {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-  }
   .chatbox li {
     margin-bottom: 1rem;
   }
-  .chatbox input {
-    width: calc(100% - 9rem);
-    height: 9rem;
+
+  .chat {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    height: 50rem;
+    border-radius: 2rem;
+    background: var(--clr-white);
+    box-shadow: var(--dark-shadow);
+    right: 2rem;
+    bottom: 2rem;
+    left: 2rem;
+    font-size: 2rem;
+    padding: 2rem;
+    z-index: 2;
   }
 
   @media (min-width: 800px) {
-    .card-body {
-      right: 30%;
+    .chat {
+      width: 35%;
+      right: 40%;
       bottom: 2rem;
+      height: 55rem;
       left: 30%;
       font-size: 2rem;
       padding: 2rem;
+    }
+  }
+
+  .contact {
+    position: relative;
+    margin-bottom: 1rem;
+    padding-left: 5rem;
+    height: 4.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .message {
+    padding: 1rem 1.5rem;
+    margin: 2rem;
+    border-radius: 1.5rem 1.5rem 1.5rem 0;
+    min-height: 2.25rem;
+    width: fit-content;
+    max-width: 66%;
+    box-shadow: var(--light-shadow);
+  }
+
+  li:nth-child(even) {
+    padding: 1rem 1.5rem;
+    margin: 2rem;
+    background: #fff;
+    border-radius: 1.5rem 1.5rem 1.5rem 0;
+    min-height: 2.25rem;
+    width: fit-content;
+    max-width: 66%;
+    box-shadow: var(--light-shadow);
+  }
+
+  li:nth-child(odd) {
+    margin: 1.5rem 1.5rem 1.5rem auto;
+    border-radius: 1rem 1.5rem 0 1rem;
+    background: var(--clr-blue);
+    color: var(--clr-white);
+  }
+  .name {
+    font-weight: 500;
+    margin-bottom: 0.125rem;
+  }
+
+  .seen {
+    font-size: 1.7rem;
+    color: var(--green);
+  }
+
+  .bar {
+    flex-basis: 3.5rem;
+    flex-shrink: 0;
+    margin: 1rem;
+    box-sizing: border-box;
+  }
+  .messages {
+    padding: 2rem;
+    background: #f7f7f7;
+    flex-shrink: 2;
+    overflow-y: auto;
+  }
+  .time {
+    font-size: 1.5rem;
+    background: #eee;
+    padding: 0.25rem 1rem;
+    border-radius: 2rem;
+    color: #999;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .typing {
+    display: inline-block;
+    width: 1.7rem;
+    height: 1.7rem;
+    margin-right: 1rem;
+    background: var(--clr-light-grey);
+    border-radius: 50%;
+  }
+  .typing.typing-1 {
+    animation: typing 1s infinite;
+  }
+  .typing.typing-2 {
+    animation: typing 1s 250ms infinite;
+  }
+  .typing.typing-3 {
+    animation: typing 1s 500ms infinite;
+  }
+  .input {
+    flex-basis: 4rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+  .bar svg {
+    cursor: pointer;
+  }
+  .chat .input svg {
+    font-size: 2.5rem;
+    margin-right: 1rem;
+    color: var(--clr-blue);
+    cursor: pointer;
+  }
+  .input svg:hover {
+    color: var(--clr-yellow);
+  }
+  input {
+    border: none;
+    background-image: none;
+    background: var(--clr-white);
+    padding: 2.7rem 1rem;
+    margin-right: 1rem;
+    border-radius: 1.125rem;
+    flex-grow: 2;
+    box-shadow: var(--dark-shadow);
+    font-weight: 400;
+    letter-spacing: 0.025em;
+    color: var(--clr-blue);
+  }
+  input:placeholder {
+    color: #999;
+  }
+
+  @-webkit-keyframes typing {
+    0%,
+    75%,
+    100% {
+      transform: translate(0, 0.25rem) scale(0.9);
+      opacity: 0.5;
+    }
+    25% {
+      transform: translate(0, -0.25rem) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes typing {
+    0%,
+    75%,
+    100% {
+      transform: translate(0, 0.25rem) scale(0.9);
+      opacity: 0.5;
+    }
+    25% {
+      transform: translate(0, -0.25rem) scale(1);
+      opacity: 1;
     }
   }
 `

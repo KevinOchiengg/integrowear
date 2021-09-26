@@ -1,4 +1,4 @@
-# [INTEGROWEAR](https://www.upwork.com/freelancers/~01c404581bb31bf21d/ 'INTEGROWEAR ')- An E-COMMERCE WEBSITE
+# [INTEGROWEAR](https://integrowears.herokuapp.com/ 'INTEGROWEAR ')- An E-COMMERCE WEBSITE
 
 An e-commerce site template built with ReactJs, NodeJS, Express, MongoDB, Styled-Component.
 
@@ -16,6 +16,8 @@ This project will run on **ReactJs** as frontend **Express** as a backend server
 - Middleware
 - ES6 Syntax
 - Light-weight project
+  /_ var chat = document.getElementById('chat'); chat.scrollTop =
+  chat.scrollHeight - chat.clientHeight; /_
 
 ## Dependencies
 

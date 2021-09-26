@@ -159,6 +159,7 @@ li {
 button {
   cursor: pointer;
   border-radius: 0.25rem;
+  background: none;
 }
 
 .btn:hover,
