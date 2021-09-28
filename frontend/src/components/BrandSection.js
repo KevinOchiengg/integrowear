@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const BrandSection = () => {
@@ -31,7 +30,7 @@ const Wrapper = styled.section`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     grid-gap: 1rem;
   }
 

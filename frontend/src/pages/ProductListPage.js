@@ -156,16 +156,24 @@ export default function ProductListPage(props) {
 const Wrapper = styled.section`
   margin: 12rem 0;
 
-  button {
-    padding: 1rem;
-    margin: 0.2rem;
-  }
-
   .btn {
     margin-bottom: 2rem;
     padding: 0.8rem 3rem;
   }
 
+  .edit-btn {
+    background: #e4e4e4;
+    color: var(--clr-blue);
+    margin: 0.4rem;
+    padding: 0.8rem 1.8rem;
+  }
+
+  .delete-btn {
+    background: #e4e4e4;
+    color: var(--clr-blue);
+    margin: 0.4rem;
+    padding: 0.8rem;
+  }
   .row {
     overflow-x: auto;
   }

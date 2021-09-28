@@ -166,7 +166,7 @@ const Wrapper = styled.nav`
   z-index: 1;
   border-bottom: 1px solid var(--clr-yellow);
   .nav-logo {
-    width: 9rem;
+    width: 6rem;
   }
 
   .search-field.show {
@@ -257,8 +257,8 @@ const Wrapper = styled.nav`
   .heart {
     cursor: pointer;
     margin-left: 0.5rem;
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 2rem;
+    width: 2rem;
     text-align: center;
     color: var(--clr-light-yellow);
   }
@@ -296,7 +296,9 @@ const Wrapper = styled.nav`
     .nav-center {
       max-width: var(--max-width);
     }
-
+    .nav-logo {
+      width: 8rem;
+    }
     .search-field {
       left: 30%;
       width: 40%;

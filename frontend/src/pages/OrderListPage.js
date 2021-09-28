@@ -79,7 +79,6 @@ export default function OrderListPage(props) {
                     <td>
                       <button
                         type='button'
-                        className='edit-btn'
                         onClick={() => {
                           props.history.push(`/order/${order._id}`)
                         }}
@@ -88,7 +87,6 @@ export default function OrderListPage(props) {
                       </button>
                       <button
                         type='button'
-                        className='delete-btn'
                         className='small'
                         onClick={() => deleteHandler(order)}
                       >
@@ -109,18 +107,15 @@ export default function OrderListPage(props) {
 const Wrapper = styled.section`
   margin: 12rem 0;
 
-  .primary {
-    color: var(--clr-blue);
-    font-size: 1rem;
-  }
-
   .alert {
     text-align: center;
   }
 
   button {
-    padding: 1rem;
-    margin: 0.2rem;
+    background: #e4e4e4;
+    color: var(--clr-blue);
+    margin: 0.4rem;
+    padding: 0.8rem;
   }
 
   .row {

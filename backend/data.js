@@ -126,8 +126,8 @@ const data = {
     {
       name: 'Fashion Grey Casual Shoe Luxury Casual Shoes',
       category: 'sports shoes',
-      image: '/images/nike.png',
-      image1: '/images/casualshoe.jpg',
+      image: '/images/casualshoe.jpg',
+      image1: '/images/nike.png',
       image2: '/images/airforce3.jpg',
       image3: '/images/shoe1.jpg',
       image4: '/images/casualshoe.jpg',

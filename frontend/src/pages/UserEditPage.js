@@ -51,17 +51,25 @@ export default function UserEditPage(props) {
       <div className='section-center'>
         <form className='form' onSubmit={submitHandler}>
           <div>
-            <h3 className='sub-heading'>products</h3>
-            <h1 className='heading'>Product list</h1>
+            <h3 className='sub-heading'>user</h3>
+            <h1 className='heading'>Edit User</h1>
             {loadingUpdate && <Loading />}
             {errorUpdate && (
-              <Message variant='danger' message='error occured' name='hide' />
+              <Message
+                variant='danger'
+                message='error updating user'
+                name='hide'
+              />
             )}
           </div>
           {loading ? (
             <Loading />
           ) : error ? (
-            <Message variant='danger' message='error occured' name='hide' />
+            <Message
+              variant='danger'
+              message='error editing user'
+              name='hide'
+            />
           ) : (
             <>
               <div className='field-container'>

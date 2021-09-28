@@ -1,12 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import styled from 'styled-components'
-import {
-  FaTimes,
-  FaPaperPlane,
-  FaMicrophone,
-  FaLaughBeam,
-} from 'react-icons/fa'
+import { FaTimes, FaPaperPlane } from 'react-icons/fa'
 import { BiMessageRounded } from 'react-icons/bi'
 
 const ENDPOINT =
@@ -86,7 +81,9 @@ const Chat = (props) => {
             <FaTimes onClick={closeHandler} />
           </div>
           <div className='messages' id='chat'>
-            <div className='time'>Today at {new Date().getTime()}</div>
+            <div className='time'>
+              Today at {new Date().getHours() + ':' + new Date().getMinutes()}
+            </div>
 
             <ul ref={uiMessagesRef}>
               {messages.map((msg, index) => (

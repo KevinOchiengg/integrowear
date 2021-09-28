@@ -87,7 +87,7 @@ export default function OrderPage(props) {
             <ul>
               <li>
                 <div className='card card-body'>
-                  <h3>Shippring</h3>
+                  <h3>Shipping</h3>
                   <p>
                     <strong>Name:</strong> {order.shippingAddress.fullName}
                     <br />
@@ -97,9 +97,10 @@ export default function OrderPage(props) {
                     {order.shippingAddress.country}
                   </p>
                   {order.isDelivered ? (
-                    <Message messsage='paid' variant='success'>
-                      Delivered at {order.deliveredAt}
-                    </Message>
+                    <Message
+                      message={`Delivered at ${order.deliveredAt}`}
+                      variant='success'
+                    />
                   ) : (
                     <Message
                       message='Not delivered'
@@ -118,11 +119,13 @@ export default function OrderPage(props) {
                     <strong>Method:</strong> {order.paymentMethod}
                   </p>
                   {order.isPaid ? (
-                    <Message variant='success'>Paid at {order.paidAt}</Message>
+                    <Message
+                      variant='success'
+                      message={`Paid at ${order.paidAt}`}
+                      name='hide'
+                    />
                   ) : (
-                    <Message message='Not paid' variant='danger' name='hide'>
-                      Not Paid
-                    </Message>
+                    <Message message='Not paid' variant='danger' name='hide' />
                   )}
                 </div>
               </li>
@@ -147,7 +150,8 @@ export default function OrderPage(props) {
                           </div>
 
                           <div>
-                            {item.qty} x {item.price} = {item.qty * item.price}
+                            {item.qty} x {formatPrice(item.price)} ={' '}
+                            {formatPrice(item.qty * item.price)}
                           </div>
                         </div>
                       </li>
@@ -198,7 +202,11 @@ export default function OrderPage(props) {
                     ) : (
                       <>
                         {errorPay && (
-                          <Message variant='danger'>{errorPay}</Message>
+                          <Message
+                            variant='danger'
+                            message='Could not make payment'
+                            name='hide'
+                          />
                         )}
                         {loadingPay && <Loading />}
 
@@ -214,7 +222,13 @@ export default function OrderPage(props) {
                   <li>
                     {loadingDeliver && <Loading />}
                     {errorDeliver && (
-                      <Message variant='danger'>{errorDeliver}</Message>
+                      <Message
+                        variant='danger'
+                        message='Error making delivery'
+                        name='hide'
+                      >
+                        {errorDeliver}
+                      </Message>
                     )}
                     <button
                       type='button'
@@ -236,7 +250,7 @@ export default function OrderPage(props) {
 
 const Wrapper = styled.section`
   margin: 12rem 0;
-  font-size: 2.2rem;
+
   color: var(--clr-blue);
   .card {
     background-color: var(--clr-light-blue);
@@ -248,12 +262,14 @@ const Wrapper = styled.section`
   .card-body {
     padding: 2rem;
   }
+
+  h3 {
+    font-size: 2rem;
+  }
   .card-body > * {
     margin-bottom: 0.5rem;
   }
-  .price {
-    font-size: 2rem;
-  }
+
   .card-body ul li {
     margin: 2rem auto;
   }

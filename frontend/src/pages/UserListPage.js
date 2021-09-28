@@ -82,13 +82,18 @@ export default function UserListPage(props) {
                     <td>
                       <button
                         type='button'
+                        className='edit-btn '
                         onClick={() =>
                           props.history.push(`/user/${user._id}/edit`)
                         }
                       >
                         Edit
                       </button>
-                      <button type='button' onClick={() => deleteHandler(user)}>
+                      <button
+                        type='button'
+                        className='delete-btn '
+                        onClick={() => deleteHandler(user)}
+                      >
                         Delete
                       </button>
                     </td>
@@ -111,7 +116,7 @@ const Wrapper = styled.section`
     width: 100%;
     border-collapse: collapse;
   }
-  .table tbody tr:nth-of-type(odd) {
+  tr:nth-of-type(odd) {
     background: var(--clr-light-blue);
   }
 
@@ -123,30 +128,32 @@ const Wrapper = styled.section`
     text-align: center;
   }
 
+  button {
+    background: #e4e4e4;
+    color: var(--clr-blue);
+    margin: 0.4rem;
+  }
+
+  .edit-btn {
+    padding: 0.8rem 1.8rem;
+  }
+
+  .delete-btn {
+    padding: 0.8rem;
+  }
+
   td,
   th {
     text-align: center;
     border: 0.1em solid #e4e4e4;
     padding: 0.5em;
   }
-  .table button {
-    margin: 0 0.2rem;
-  }
 
-  .primary {
-    color: var(--clr-blue);
-    font-size: 1rem;
-  }
   h3 {
     margin-bottom: 0;
   }
 
   a {
     color: var(--clr-blue);
-  }
-
-  .table button {
-    margin: 0.2rem;
-    padding: 0.5rem;
   }
 `
