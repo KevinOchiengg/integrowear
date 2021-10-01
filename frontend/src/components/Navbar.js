@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signout } from '../actions/userActions'
 import styled from 'styled-components'
 import { withRouter } from 'react-router'
+import logo from '../logo.png'
 
 const Navbar = (props) => {
   const {
@@ -54,7 +55,7 @@ const Navbar = (props) => {
       <div className='nav-center'>
         <div className='logo-container'>
           <Link to='/'>
-            <img src='logo.png' className='nav-logo' alt='Integrowears' />
+            <img src={logo} className='nav-logo' alt='Integrowears' />
           </Link>
         </div>
 

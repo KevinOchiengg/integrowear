@@ -56,7 +56,7 @@ const Filters = () => {
     dispatch(listProducts({}))
   }, [dispatch])
   return (
-    <Wrapper className='products-category-nav'>
+    <Wrapper>
       <h4>Product categories</h4>
 
       <div className='category-sub-menu'>
@@ -130,10 +130,18 @@ const Filters = () => {
 }
 
 const Wrapper = styled.section`
+  padding: 1rem;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+
+  @media (min-width: 769px) {
+    width: 20%;
+  }
+
   .filter-by-price-container,
   .sidebar-tag {
     margin: 3rem 0;
   }
+
   .active {
     color: var(--clr-yellow);
   }
@@ -146,9 +154,7 @@ const Wrapper = styled.section`
     border: 1px solid var(--clr-light-grey);
     border-radius: 2px;
   }
-  @media (min-width: 769px) {
-    width: 20%;
-  }
+
   .filter-by-review-container li,
   .filter-by-price-container li {
     margin: 1.5rem 0;

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Chat from './Chat'
 import styled from 'styled-components'
 import { signout } from '../actions/userActions'
+import logo from '../logo.png'
 
 const Footer = () => {
   const userSignin = useSelector((state) => state.userSignin)
@@ -30,7 +31,7 @@ const Footer = () => {
               <div className='footer_logo'>
                 <h3>INTEGRO</h3>
                 <Link to='/'>
-                  <img src='logo.png' alt='Integrowear' />
+                  <img src={logo} alt='Integrowear' />
                 </Link>
               </div>
 
@@ -57,10 +58,10 @@ const Footer = () => {
                   <a href='tel:'>+254758231661</a>
                 </li>
                 <li>
-                  <a href='tel:'>+254758231661</a>
+                  <a href='tel:'>+254712 312336</a>
                 </li>
                 <li>
-                  <a href='tel:'>mosesjuma@gmail.com</a>
+                  <a href='tel:'>Mosesjuma83@gmail.com</a>
                 </li>
                 <li>
                   <a href='tel:'>shoppers, kenya - 400104</a>
@@ -266,7 +267,7 @@ const Wrapper = styled.footer`
 
   .footer-bottom-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
   }
@@ -287,6 +288,10 @@ const Wrapper = styled.footer`
     margin: 0 1.6rem;
   }
 
+  svg {
+    font-size: 2rem;
+  }
+
   a {
     color: var(--clr-light-yellow);
     &:hover,
@@ -303,6 +308,10 @@ const Wrapper = styled.footer`
 
     footer h3 {
       margin-bottom: 1.8rem;
+    }
+
+    .footer-bottom-container {
+      justify-content: space-between;
     }
 
     .footer-top,

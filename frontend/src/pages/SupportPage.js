@@ -3,6 +3,7 @@ import socketIOClient from 'socket.io-client'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Message from '../components/Message'
+import { FaUsers } from 'react-icons/fa'
 
 let allUsers = []
 let allMessages = []
@@ -180,261 +181,288 @@ export default function SupportPage() {
           </div>
         </div>
       </div>
+
+      <div className='app'>
+        <div className='app_body'>
+          <div className='sidebar'>
+            <div className='sidebar__header'>
+              <h2>Start conversation with the customer</h2>
+            </div>
+            <div className='sidebar__chats'>
+              <div className='sidebarChat'>
+                <FaUsers />
+                <div className='sidebarChat__info'>
+                  <h2>Room name</h2>
+                  <p>onine</p>
+                </div>
+              </div>
+              <div className='sidebarChat'>
+                <FaUsers />
+                <div className='sidebarChat__info'>
+                  <h2>Room name</h2>
+                  <p>onine</p>
+                </div>
+              </div>
+              <div className='sidebarChat'>
+                <FaUsers />
+                <div className='sidebarChat__info'>
+                  <h2>Room name</h2>
+                  <p>onine</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='chat'>
+            <div className='chat__header'>
+              <FaUsers />
+
+              <div className='chat__headerInfo'>
+                <h3>Room name</h3>
+                <p>Last seen at...</p>
+              </div>
+
+              <div className='chat__headerRight'>
+                <FaUsers />
+              </div>
+            </div>
+
+            <div className='chat__body'>
+              {/* {messages.map((message) => (
+          <p className={`chat__message ${message.received && 'chat_receiver'}`}>
+            <span className='chat__name'>{message.name}</span>
+            {message.message}
+            <span className='chat__timestamp'>{message.timestamp}</span>
+          </p>
+        ))} */}
+
+              <p className='chat__message'>
+                <span className='chat__name'>Sonny</span>
+                This is a message
+                <span className='chat__timestamp'>
+                  {new Date().toUTCString()}
+                </span>
+              </p>
+
+              <p className='chat__message chat__receiver'>
+                <span className='chat__name'>Kevin</span>
+                This is a message
+                <span className='chat__timestamp'>
+                  {new Date().toUTCString()}
+                </span>
+              </p>
+
+              <p className='chat__message'>
+                <span className='chat__name'>Sonny</span>
+                This is a message
+                <span className='chat__timestamp'>
+                  {new Date().toUTCString()}
+                </span>
+              </p>
+            </div>
+
+            <div className='chat__footer'>
+              <FaUsers />
+              <form>
+                <div className='sidebar__searchContainer'>
+                  <input placeholder='Type a message' type='text' />
+                </div>
+
+                <button type='submit'>Send a message</button>
+              </form>
+              <FaUsers />
+            </div>
+          </div>
+        </div>
+      </div>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.section`
-  margin: 12rem 0;
-  .alert {
-    align-items: center;
+  .app {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    background: #dadbd3;
   }
 
-  .center {
-    position: absolute;
-    top: 50%;
-    left: calc(50% + 12rem);
-    transform: translate(-50%, -50%);
-  }
-
-  .pic {
-    width: 4rem;
-    height: 4rem;
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%;
-  }
-
-  .contact {
-    position: relative;
-    margin-bottom: 1rem;
-    padding-left: 5rem;
-    height: 4.5rem;
+  .app_body {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .contact .pic {
-    position: absolute;
-    left: 0;
-  }
-  .contact .name {
-    font-weight: 500;
-    margin-bottom: 0.125rem;
-  }
-  .contact .message,
-  .contact .seen {
-    font-size: 0.9rem;
-    color: #999;
-  }
-  .contact .badge {
-    box-sizing: border-box;
-    position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
-    text-align: center;
-    font-size: 0.9rem;
-    padding-top: 0.125rem;
-    border-radius: 1rem;
-    top: 0;
-    left: 2.5rem;
-    background: #333;
-    color: white;
-  }
-
-  .contacts {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translate(-6rem, -50%);
-    width: 24rem;
-    height: 32rem;
-    padding: 1rem 2rem 1rem 1rem;
-    box-sizing: border-box;
-    border-radius: 1rem 0 0 1rem;
-    cursor: pointer;
-    background: white;
-    box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1),
-      2rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
-    transition: transform 500ms;
-  }
-  .contacts h2 {
-    margin: 0.5rem 0 1.5rem 5rem;
-  }
-  .contacts .fa-bars {
-    position: absolute;
-    left: 2.25rem;
-    color: #999;
-    transition: color 200ms;
-  }
-  .contacts .fa-bars:hover {
-    color: #666;
-  }
-  .contacts .contact:last-child {
-    margin: 0;
-  }
-  .contacts:hover {
-    transform: translate(-23rem, -50%);
+    background: #ededed;
+    margin-top: -50px;
+    height: 90vh;
+    width: 90vw;
+    box-shadow: var(--dark-shadow);
   }
 
   .chat {
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 24rem;
-    height: 38rem;
-    z-index: 2;
-    box-sizing: border-box;
-    border-radius: 1rem;
-    background: white;
-    box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1),
-      0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
+    flex: 0.75;
   }
-  .chat .contact.bar {
-    flex-basis: 3.5rem;
-    flex-shrink: 0;
-    margin: 1rem;
-    box-sizing: border-box;
-  }
-  .chat .messages {
-    padding: 1rem;
-    background: #f7f7f7;
-    flex-shrink: 2;
-    overflow-y: auto;
-    box-shadow: inset 0 2rem 2rem -2rem rgba(0, 0, 0, 0.05),
-      inset 0 -2rem 2rem -2rem rgba(0, 0, 0, 0.05);
-  }
-  .chat .messages .time {
-    font-size: 0.8rem;
-    background: #eee;
-    padding: 0.25rem 1rem;
-    border-radius: 2rem;
-    color: #999;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    margin: 0 auto;
-  }
-  .chat .messages .message {
-    box-sizing: border-box;
-    padding: 0.5rem 1rem;
-    margin: 1rem;
-    background: #fff;
-    border-radius: 1.125rem 1.125rem 1.125rem 0;
-    min-height: 2.25rem;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    max-width: 66%;
-    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075),
-      0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
-  }
-  .chat .messages .message.parker {
-    margin: 1rem 1rem 1rem auto;
-    border-radius: 1.125rem 1.125rem 0 1.125rem;
-    background: #333;
-    color: white;
-  }
-  .chat .messages .message .typing {
-    display: inline-block;
-    width: 0.8rem;
-    height: 0.8rem;
-    margin-right: 0rem;
-    box-sizing: border-box;
-    background: #ccc;
-    border-radius: 50%;
-  }
-  .chat .messages .message .typing.typing-1 {
-    -webkit-animation: typing 3s infinite;
-    animation: typing 3s infinite;
-  }
-  .chat .messages .message .typing.typing-2 {
-    -webkit-animation: typing 3s 250ms infinite;
-    animation: typing 3s 250ms infinite;
-  }
-  .chat .messages .message .typing.typing-3 {
-    -webkit-animation: typing 3s 500ms infinite;
-    animation: typing 3s 500ms infinite;
-  }
-  .chat .input {
-    box-sizing: border-box;
-    flex-basis: 4rem;
-    flex-shrink: 0;
+
+  .chat__header {
+    padding: 20px;
     display: flex;
     align-items: center;
-    padding: 0 0.5rem 0 1.5rem;
+    border-bottom: 1px solid lightgray;
   }
-  .chat .input i {
+
+  .chat__headerInfo {
+    flex: 1;
+    padding-left: 20px;
+  }
+
+  h3 {
+    margin-bottom: 3px;
+    font-weight: 500;
+    font-size: 2rem;
+  }
+
+  .chat__headerinfo > p {
+    color: gray;
+  }
+
+  .chat__body {
+    flex: 1;
+    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+    background-repeat: repeat;
+    background-position: center;
+    padding: 30px;
+    overflow: scroll;
+  }
+
+  .chat__message {
+    position: relative;
+    font-size: 16px;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+  }
+
+  .chat__receiver {
+    margin-left: auto;
+    background-color: var(--clr-blue);
+    color: var(--clr-white);
+  }
+
+  .chat__timestamp {
+    margin-left: 10px;
+    font-size: xx-small;
+  }
+
+  .chat__name {
+    position: absolute;
+    top: -15px;
+    font-weight: 800;
     font-size: 1.5rem;
-    margin-right: 1rem;
-    color: #666;
-    cursor: pointer;
-    transition: color 200ms;
   }
-  .chat .input i:hover {
-    color: #333;
+
+  .chat__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 62px;
+    border-top: 1px solid lightgray;
   }
-  .chat .input input {
+
+  .chat__footer > form {
+    flex: 1;
+    display: flex;
+  }
+
+  .chat__footer > form > input {
+    flex: 1;
+    outline-width: 0;
+    border-radius: 30px;
+    padding: 10px;
     border: none;
-    background-image: none;
+  }
+  .chat__footer > form > button {
+    display: none;
+  }
+
+  .chat__footer > svg {
+    padding: 10px;
+    color: gray;
+  }
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    flex: 0.25;
+  }
+
+  .sidebar__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-right: 1px solid lightgray;
+  }
+
+  .sidebar__headerRight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 10vw;
+  }
+
+  svg {
+    margin-top: 1rem;
+    font-size: 24px;
+  }
+
+  .sidebar__search {
+    display: flex;
+    align-items: center;
+    background-color: #f6f6f6;
+    height: 39px;
+    padding: 10px;
+  }
+
+  .sidebar__searchContainer {
+    display: flex;
+    align-items: center;
     background-color: white;
-    padding: 0.5rem 1rem;
-    margin-right: 1rem;
-    border-radius: 1.125rem;
-    flex-grow: 2;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1),
-      0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.2);
-    font-family: Red hat Display, sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.025em;
-  }
-  .chat .input input:placeholder {
-    color: #999;
+    width: 100%;
+    height: 35px;
+    border-radius: 20px;
   }
 
-  @-webkit-keyframes typing {
-    0%,
-    75%,
-    100% {
-      transform: translate(0, 0.25rem) scale(0.9);
-      opacity: 0.5;
-    }
-    25% {
-      transform: translate(0, -0.25rem) scale(1);
-      opacity: 1;
-    }
+  .sidebar__searchContainer > svg {
+    color: gray;
+    padding: 10px;
   }
 
-  @keyframes typing {
-    0%,
-    75%,
-    100% {
-      transform: translate(0, 0.25rem) scale(0.9);
-      opacity: 0.5;
-    }
-    25% {
-      transform: translate(0, -0.25rem) scale(1);
-      opacity: 1;
-    }
-  }
-  .pic.stark {
-    background-image: url('https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/7/73/SMH_Mentor_6.png');
+  .sidebar__searchContainer > input {
+    border: none;
+    /* outline-width: 0; */ /*포커스 상태일때 파란색 outline 표시*/
+    margin-left: 10px;
   }
 
-  .pic.banner {
-    background-image: url('https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/4/4f/BruceHulk-Endgame-TravelingCapInPast.jpg');
+  .sidebar__chats {
+    flex: 1;
+    background-color: white;
+    overflow: scroll;
+  }
+  .sidebarChat {
+    display: flex;
+    padding: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #f6f6f6;
   }
 
-  .pic.thor {
-    background-image: url('https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/9/98/ThorFliesThroughTheAnus.jpg');
+  .sidebarChat:hover {
+    background-color: #ebebeb;
   }
 
-  .pic.danvers {
-    background-image: url('https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/0/05/HeyPeterParker.png');
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 8px;
   }
 
-  .pic.rogers {
-    background-image: url('https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/7/7c/Cap.America_%28We_Don%27t_Trade_Lives_Vision%29.png');
+  .sidebarChat__info {
+    margin-left: 15px;
   }
 `

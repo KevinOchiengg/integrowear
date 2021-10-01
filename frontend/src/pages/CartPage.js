@@ -129,7 +129,7 @@ export default function CartPage(props) {
               </tr>
               <tr>
                 <td>Total Price</td>
-                <td>${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}</td>
+                <td>{cartItems.reduce((a, c) => a + c.price * c.qty, 0)}</td>
               </tr>
             </tbody>
           </table>

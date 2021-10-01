@@ -37,6 +37,9 @@ const ListView = () => {
 
 const Wrapper = styled.section`
   margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 1.5rem;
 `
 
 export default ListView

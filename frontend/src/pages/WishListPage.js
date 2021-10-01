@@ -141,8 +141,10 @@ const Wrapper = styled.section`
     text-align: center;
   }
 
-  .btn {
-    word-wrap: none;
+  td,
+  a,
+  svg {
+    color: var(--clr-blue);
   }
 `
 

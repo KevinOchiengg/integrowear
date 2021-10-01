@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import styled from 'styled-components'
 import { FaTimes, FaPaperPlane } from 'react-icons/fa'
-import { BiMessageRounded } from 'react-icons/bi'
+import { BiMessageDetail } from 'react-icons/bi'
 
 const ENDPOINT =
   window.location.host.indexOf('localhost') >= 0
@@ -16,7 +16,7 @@ const Chat = (props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [messageBody, setMessageBody] = useState('')
   const [messages, setMessages] = useState([
-    { name: 'Integro', body: 'Hello there, Please ask your question.' },
+    { name: 'Kevin', body: 'Hello there, Please ask your question.' },
   ])
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const Chat = (props) => {
     <Wrapper>
       {!isOpen ? (
         <button type='button' className='message-icon' onClick={supportHandler}>
-          <BiMessageRounded />
+          <BiMessageDetail />
         </button>
       ) : (
         <div className='chat'>
@@ -128,9 +128,17 @@ const Wrapper = styled.section`
   padding: 2rem;
 
   .message-icon {
-    background: none;
-    font-size: 4rem;
+    font-size: 3rem;
     color: var(--green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    box-shadow: var(--dark-shadow);
+    background: var(--green);
+    color: var(--clr-white);
   }
 
   .chatbox li {

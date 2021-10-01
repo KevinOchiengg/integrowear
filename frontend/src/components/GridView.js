@@ -49,16 +49,15 @@ const GridView = () => {
             <Rating rating={product.rating} numReviews={product.numReviews} />
             <div className='price-box'>
               <span className='new-price'>{formatPrice(product.price)}</span>
-              <span className='old-price'>{formatPrice(2000)}</span>
             </div>
 
-            <p>{product.description}</p>
+            <p>{product.description.slice(0, 300)}...</p>
           </div>
 
           <div className='product-action-area'>
             <ul className='stock-cont'>
               <li className='product-sku'>
-                Sku: <span>P006</span>
+                Sku: <span>P0023</span>
               </li>
               <li className='product-stock-status'>
                 Availability:
@@ -99,6 +98,42 @@ const Wrapper = styled.section`
     color: var(--clr-blue);
   }
 
+  .product-layout-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .product-content-list {
+    margin: 1rem 0;
+  }
+
+  .product-action-area {
+    width: 100%;
+  }
+  .add-to-cart-btn-container {
+    margin-top: 0.5em;
+  }
+
+  @media (min-width: 800px) {
+    .product-layout-list {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .product-image {
+      width: 20%;
+    }
+    .product-content-list {
+      width: 50%;
+    }
+
+    .product-action-area {
+      width: 23%;
+    }
+  }
   .new-price {
     color: var(--clr-blue);
     font-weight: 400;
@@ -118,10 +153,7 @@ const Wrapper = styled.section`
     font-size: 2rem;
     margin-bottom: 1rem;
   }
-  .old-price {
-    text-decoration: line-through;
-    color: var(--clr-light-grey);
-  }
+
   h4 {
     margin-bottom: 0.4em;
   }

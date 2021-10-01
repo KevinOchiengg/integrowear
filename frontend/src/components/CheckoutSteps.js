@@ -27,8 +27,8 @@ const Wrapper = styled.section`
     font-size: 1rem;
   }
   .checkout-steps > div.active {
-    border-top-color: var(--clr-yellow);
-    color: var(--clr-yellow);
+    border-top-color: var(--green);
+    color: var(--clr-blue);
   }
 
   @media screen and (min-width: 800px) {
