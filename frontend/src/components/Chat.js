@@ -3,6 +3,7 @@ import socketIOClient from 'socket.io-client'
 import styled from 'styled-components'
 import { FaTimes, FaPaperPlane } from 'react-icons/fa'
 import { BiMessageDetail } from 'react-icons/bi'
+import { IoIosArrowRoundBack } from 'react-icons/io'
 
 const ENDPOINT =
   window.location.host.indexOf('localhost') >= 0
@@ -10,13 +11,24 @@ const ENDPOINT =
     : window.location.host
 
 const Chat = (props) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const closeSidebar = () => {
+    setIsSidebarOpen(false)
+  }
+
+  const openSidebar = () => {
+    setIsSidebarOpen(true)
+  }
   const { userInfo } = props
   const [socket, setSocket] = useState(null)
   const uiMessagesRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
   const [messageBody, setMessageBody] = useState('')
   const [messages, setMessages] = useState([
-    { name: 'Kevin', body: 'Hello there, Please ask your question.' },
+    {
+      name: 'Kevin Ochieng(admin)',
+      body: 'Hello there, Please ask your question.',
+    },
   ])
 
   useEffect(() => {
@@ -48,7 +60,7 @@ const Chat = (props) => {
   const submitHandler = (e) => {
     e.preventDefault()
     if (!messageBody.trim()) {
-      alert('Please type message.')
+      alert('Please type your message.')
     } else {
       setMessages([...messages, { body: messageBody, name: userInfo.name }])
       setMessageBody('')
@@ -72,45 +84,63 @@ const Chat = (props) => {
           <BiMessageDetail />
         </button>
       ) : (
-        <div className='chat'>
-          <div className='contact bar'>
-            <div className='name'>
-              <h3>Integrowears</h3>
-              <p className='seen'>Online</p>
+        <div className='container section-center'>
+          <div
+            className={`${isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}`}
+          >
+            <div className='sidebar-header'>
+              <h2>Open a chat</h2>
+              <IoIosArrowRoundBack onClick={closeSidebar} />
             </div>
-            <FaTimes onClick={closeHandler} />
+            <div className='users-list-container'>
+              <article className='single-user-wrapper'>
+                <img src='images/customers/customer-1.jpg' alt='' />
+                <div className='info'>
+                  <h3>{userInfo.name}</h3>
+                </div>
+              </article>
+            </div>
           </div>
-          <div className='messages' id='chat'>
-            <div className='time'>
-              Today at {new Date().getHours() + ':' + new Date().getMinutes()}
-            </div>
-
-            <ul ref={uiMessagesRef}>
+          <div className='content'>
+            <header className='content-header'>
+              <img src='images/customers/customer-1.jpg' alt='' />
+              <div className='info'>
+                <h3>{userInfo.name}</h3>
+                <span className='time'>
+                  {new Date().getHours() + ':' + new Date().getMinutes()}
+                </span>
+              </div>
+              <div className='open'>
+                <BiMessageDetail onClick={openSidebar} />
+              </div>
+              <div className='close'>
+                <FaTimes onClick={closeHandler} />
+              </div>
+            </header>
+            <ul className='message-wrap' ref={uiMessagesRef}>
               {messages.map((msg, index) => (
-                <li className='message' key={index}>
-                  {msg.body}
-                </li>
+                <div className={`message-list`} key={index}>
+                  <p className='msg'>{msg.body}</p>
+                  <span className='time'>
+                    {new Date().getHours() + ':' + new Date().getMinutes()}
+                  </span>
+                </div>
               ))}
             </ul>
-
-            <div className='message stark'>
-              <div className='typing typing-1'></div>
-              <div className='typing typing-2'></div>
-              <div className='typing typing-3'></div>
-            </div>
+            <form className='sidebar__search' onSubmit={submitHandler}>
+              <div className='sidebar__searchContainer'>
+                <input
+                  type='text'
+                  value={messageBody}
+                  onChange={(e) => setMessageBody(e.target.value)}
+                  placeholder='Type message here'
+                />
+              </div>
+              <button type='submit'>
+                <FaPaperPlane />
+              </button>
+            </form>
           </div>
-          <form onSubmit={submitHandler} className='input'>
-            <input
-              value={messageBody}
-              onChange={(e) => setMessageBody(e.target.value)}
-              type='text'
-              placeholder='Type your message here!'
-            />
-
-            <button type='submit'>
-              <FaPaperPlane />
-            </button>
-          </form>
         </div>
       )}
     </Wrapper>
@@ -121,14 +151,12 @@ export default Chat
 
 const Wrapper = styled.section`
   color: var(--clr-blue);
-  position: fixed;
-  right: 1rem;
-  bottom: 2rem;
-  font-size: 2rem;
-  padding: 2rem;
 
   .message-icon {
-    font-size: 3rem;
+    position: fixed;
+    right: 1rem;
+    bottom: 2rem;
+
     color: var(--green);
     display: flex;
     justify-content: center;
@@ -138,187 +166,245 @@ const Wrapper = styled.section`
     height: 6rem;
     box-shadow: var(--dark-shadow);
     background: var(--green);
+  }
+  .message-icon svg {
     color: var(--clr-white);
+    font-size: 3rem;
   }
-
-  .chatbox li {
-    margin-bottom: 1rem;
-  }
-
-  .chat {
-    position: fixed;
+  .container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 90%;
-    height: 50rem;
-    border-radius: 2rem;
-    background: var(--clr-white);
     box-shadow: var(--dark-shadow);
-    right: 2rem;
-    bottom: 2rem;
-    left: 2rem;
+    position: fixed;
+    width: 80%;
+    top: 10rem;
     font-size: 2rem;
-    padding: 2rem;
-    z-index: 2;
+    left: 14rem;
+    height: 80%;
   }
-
-  @media (min-width: 800px) {
-    .chat {
-      width: 35%;
-      right: 40%;
-      bottom: 2rem;
-      height: 55rem;
-      left: 30%;
-      font-size: 2rem;
-      padding: 2rem;
-    }
-  }
-
-  .contact {
-    position: relative;
-    margin-bottom: 1rem;
-    padding-left: 5rem;
-    height: 4.5rem;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .message {
-    padding: 1rem 1.5rem;
-    margin: 2rem;
-    border-radius: 1.5rem 1.5rem 1.5rem 0;
-    min-height: 2.25rem;
-    width: fit-content;
-    max-width: 66%;
-    box-shadow: var(--light-shadow);
-  }
-
-  li:nth-child(even) {
-    padding: 1rem 1.5rem;
-    margin: 2rem;
+  .sidebar-header,
+  .content-header {
+    height: 8rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #f6f6f6;
     background: #fff;
-    border-radius: 1.5rem 1.5rem 1.5rem 0;
-    min-height: 2.25rem;
-    width: fit-content;
-    max-width: 66%;
-    box-shadow: var(--light-shadow);
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    background: #e4e4e4;
   }
-
-  li:nth-child(odd) {
-    margin: 1.5rem 1.5rem 1.5rem auto;
-    border-radius: 1rem 1.5rem 0 1rem;
-    background: var(--clr-blue);
-    color: var(--clr-white);
+  .sidebar-header svg {
+    font-size: 4rem;
+    display: none;
   }
-  .name {
-    font-weight: 500;
-    margin-bottom: 0.125rem;
-  }
-
-  .seen {
-    font-size: 1.7rem;
-    color: var(--green);
-  }
-
-  .bar {
-    flex-basis: 3.5rem;
-    flex-shrink: 0;
-    margin: 1rem;
-    box-sizing: border-box;
-  }
-  .messages {
+  .sidebar__search {
+    display: flex;
+    align-items: center;
+    background-color: #f6f6f6;
+    height: 6rem;
     padding: 2rem;
-    background: #f7f7f7;
-    flex-shrink: 2;
-    overflow-y: auto;
   }
-  .time {
-    font-size: 1.5rem;
-    background: #eee;
-    padding: 0.25rem 1rem;
-    border-radius: 2rem;
-    color: #999;
-    width: fit-content;
+
+  .sidebar__searchContainer {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    width: 90%;
+    height: 5rem;
+    border-radius: 20px;
     margin: 0 auto;
   }
 
-  .typing {
-    display: inline-block;
-    width: 1.7rem;
-    height: 1.7rem;
-    margin-right: 1rem;
-    background: var(--clr-light-grey);
-    border-radius: 50%;
+  .sidebar__searchContainer > input {
+    border: none;
+    margin-left: 10px;
   }
-  .typing.typing-1 {
-    animation: typing 1s infinite;
+
+  .sidebar-header h2 {
+    font-size: 2.5rem;
   }
-  .typing.typing-2 {
-    animation: typing 1s 250ms infinite;
+  .sidebar {
+    display: flex;
+    background: #fff;
+    flex-direction: column;
+    border-right: 1px solid #f6f6f6;
+    transition: var(--transition);
+    width: 30%;
   }
-  .typing.typing-3 {
-    animation: typing 1s 500ms infinite;
+
+  .logo {
+    display: flex;
+    margin: 10px 0 0 0;
+    padding-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 3em;
+    letter-spacing: 7px;
+    border-bottom: 1px solid #f6f6f6;
   }
-  .input {
-    flex-basis: 4rem;
-    flex-shrink: 0;
+  .users-list-container {
+    padding: 1rem;
+    width: 100%;
+    overflow-y: scroll;
+  }
+  svg {
+    font-size: 3rem;
+  }
+  .single-user-wrapper {
+    border-bottom: 1px solid #f6f6f6;
+    background: #fff;
     display: flex;
     align-items: center;
-    padding: 2rem 1rem;
-  }
-  .bar svg {
+    padding: 5px;
+    height: 70px;
     cursor: pointer;
   }
-  .chat .input svg {
-    font-size: 2.5rem;
-    margin-right: 1rem;
-    color: var(--clr-blue);
-    cursor: pointer;
+  .single-user-wrapper:hover,
+  .single-user-wrapper.active {
+    background: #f4f7f9;
   }
-  .input svg:hover {
-    color: var(--clr-yellow);
+  img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    box-shadow: var(--dark-shadow);
+  }
+  .single-user-wrapper .info {
+    flex: 1;
+  }
+  .info .user {
+    font-weight: 700;
+  }
+  .info .text {
+    display: flex;
+    margin-top: 3px;
+    font-size: 1.7rem;
+  }
+  .single-user-wrapper .time {
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 1.3rem;
+    color: #a9a9a9;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--clr-white);
+  }
+
+  header img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    box-shadow: var(--dark-shadow);
+  }
+  .info {
+    flex: 1;
+  }
+  h3 {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  .time {
+    display: flex;
+    margin-top: 3px;
+    font-size: 2rem;
+  }
+  .open {
+    margin-right: 2rem;
+    display: none;
+  }
+
+  .message-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 3rem;
+    overflow-y: scroll;
+  }
+
+  .message-list {
+    align-self: flex-start;
+    max-width: 70%;
+  }
+
+  .message-wrap > div:nth-child(even) {
+    align-self: flex-end;
+    & .msg {
+      background: #bde2f7;
+    }
+  }
+  .msg {
+    background: #fff;
+    box-shadow: var(--dark-shadow);
+    padding: 1.7rem;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  .time {
+    text-align: right;
+    color: #999;
+    font-size: 1.7rem;
+  }
+
+  p,
+  span {
+    font-size: 2rem;
+  }
+
+  .message-footer {
+    border-top: 1px solid #ddd;
+    background: #eee;
+    padding: 10px;
+    display: flex;
+    height: 60px;
   }
   input {
-    border: none;
-    background-image: none;
-    background: var(--clr-white);
-    padding: 2.7rem 1rem;
-    margin-right: 1rem;
-    border-radius: 1.125rem;
-    flex-grow: 2;
-    box-shadow: var(--dark-shadow);
-    font-weight: 400;
-    letter-spacing: 0.025em;
-    color: var(--clr-blue);
-  }
-  input:placeholder {
-    color: #999;
+    flex: 1;
+    padding: 0 20px;
+    border-radius: 5px;
   }
 
-  @-webkit-keyframes typing {
-    0%,
-    75%,
-    100% {
-      transform: translate(0, 0.25rem) scale(0.9);
-      opacity: 0.5;
+  @media only screen and (max-width: 480px),
+    only screen and (max-width: 767px) {
+    .sidebar {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      box-shadow: var(--dark-shadow);
+      transform: translate(-110%);
     }
-    25% {
-      transform: translate(0, -0.25rem) scale(1);
-      opacity: 1;
-    }
-  }
 
-  @keyframes typing {
-    0%,
-    75%,
-    100% {
-      transform: translate(0, 0.25rem) scale(0.9);
-      opacity: 0.5;
+    .container {
+      display: flex;
+      box-shadow: var(--dark-shadow);
+      position: fixed;
+      width: 100%;
+      top: 10rem;
+      font-size: 2rem;
+      left: 2rem;
+      bottom: 2rem;
+      right: 2rem;
     }
-    25% {
-      transform: translate(0, -0.25rem) scale(1);
-      opacity: 1;
+
+    .sidebar-header svg {
+      font-size: 4rem;
+      display: block;
+    }
+
+    .show-sidebar {
+      transform: translate(0);
+    }
+
+    .open {
+      display: block;
     }
   }
 `

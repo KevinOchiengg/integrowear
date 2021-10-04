@@ -3,7 +3,9 @@ import socketIOClient from 'socket.io-client'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Message from '../components/Message'
-import { FaUsers } from 'react-icons/fa'
+import { FaPaperPlane } from 'react-icons/fa'
+import { BiMessageDetail } from 'react-icons/bi'
+import { IoIosArrowRoundBack } from 'react-icons/io'
 
 let allUsers = []
 let allMessages = []
@@ -14,6 +16,15 @@ const ENDPOINT =
     : window.location.host
 
 export default function SupportPage() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const closeSidebar = () => {
+    setIsSidebarOpen(false)
+  }
+
+  const openSidebar = () => {
+    setIsSidebarOpen(true)
+  }
+
   const [selectedUser, setSelectedUser] = useState({})
   const [socket, setSocket] = useState(null)
   const uiMessagesRef = useRef(null)
@@ -111,167 +122,75 @@ export default function SupportPage() {
 
   return (
     <Wrapper>
-      <div className='section-center'>
-        <div className='row top full-container'>
-          <div className='col-1 support-users'>
-            {users.filter((x) => x._id !== userInfo._id).length === 0 && (
-              <Message message='No Online user' name='hide' />
-            )}
-            <ul>
-              {users
-                .filter((x) => x._id !== userInfo._id)
-                .map((user) => (
-                  <li
-                    key={user._id}
-                    className={
-                      user._id === selectedUser._id ? '  selected' : '  '
-                    }
-                  >
-                    <button
-                      className='block'
-                      type='button'
-                      onClick={() => selectUser(user)}
-                    >
-                      {user.name}
-                    </button>
-                    <span
-                      className={
-                        user.unread
-                          ? 'unread'
-                          : user.online
-                          ? 'online'
-                          : 'offline'
-                      }
-                    />
-                  </li>
-                ))}
-            </ul>
+      <div className='container section-center'>
+        <div
+          className={`${isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}`}
+        >
+          <div className='sidebar-header'>
+            <h2>Open a chat</h2>
+            <IoIosArrowRoundBack onClick={closeSidebar} />
           </div>
-          <div className='col-3 support-messages'>
-            {!selectedUser._id ? (
-              <Message message='Select a user to start chat' name='hide' />
-            ) : (
-              <div>
-                <div className='row'>
-                  <strong>Chat with {selectedUser.name} </strong>
-                </div>
-                <ul ref={uiMessagesRef}>
-                  {messages.length === 0 && <li>No message.</li>}
-                  {messages.map((msg, index) => (
-                    <li key={index}>
-                      <strong>{`${msg.name}: `}</strong> {msg.body}
-                    </li>
-                  ))}
-                </ul>
-                <div>
-                  <form onSubmit={submitHandler} className='row'>
-                    <input
-                      value={messageBody}
-                      onChange={(e) => setMessageBody(e.target.value)}
-                      type='text'
-                      placeholder='type message'
-                    />
-                    <button type='submit' className='btn'>
-                      Send
-                    </button>
-                  </form>
-                </div>
-              </div>
-            )}
+          <div className='users-list-container'>
+            {users
+              .filter((x) => x._id !== userInfo._id)
+              .map((user) => (
+                <article
+                  className='single-user-wrapper'
+                  onClick={() => selectUser(user)}
+                >
+                  <img src='images/customers/customer-1.jpg' alt='' />
+                  <div className='info'>
+                    <h3>{user.name}</h3>
+                    <span>{user.online ? 'online' : ''}</span>
+                  </div>
+                </article>
+              ))}
           </div>
         </div>
-      </div>
-
-      <div className='app'>
-        <div className='app_body'>
-          <div className='sidebar'>
-            <div className='sidebar__header'>
-              <h2>Start conversation with the customer</h2>
+        <div className='content'>
+          <header className='content-header'>
+            <img src='images/customers/customer-1.jpg' alt='' />
+            <div className='info'>
+              <h3>{userInfo.name}</h3>
+              <span className='time'>online</span>
             </div>
-            <div className='sidebar__chats'>
-              <div className='sidebarChat'>
-                <FaUsers />
-                <div className='sidebarChat__info'>
-                  <h2>Room name</h2>
-                  <p>onine</p>
+            <div className='open'>
+              <BiMessageDetail onClick={openSidebar} />
+            </div>
+          </header>
+          {!selectedUser._id ? (
+            <Message message='' name='hide' />
+          ) : (
+            <div className='message-wrap' ref={uiMessagesRef}>
+              {messages.map((msg, index) => (
+                <div
+                  className={`message-sent ${
+                    selectedUser._id && 'message-list'
+                  }`}
+                  key={index}
+                >
+                  <p className='msg'>{msg.body}</p>
+                  <span className='time'>
+                    {new Date().getHours() + ':' + new Date().getMinutes()}
+                  </span>
                 </div>
-              </div>
-              <div className='sidebarChat'>
-                <FaUsers />
-                <div className='sidebarChat__info'>
-                  <h2>Room name</h2>
-                  <p>onine</p>
-                </div>
-              </div>
-              <div className='sidebarChat'>
-                <FaUsers />
-                <div className='sidebarChat__info'>
-                  <h2>Room name</h2>
-                  <p>onine</p>
-                </div>
-              </div>
+              ))}
             </div>
-          </div>
-          <div className='chat'>
-            <div className='chat__header'>
-              <FaUsers />
+          )}
 
-              <div className='chat__headerInfo'>
-                <h3>Room name</h3>
-                <p>Last seen at...</p>
-              </div>
-
-              <div className='chat__headerRight'>
-                <FaUsers />
-              </div>
+          <form className='sidebar__search' onSubmit={submitHandler}>
+            <div className='sidebar__searchContainer'>
+              <input
+                placeholder='Type your message here'
+                value={messageBody}
+                onChange={(e) => setMessageBody(e.target.value)}
+                type='text'
+              />
             </div>
-
-            <div className='chat__body'>
-              {/* {messages.map((message) => (
-          <p className={`chat__message ${message.received && 'chat_receiver'}`}>
-            <span className='chat__name'>{message.name}</span>
-            {message.message}
-            <span className='chat__timestamp'>{message.timestamp}</span>
-          </p>
-        ))} */}
-
-              <p className='chat__message'>
-                <span className='chat__name'>Sonny</span>
-                This is a message
-                <span className='chat__timestamp'>
-                  {new Date().toUTCString()}
-                </span>
-              </p>
-
-              <p className='chat__message chat__receiver'>
-                <span className='chat__name'>Kevin</span>
-                This is a message
-                <span className='chat__timestamp'>
-                  {new Date().toUTCString()}
-                </span>
-              </p>
-
-              <p className='chat__message'>
-                <span className='chat__name'>Sonny</span>
-                This is a message
-                <span className='chat__timestamp'>
-                  {new Date().toUTCString()}
-                </span>
-              </p>
-            </div>
-
-            <div className='chat__footer'>
-              <FaUsers />
-              <form>
-                <div className='sidebar__searchContainer'>
-                  <input placeholder='Type a message' type='text' />
-                </div>
-
-                <button type='submit'>Send a message</button>
-              </form>
-              <FaUsers />
-            </div>
-          </div>
+            <button type='submit'>
+              <FaPaperPlane />
+            </button>
+          </form>
         </div>
       </div>
     </Wrapper>
@@ -279,190 +198,226 @@ export default function SupportPage() {
 }
 
 const Wrapper = styled.section`
-  .app {
-    display: grid;
-    place-items: center;
-    height: 100vh;
-    background: #dadbd3;
-  }
-
-  .app_body {
+  margin: 10rem 0;
+  height: 100vh;
+  color: var(--clr-blue);
+  .container {
     display: flex;
-    background: #ededed;
-    margin-top: -50px;
-    height: 90vh;
-    width: 90vw;
+    height: 80%;
     box-shadow: var(--dark-shadow);
   }
 
-  .chat {
+  .sidebar-header,
+  .content-header {
+    height: 8rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #f6f6f6;
+    background: #fff;
     display: flex;
-    flex-direction: column;
-    flex: 0.75;
-  }
-
-  .chat__header {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid lightgray;
-  }
-
-  .chat__headerInfo {
-    flex: 1;
-    padding-left: 20px;
-  }
-
-  h3 {
-    margin-bottom: 3px;
-    font-weight: 500;
-    font-size: 2rem;
-  }
-
-  .chat__headerinfo > p {
-    color: gray;
-  }
-
-  .chat__body {
-    flex: 1;
-    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-    background-repeat: repeat;
-    background-position: center;
-    padding: 30px;
-    overflow: scroll;
-  }
-
-  .chat__message {
-    position: relative;
-    font-size: 16px;
     padding: 10px;
-    width: fit-content;
-    border-radius: 10px;
-    background-color: #ffffff;
-    margin-bottom: 30px;
-  }
-
-  .chat__receiver {
-    margin-left: auto;
-    background-color: var(--clr-blue);
-    color: var(--clr-white);
-  }
-
-  .chat__timestamp {
-    margin-left: 10px;
-    font-size: xx-small;
-  }
-
-  .chat__name {
-    position: absolute;
-    top: -15px;
-    font-weight: 800;
-    font-size: 1.5rem;
-  }
-
-  .chat__footer {
-    display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    height: 62px;
-    border-top: 1px solid lightgray;
+    background: #e4e4e4;
   }
-
-  .chat__footer > form {
-    flex: 1;
-    display: flex;
-  }
-
-  .chat__footer > form > input {
-    flex: 1;
-    outline-width: 0;
-    border-radius: 30px;
-    padding: 10px;
-    border: none;
-  }
-  .chat__footer > form > button {
+  .sidebar-header svg {
+    font-size: 4rem;
     display: none;
-  }
-
-  .chat__footer > svg {
-    padding: 10px;
-    color: gray;
-  }
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    flex: 0.25;
-  }
-
-  .sidebar__header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    border-right: 1px solid lightgray;
-  }
-
-  .sidebar__headerRight {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-width: 10vw;
-  }
-
-  svg {
-    margin-top: 1rem;
-    font-size: 24px;
   }
 
   .sidebar__search {
     display: flex;
     align-items: center;
     background-color: #f6f6f6;
-    height: 39px;
-    padding: 10px;
+    height: 6rem;
+    padding: 2rem;
   }
 
   .sidebar__searchContainer {
     display: flex;
     align-items: center;
     background-color: white;
-    width: 100%;
-    height: 35px;
+    width: 90%;
+    height: 4rem;
     border-radius: 20px;
-  }
-
-  .sidebar__searchContainer > svg {
-    color: gray;
-    padding: 10px;
+    margin: 0 auto;
   }
 
   .sidebar__searchContainer > input {
     border: none;
-    /* outline-width: 0; */ /*포커스 상태일때 파란색 outline 표시*/
     margin-left: 10px;
+    height: 42rem;
   }
 
-  .sidebar__chats {
-    flex: 1;
-    background-color: white;
-    overflow: scroll;
+  .sidebar-header h2 {
+    font-size: 2.5rem;
   }
-  .sidebarChat {
+  .sidebar {
     display: flex;
-    padding: 20px;
-    cursor: pointer;
+    background: #fff;
+    flex-direction: column;
+    border-right: 1px solid #f6f6f6;
+    transition: var(--transition);
+    width: 30%;
+  }
+
+  .logo {
+    display: flex;
+    margin: 10px 0 0 0;
+    padding-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 3em;
+    letter-spacing: 7px;
     border-bottom: 1px solid #f6f6f6;
   }
-
-  .sidebarChat:hover {
-    background-color: #ebebeb;
+  .users-list-container {
+    padding: 1rem;
+    width: 100%;
+    overflow-y: scroll;
+  }
+  svg {
+    font-size: 3rem;
+  }
+  .single-user-wrapper {
+    border-bottom: 1px solid #f6f6f6;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    height: 70px;
+    cursor: pointer;
+  }
+  .single-user-wrapper:hover,
+  .single-user-wrapper.active {
+    background: #f4f7f9;
+  }
+  img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    box-shadow: var(--dark-shadow);
+  }
+  .single-user-wrapper .info {
+    flex: 1;
+  }
+  .info .user {
+    font-weight: 700;
+  }
+  .info .text {
+    display: flex;
+    margin-top: 3px;
+    font-size: 1.7rem;
+  }
+  .single-user-wrapper .time {
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 1.3rem;
+    color: #a9a9a9;
   }
 
-  h2 {
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  header img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    box-shadow: var(--dark-shadow);
+  }
+  .info {
+    flex: 1;
+  }
+  h3 {
     font-size: 2rem;
-    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .time {
+    display: flex;
+    margin-top: 3px;
+    font-size: 2rem;
+  }
+  .open {
+    display: none;
+  }
+  .open a {
+    color: #000;
+    letter-spacing: 3px;
   }
 
-  .sidebarChat__info {
-    margin-left: 15px;
+  .message-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 3rem;
+    overflow-y: scroll;
+  }
+
+  .message-list {
+    align-self: flex-start;
+    max-width: 70%;
+  }
+
+  .message-wrap > div:nth-child(even) {
+    align-self: flex-end;
+    & .msg {
+      background: #bde2f7;
+    }
+  }
+  .msg {
+    background: #fff;
+    box-shadow: var(--dark-shadow);
+    padding: 1.7rem;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  .time {
+    text-align: right;
+    color: #999;
+    font-size: 1.7rem;
+  }
+  p,
+  span {
+    font-size: 1.7rem;
+  }
+
+  .message-footer {
+    border-top: 1px solid #ddd;
+    background: #eee;
+    padding: 10px;
+    display: flex;
+    height: 60px;
+  }
+
+  @media only screen and (max-width: 480px),
+    only screen and (max-width: 767px) {
+    .sidebar {
+      position: absolute;
+      width: 90%;
+      height: 100%;
+      box-shadow: var(--dark-shadow);
+      transform: translate(-110%);
+    }
+
+    .sidebar-header svg {
+      font-size: 4rem;
+      display: block;
+    }
+
+    .show-sidebar {
+      transform: translate(0);
+    }
+
+    .open {
+      display: block;
+    }
   }
 `

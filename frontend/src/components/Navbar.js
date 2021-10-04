@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { FaAlignRight } from 'react-icons/fa'
-// import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri'
 import { IoIosBasket } from 'react-icons/io'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { ImSearch } from 'react-icons/im'
