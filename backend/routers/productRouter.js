@@ -110,15 +110,16 @@ productRouter.post(
   isSellerOrAdmin,
   expressAsyncHandler(async (req, res) => {
     const product = new Product({
-      image: '/images/logo.png',
-      name: 'Dope Orinal Sneaker',
-      description: 'Fashion Casual Sneakers Man Flats Breathable Shoes Fashion',
+      image: '/images/lofers.jpg',
+      name: 'Shipped Fashion Men PU Leather Casual Shoes Loafers Shoes-white',
+      description:
+        'This pair in addition to being comfortable is verystylish. A must have for the classic man. We have got the best prices and service.This shoes is more convenient to wear shoes, showing a uniform and smooth line texture, simple and generous.Lightweight rubber outsole: with a soft, cushioned rubber sole for an elegant, stylish and simple. Clear texture design, Strong grip, non-slip, wear-resistant. So durable rubber outsole delivers traction on a variety of surfaces. Comfortable and delicate fabric: exudes natural luster, highlights the quality, and shows mens casual style. Comfortable lining: According to ergonomics, the inner part is made of breathable and foot-fitting material, so that your feet can keep breathing smoothly and easily meet the needs of life.Simple and Fashionable, Soft and Comfortable, Lightweight and wear-resistant，it is perfect for daily use.This classic monk single buckle shoes features Leather upper, slip on design for easy on/off wear, and monk shoes detailing on side for added style. Moreover, It is finished with smooth leather Lining, cushioned footbed for comfort, and non-skid outsole. This kind of shoes you wear, jeans or pants collocation, make you reflect the tough temperament!Featuring durable outsoles that enable easy traction, it is also very comfortable. A perfect match with semi-casual and official outfits.If you were not satisfied with something please contact us before you leave us a Negative feedback.we will always try our best for 100% customer satisfaction.Thats why we are here! All emails will be answered within 48 hours (Sat. & Sun. excluded). So please do not hesitate to email us!The size of this shoe is a bit too small, please buy a size larger than the usual shoes.',
       rating: 4,
-      price: 2500,
+      price: 1600,
       numReviews: 10,
       countInStock: 19,
       category: 'shoes',
-      brand: 'Nike',
+      brand: 'fashion',
     })
     const createdProduct = await product.save()
     res.send({ message: 'Product Created', product: createdProduct })
