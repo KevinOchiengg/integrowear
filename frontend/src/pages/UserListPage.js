@@ -112,7 +112,6 @@ const Wrapper = styled.section`
   margin: 12rem 0;
   color: var(--clr-grey);
   .table {
-    margin-top: 3em;
     width: 100%;
     border-collapse: collapse;
   }

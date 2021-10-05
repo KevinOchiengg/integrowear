@@ -299,6 +299,7 @@ const Wrapper = styled.nav`
     .nav-logo {
       width: 8rem;
     }
+
     .search-field {
       left: 30%;
       width: 40%;
@@ -332,6 +333,12 @@ const Wrapper = styled.nav`
 
     .link-btn {
       font-size: 1.6rem;
+    }
+    .cart,
+    .search-icon,
+    .heart {
+      height: 2.5rem;
+      width: 2.5rem;
     }
   }
 `

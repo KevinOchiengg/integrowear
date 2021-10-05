@@ -189,7 +189,7 @@ const ProductDetailsPage = ({ match, history }) => {
           <h1 className='heading'>product reviews</h1>
 
           {product.reviews.length === 0 && (
-            <Message message='This Product has no reviews yet...' name='hide' />
+            <Message message='This Product has no review yet...' name='hide' />
           )}
 
           <div className='swiper-container review-slider'>
@@ -225,7 +225,7 @@ const ProductDetailsPage = ({ match, history }) => {
             </div>
             <form className='comment-form-area' onSubmit={submitHandler}>
               <div className='row'>
-                <label htmlFor='rating'>Rating</label>
+                <label>Rating</label>
                 <select
                   value={rating}
                   onChange={(e) => setRating(e.target.value)}
@@ -238,20 +238,13 @@ const ProductDetailsPage = ({ match, history }) => {
                   <option value='5'>Excelent</option>
                 </select>
               </div>
-              <div className='row'>
-                <label htmlFor='Name'>Name</label>
-                <input type='text' required='required' name='Name' />
-              </div>
-              <div className='row'>
-                <label htmlFor='Email'>Email</label>
-                <input type='text' required='required' name='email' />
-              </div>
 
               <div className='row'>
-                <label htmlFor='comment'>Comment</label>
+                <label>Comment</label>
                 <textarea
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
+                  placeholder='type your comment here'
                 ></textarea>
               </div>
 
@@ -264,7 +257,7 @@ const ProductDetailsPage = ({ match, history }) => {
                 {errorReviewCreate && (
                   <Message
                     variant='danger'
-                    message='error occured'
+                    message='could not create a review'
                     name='hide'
                   />
                 )}
@@ -289,11 +282,11 @@ const Wrapper = styled.section`
   margin: 5rem 0;
   color: var(--clr-dark-grey);
 
-  .row {
+  .product-detail-row.row {
     display: flex;
     flex-wrap: wrap;
-    gap: 3rem;
     align-items: center;
+    gap: 3rem;
   }
 
   .product-detail-row {
@@ -304,14 +297,20 @@ const Wrapper = styled.section`
     text-align: center;
   }
 
+  .comment-form-area select {
+    margin: 1rem 0 2rem 0;
+  }
+  textarea {
+    margin-top: 1rem;
+    padding: 1rem;
+    letter-spacing: var(--spacing);
+  }
+
   .alert {
     text-align: center;
   }
   .btn-hide {
     display: none;
-  }
-  .select-container select {
-    width: 20rem;
   }
 
   .image {
