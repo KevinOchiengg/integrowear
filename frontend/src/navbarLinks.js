@@ -33,12 +33,7 @@ const sublinks = [
   },
   {
     page: 'CATEGORY',
-    links: [
-      { label: 'Pants', icon: <FaBriefcase /> },
-      { label: 'T-shirts', icon: <FaBriefcase /> },
-      { label: 'Hoods', icon: <FaBriefcase /> },
-      { label: 'Sneakers', icon: <FaBriefcase /> },
-    ],
+    links: [{ label: '' }],
   },
   {
     page: 'ACCOUNT',

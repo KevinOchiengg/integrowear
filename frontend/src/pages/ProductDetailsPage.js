@@ -89,12 +89,6 @@ const ProductDetailsPage = ({ match, history }) => {
         <div className='product-detail-row row'>
           <div>
             <img src={product.image} alt={product.name} className='image' />
-            <div className='product-details-related-imgs'>
-              <img src={product.image} alt={product.name} />
-              <img src={product.image} alt={product.name} />
-              <img src={product.image} alt={product.name} />
-              <img src={product.image} alt={product.name} />
-            </div>
           </div>
 
           <div className='content'>
@@ -154,9 +148,6 @@ const ProductDetailsPage = ({ match, history }) => {
             </div>
             <hr />
             <ul className='stock-count'>
-              <li className='product-sku'>
-                Sku: <span>{product._id}</span>
-              </li>
               <li className='product-stock-status'>
                 Category: <Link to='#'>{product.category}</Link>
               </li>
@@ -280,7 +271,7 @@ export default ProductDetailsPage
 
 const Wrapper = styled.section`
   margin: 5rem 0;
-  color: var(--clr-dark-grey);
+  color: var(--clr-light-grey);
 
   .product-detail-row.row {
     display: flex;
@@ -390,6 +381,13 @@ const Wrapper = styled.section`
     flex-wrap: wrap;
     width: 100%;
     grid-gap: 2rem;
+  }
+  .select-container select:nth-child(even) {
+    width: 40%;
+  }
+
+  .select-container select {
+    width: 40%;
   }
   .row .content .icons-container {
     display: flex;

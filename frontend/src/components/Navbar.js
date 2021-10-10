@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FaAlignRight } from 'react-icons/fa'
 import { IoIosBasket } from 'react-icons/io'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { ImSearch } from 'react-icons/im'
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import { useGlobalContext } from '../context'
 import { useDispatch, useSelector } from 'react-redux'
 import { signout } from '../actions/userActions'
 import styled from 'styled-components'
 import { withRouter } from 'react-router'
 import logo from '../logo.png'
+import SearchBar from './SearchBar'
 
-const Navbar = (props) => {
+const Navbar = () => {
   const {
     openSidebar,
     openSubmenu,
@@ -19,11 +20,7 @@ const Navbar = (props) => {
     toggleSeachBar,
     isSearchBarOpen,
   } = useGlobalContext()
-  const [name, setName] = useState('')
-  const submitHandler = (e) => {
-    e.preventDefault()
-    props.history.push(`/search/name/${name}`)
-  }
+
   const displaySubmenu = (e) => {
     const page = e.target.textContent
     const tempBtn = e.target.getBoundingClientRect()
@@ -100,23 +97,15 @@ const Navbar = (props) => {
             </button>
           </li>
         </ul>
-        <form
+        <div
           className={`${
-            isSearchBarOpen ? 'search-field show ' : 'search-field'
+            isSearchBarOpen ? 'show-seach-bar' : 'hide-search-Bar'
           }`}
-          onSubmit={submitHandler}
         >
-          <input
-            type='search'
-            name='q'
-            id='q'
-            placeholder='Search for products...'
-            onChange={(e) => setName(e.target.value)}
-          />
-          <button type='submit'>
-            <ImSearch onClick={toggleSeachBar} />
-          </button>
-        </form>
+          <Route
+            render={({ history }) => <SearchBar history={history}></SearchBar>}
+          ></Route>
+        </div>
 
         <div className='right__item'>
           <ImSearch className='search-icon' onClick={toggleSeachBar} />
@@ -166,27 +155,20 @@ const Wrapper = styled.nav`
   z-index: 1;
   border-bottom: 1px solid var(--clr-yellow);
   .nav-logo {
-    width: 6rem;
+    width: 8rem;
   }
 
-  .search-field.show {
-    visibility: visible;
+  .hide-search-Bar {
+    display: none;
   }
 
-  .search-field {
-    display: flex;
+  .show-seach-bar {
+    display: block;
     position: absolute;
     top: 8rem;
     width: 90%;
     box-shadow: var(--dark-shadow);
-    visibility: hidden;
   }
-
-  .search-field svg {
-    width: 5rem;
-    font-size: 2rem;
-  }
-
   .link-btn {
     padding: 1rem 1.7rem;
     text-align: center;
@@ -202,23 +184,6 @@ const Wrapper = styled.nav`
     }
   }
 
-  .search-field button {
-    outline: none;
-    border: none;
-    background: var(--clr-yellow);
-    border-radius: 0;
-    color: var(--clr-blue);
-  }
-  .search-field input {
-    border-radius: 0;
-    height: 3em;
-    background: var(--clr-white);
-    color: var(--clr-blue);
-    outline: none;
-    border: none;
-    padding: 1em;
-    letter-spacing: var(--spacing);
-  }
   .nav-center {
     width: 90%;
     display: flex;
@@ -257,8 +222,7 @@ const Wrapper = styled.nav`
   .heart {
     cursor: pointer;
     margin-left: 0.5rem;
-    height: 2rem;
-    width: 2rem;
+    font-size: 2.5rem;
     text-align: center;
     color: var(--clr-light-yellow);
   }
@@ -287,8 +251,7 @@ const Wrapper = styled.nav`
   }
 
   .toggle-btn {
-    height: 2rem;
-    width: 2rem;
+    font-size: 2.5rem;
     color: var(--clr-light-yellow);
     margin: 0 0.4rem 0 2rem;
   }
@@ -300,10 +263,6 @@ const Wrapper = styled.nav`
       width: 8rem;
     }
 
-    .search-field {
-      left: 30%;
-      width: 40%;
-    }
     .toggle-btn {
       display: none;
     }
@@ -339,6 +298,12 @@ const Wrapper = styled.nav`
     .heart {
       height: 2.5rem;
       width: 2.5rem;
+    }
+
+    .show-seach-bar {
+      top: 8rem;
+      left: 30%;
+      width: 40%;
     }
   }
 `

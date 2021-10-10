@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { addToWishList, removeFromWishList } from '../actions/wishListActions'
@@ -81,12 +80,10 @@ const WishListPage = (props) => {
                 return (
                   <tr key={item.name}>
                     <td>
-                      <Link to='#'>
-                        <img src={item.image} alt={item.name} />
-                      </Link>
+                      <img src={item.image} alt={item.name} />
                     </td>
                     <td>
-                      <Link to='#'>{item.name}</Link>
+                      <Link to={'/product/' + item.product}>{item.name}</Link>
                     </td>
                     <td>
                       <span className='amount'>{formatPrice(item.price)}</span>

@@ -87,7 +87,7 @@ export default function CartPage(props) {
                         </Link>
 
                         <p>Price: {formatPrice(item.price)}</p>
-                        {/* <Rating /> */}
+
                         <button
                           className='btn remove-btn'
                           onClick={() => removeFromCartHandler(item.product)}

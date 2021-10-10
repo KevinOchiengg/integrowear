@@ -5,13 +5,9 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false)
-  const [isSearchBarOpen, setisSearchBarOpen] = useState(false)
   const [page, setPage] = useState({ page: '', links: [] })
   const [location, setLocation] = useState({})
 
-  const toggleSeachBar = () => {
-    setisSearchBarOpen(!isSearchBarOpen)
-  }
   const openSidebar = () => {
     setIsSidebarOpen(true)
   }
@@ -28,11 +24,18 @@ const AppProvider = ({ children }) => {
     setIsSubmenuOpen(false)
   }
 
+  const [isSearchBarOpen, setIsSeachBarOpen] = useState(false)
+
+  const toggleSeachBar = () => {
+    setIsSeachBarOpen(!isSearchBarOpen)
+  }
+
   return (
     <AppContext.Provider
       value={{
-        isSearchBarOpen,
         toggleSeachBar,
+        isSearchBarOpen,
+        setIsSeachBarOpen,
         isSidebarOpen,
         openSidebar,
         closeSidebar,

@@ -9,6 +9,7 @@ This project will run on **ReactJs** as frontend **Express** as a backend server
 ## Features
 
 - ReacJs Templates
+- Redux
 - MongoDb
 - Active Record Pattern
 - MVC Architecture

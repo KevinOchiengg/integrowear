@@ -77,7 +77,7 @@ const SigninPage = () => {
               ></input>
             </div>
             <div className='forgot-password'>
-              <Link to='/'>Forgot password?</Link>
+              <Link to='/profile'>Forgot password?</Link>
             </div>
             {loading && <Loading />}
             {error && (

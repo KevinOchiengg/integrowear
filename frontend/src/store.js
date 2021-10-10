@@ -48,6 +48,11 @@ const initialState = {
       : {},
     paymentMethod: 'PayPal',
   },
+  wishList: {
+    wishListItems: localStorage.getItem('wishListItems')
+      ? JSON.parse(localStorage.getItem('wishListItems'))
+      : [],
+  },
 }
 const reducer = combineReducers({
   productList: productListReducer,

@@ -3,9 +3,9 @@ import socketIOClient from 'socket.io-client'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Message from '../components/Message'
-import { FaPaperPlane } from 'react-icons/fa'
 import { BiMessageDetail } from 'react-icons/bi'
-import { IoIosArrowRoundBack } from 'react-icons/io'
+import { IoIosArrowRoundBack, IoMdSend } from 'react-icons/io'
+import { FaRegUserCircle } from 'react-icons/fa'
 
 let allUsers = []
 let allMessages = []
@@ -127,7 +127,7 @@ export default function SupportPage() {
           className={`${isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}`}
         >
           <div className='sidebar-header'>
-            <h2>Open a chat</h2>
+            <h2>chat with</h2>
             <IoIosArrowRoundBack onClick={closeSidebar} />
           </div>
           <div className='users-list-container'>
@@ -136,9 +136,10 @@ export default function SupportPage() {
               .map((user) => (
                 <article
                   className='single-user-wrapper'
-                  onClick={() => selectUser(user)}
+                  onClick={() => selectUser(user, setIsSidebarOpen(false))}
+                  key={userInfo._id}
                 >
-                  <img src='images/customers/customer-1.jpg' alt='' />
+                  <FaRegUserCircle />
                   <div className='info'>
                     <h3>{user.name}</h3>
                     <span>{user.online ? 'online' : ''}</span>
@@ -149,21 +150,24 @@ export default function SupportPage() {
         </div>
         <div className='content'>
           <header className='content-header'>
-            <img src='images/customers/customer-1.jpg' alt='' />
+            {selectedUser.online ? <FaRegUserCircle /> : ''}
+
             <div className='info'>
-              <h3>{userInfo.name}</h3>
-              <span className='time'>online</span>
+              <h3>{selectedUser.name}</h3>
+              <span>{selectedUser.online ? 'online' : ''}</span>
             </div>
-            <div className='open'>
-              <BiMessageDetail onClick={openSidebar} />
-            </div>
+
+            <BiMessageDetail className='open' onClick={openSidebar} />
           </header>
           {!selectedUser._id ? (
-            <Message message='' name='hide' />
+            <Message
+              message='no messages found. please select an online user to chat with'
+              name='hide'
+            />
           ) : (
-            <div className='message-wrap' ref={uiMessagesRef}>
+            <ul className='message-wrap' ref={uiMessagesRef}>
               {messages.map((msg, index) => (
-                <div
+                <li
                   className={`message-sent ${
                     selectedUser._id && 'message-list'
                   }`}
@@ -173,22 +177,21 @@ export default function SupportPage() {
                   <span className='time'>
                     {new Date().getHours() + ':' + new Date().getMinutes()}
                   </span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
 
-          <form className='sidebar__search' onSubmit={submitHandler}>
-            <div className='sidebar__searchContainer'>
-              <input
-                placeholder='Type your message here'
-                value={messageBody}
-                onChange={(e) => setMessageBody(e.target.value)}
-                type='text'
-              />
-            </div>
+          <form onSubmit={submitHandler}>
+            <input
+              placeholder='Type text message'
+              value={messageBody}
+              onChange={(e) => setMessageBody(e.target.value)}
+              type='text'
+            />
+
             <button type='submit'>
-              <FaPaperPlane />
+              <IoMdSend className='send-btn' />
             </button>
           </form>
         </div>
@@ -198,8 +201,8 @@ export default function SupportPage() {
 }
 
 const Wrapper = styled.section`
-  margin: 10rem 0;
-  height: 100vh;
+  margin: 12rem 0;
+  height: 90vh;
   color: var(--clr-blue);
   .container {
     display: flex;
@@ -224,28 +227,30 @@ const Wrapper = styled.section`
     display: none;
   }
 
-  .sidebar__search {
+  form {
     display: flex;
     align-items: center;
-    background-color: #f6f6f6;
+    justify-content: space-between;
     height: 6rem;
-    padding: 2rem;
+    padding: 4rem 2rem;
   }
 
-  .sidebar__searchContainer {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    width: 90%;
-    height: 4rem;
-    border-radius: 20px;
+  input {
+    flex: 1;
+    height: 5rem;
+    border-radius: 20rem;
     margin: 0 auto;
-  }
-
-  .sidebar__searchContainer > input {
     border: none;
     margin-left: 10px;
-    height: 42rem;
+    box-shadow: var(--dark-shadow);
+    padding: 0 20px;
+  }
+
+  .send-btn {
+    font-size: 3rem;
+    color: var(--clr-blue);
+    cursor: pointer;
+    margin-left: 2rem;
   }
 
   .sidebar-header h2 {
@@ -260,17 +265,6 @@ const Wrapper = styled.section`
     width: 30%;
   }
 
-  .logo {
-    display: flex;
-    margin: 10px 0 0 0;
-    padding-bottom: 10px;
-    align-items: center;
-    justify-content: center;
-    color: #000;
-    font-size: 3em;
-    letter-spacing: 7px;
-    border-bottom: 1px solid #f6f6f6;
-  }
   .users-list-container {
     padding: 1rem;
     width: 100%;
@@ -292,13 +286,11 @@ const Wrapper = styled.section`
   .single-user-wrapper.active {
     background: #f4f7f9;
   }
-  img {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
+  .users-list-container svg,
+  .content-header svg {
+    font-size: 5rem;
     margin-right: 10px;
-    box-shadow: var(--dark-shadow);
+    color: var(--clr-light-grey);
   }
   .single-user-wrapper .info {
     flex: 1;
@@ -317,7 +309,9 @@ const Wrapper = styled.section`
     font-size: 1.3rem;
     color: #a9a9a9;
   }
-
+  .alert {
+    text-align: center;
+  }
   .content {
     flex: 1;
     display: flex;
@@ -325,14 +319,6 @@ const Wrapper = styled.section`
     justify-content: space-between;
   }
 
-  header img {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    margin-right: 10px;
-    box-shadow: var(--dark-shadow);
-  }
   .info {
     flex: 1;
   }
@@ -366,7 +352,7 @@ const Wrapper = styled.section`
     max-width: 70%;
   }
 
-  .message-wrap > div:nth-child(even) {
+  .message-wrap > li:nth-child(even) {
     align-self: flex-end;
     & .msg {
       background: #bde2f7;
@@ -389,12 +375,8 @@ const Wrapper = styled.section`
     font-size: 1.7rem;
   }
 
-  .message-footer {
-    border-top: 1px solid #ddd;
-    background: #eee;
-    padding: 10px;
-    display: flex;
-    height: 60px;
+  span {
+    color: var(--green);
   }
 
   @media only screen and (max-width: 480px),
@@ -420,9 +402,4 @@ const Wrapper = styled.section`
       display: block;
     }
   }
-  /* <a href='https://www.freepik.com/vectors/background'>Background vector created by starline - www.freepik.com</a> */
 `
-
-{
-  /* <a href='https://www.freepik.com/vectors/background'>Background vector created by starline - www.freepik.com</a> */
-}

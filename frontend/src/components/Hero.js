@@ -42,7 +42,7 @@ const Wrapper = styled.section`
       rgba(39, 55, 85, 0.7),
       rgba(39, 55, 85, 0.7)
     ),
-    url(../../images/hero.jpg);
+    url(../../images/background/hero.jpg);
 
   background-repeat: no-repeat;
   background-size: cover;

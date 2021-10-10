@@ -52,19 +52,19 @@ const Footer = () => {
             </div>
 
             <div className='footer-col'>
-              <h3>CONTACT INFO</h3>
+              <h3>CATEGORY</h3>
               <ul>
                 <li>
-                  <a href='tel:'>+254758231661</a>
+                  <Link to='/'>Men</Link>
                 </li>
                 <li>
-                  <a href='tel:'>+254712 312336</a>
+                  <Link to='/'>Women</Link>
                 </li>
                 <li>
-                  <a href='tel:'>Mosesjuma83@gmail.com</a>
+                  <Link to='/'>best seller</Link>
                 </li>
                 <li>
-                  <a href='tel:'>shoppers, kenya - 400104</a>
+                  <Link to='/'>new arrivals</Link>
                 </li>
               </ul>
             </div>

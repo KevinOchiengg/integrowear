@@ -5,6 +5,7 @@ import AdSection from '../components/AdSection'
 import FeaturedProduct from '../components/FeaturedProduct'
 import BannerSection from '../components/BannerSection'
 import BrandSection from '../components/BrandSection'
+import Contact from '../components/Contact'
 
 export default function HomePage() {
   return (
@@ -13,8 +14,9 @@ export default function HomePage() {
       <BannerSection />
       <FeaturedProduct />
       <Testimonial />
-      <AdSection />
+      <Contact />
       <BrandSection />
+      <AdSection />
     </>
   )
 }
